@@ -107,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    LeafletAdapter: _libLeafletAdapter2['default'],
 	    LeafletTilesAdapter: _libLeafletTilesAdapter2['default'],
 	    // Map,
-	    // MapView,
+	    MapView: _libMapView2['default'],
 	    MapViewport: _libMapViewport2['default'],
 	    TilesInfo: _libTilesInfo2['default'],
 	    // UtfGrid,
@@ -3684,7 +3684,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'newLeafletLayer',
 	        value: function newLeafletLayer() {
+	            console.log('selectedItems', this, this.options.selectedItems);
 	            return new _DataSetLeafletLayer2['default']({
+	                selectedItems: this.options.selectedItems,
 	                dataSet: this.dataSet
 	            });
 	        }
@@ -3737,7 +3739,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
 	        this.dataSet = options.dataSet;
+	        this.selectedItems = options.selectedItems;
 	        this._onDataSetUpdate = this._onDataSetUpdate.bind(this);
+	        this._onSelectionUpdate = this._onSelectionUpdate.bind(this);
 	    }
 
 	    _createClass(DataSetLeafletLayer, [{
@@ -3749,12 +3753,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onAdd', this).apply(this, params);
 	            this.dataSet.addListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.addListener('update', this._onSelectionUpdate);
+	            }
 	            this._redrawLayers();
 	        }
 	    }, {
 	        key: 'onRemove',
 	        value: function onRemove() {
 	            this.dataSet.removeListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.removeListener('update', this._onSelectionUpdate);
+	            }
 
 	            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	                params[_key2] = arguments[_key2];
@@ -3771,16 +3781,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        }
 	    }, {
+	        key: '_onSelectionUpdate',
+	        value: function _onSelectionUpdate(intent) {
+	            var that = this;
+	            that._removeSelection();
+	            intent.then(function () {
+	                that._setSelection();
+	            });
+	        }
+	    }, {
 	        key: '_redrawLayers',
 	        value: function _redrawLayers() {
 	            this.clearLayers();
+	            this._layersIndex = {};
 	            var dataSet = this.dataSet;
 	            dataSet.forEach(function (item) {
-	                var adapter = item.getAdapter(_LeafletAdapter2['default']);
+	                var adapter = item.getAdapter(_LeafletAdapter2['default'], {
+	                    selectedItems: this.selectedItems
+	                });
 	                if (!adapter) return;
 	                var layer = adapter.newLeafletLayer();
 	                if (!layer) return;
+	                this._layersIndex[item.id] = layer;
 	                this.addLayer(layer);
+	            }, this);
+	        }
+	    }, {
+	        key: '_removeSelection',
+	        value: function _removeSelection() {
+	            if (!this.selectedItems) return;
+	            this.selectedItems.forEach(function (item) {
+	                var layer = this._layersIndex[item.id];
+	                if (!layer) return;
+	                console.log('[DESELECT]', item.id, layer);
+	            }, this);
+	        }
+	    }, {
+	        key: '_setSelection',
+	        value: function _setSelection() {
+	            if (!this.selectedItems) return;
+	            this.selectedItems.forEach(function (item) {
+	                var layer = this._layersIndex[item.id];
+	                if (!layer) return;
+	                console.log('[SELECT]', item.id, layer);
 	            }, this);
 	        }
 	    }]);
@@ -4019,7 +4062,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._removeMapLayers();
 	            var view = this.props.view;
 	            var dataSet = view.dataSet;
-	            var adapter = dataSet.getAdapter(_LeafletAdapter2['default']);
+	            var adapter = dataSet.getAdapter(_LeafletAdapter2['default'], {
+	                selectedItems: view.options.selectedItems
+	            });
 	            this._leafletLayer = adapter.newLeafletLayer();
 	            if (this._leafletLayer) {
 	                this.map.addLayer(this._leafletLayer);

@@ -19,7 +19,7 @@ export default {
     LeafletAdapter,
     LeafletTilesAdapter,
 // Map,
-// MapView,
+    MapView,
     MapViewport,
     TilesInfo,
 // UtfGrid,
