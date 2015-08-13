@@ -8,9 +8,11 @@ module.exports = {
     module : {
         loaders : [ {
             test : /\.jsx?$/,
-            exclude : /node_modules/,
-            loader : 'babel-loader'
-        } ]
+//            exclude : /node_modules/,
+//            includes : /node_modules\/mosaic-.*/,
+            loader : 'babel-loader',
+        } ],
+        noParse : [ /leaflet/ ]
     },
-    externals : [ 'react', 'promise' ]
+    externals : [ 'react', 'promise', 'leaflet' ]
 };
