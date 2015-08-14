@@ -148,9 +148,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.item = item || this.options.item;
 	    }
 
-	    /** Returns a Laflet L.LatLng object with coordinates of the marker position for this resource. */
-
 	    _createClass(LeafletAdapter, [{
+	        key: 'selectLayer',
+	        value: function selectLayer(layer) {
+	            console.log('[SELECT]', this.item.id, layer);
+	        }
+	    }, {
+	        key: 'deselectLayer',
+	        value: function deselectLayer(layer) {
+	            console.log('[DESELECT]', this.item.id, layer);
+	        }
+
+	        /** Returns a Laflet L.LatLng object with coordinates of the marker position for this resource. */
+	    }, {
 	        key: '_getMarkerCoordinates',
 	        value: function _getMarkerCoordinates() {
 	            var data = this.item.data;
@@ -3684,7 +3694,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'newLeafletLayer',
 	        value: function newLeafletLayer() {
-	            console.log('selectedItems', this, this.options.selectedItems);
 	            return new _DataSetLeafletLayer2['default']({
 	                selectedItems: this.options.selectedItems,
 	                dataSet: this.dataSet
@@ -3730,6 +3739,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _LeafletAdapter = __webpack_require__(1);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
+
+	var _mosaicDataset = __webpack_require__(2);
 
 	var DataSetLeafletLayer = (function (_L$FeatureGroup) {
 	    _inherits(DataSetLeafletLayer, _L$FeatureGroup);
@@ -3784,9 +3795,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_onSelectionUpdate',
 	        value: function _onSelectionUpdate(intent) {
 	            var that = this;
-	            that._removeSelection();
-	            intent.then(function () {
-	                that._setSelection();
+	            _mosaicDataset.DataSet.diff(that.selectedItems, intent).then(function (diff) {
+	                diff.removed.forEach(function (item) {
+	                    var layer = that._layersIndex[item.id];
+	                    if (!layer) return;
+	                    var adapter = item.getAdapter(_LeafletAdapter2['default']);
+	                    adapter.deselectLayer(layer);
+	                });
+	                diff.added.forEach(function (item) {
+	                    var layer = that._layersIndex[item.id];
+	                    if (!layer) return;
+	                    var adapter = item.getAdapter(_LeafletAdapter2['default']);
+	                    adapter.selectLayer(layer);
+	                });
 	            });
 	        }
 	    }, {
@@ -3804,26 +3825,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (!layer) return;
 	                this._layersIndex[item.id] = layer;
 	                this.addLayer(layer);
-	            }, this);
-	        }
-	    }, {
-	        key: '_removeSelection',
-	        value: function _removeSelection() {
-	            if (!this.selectedItems) return;
-	            this.selectedItems.forEach(function (item) {
-	                var layer = this._layersIndex[item.id];
-	                if (!layer) return;
-	                console.log('[DESELECT]', item.id, layer);
-	            }, this);
-	        }
-	    }, {
-	        key: '_setSelection',
-	        value: function _setSelection() {
-	            if (!this.selectedItems) return;
-	            this.selectedItems.forEach(function (item) {
-	                var layer = this._layersIndex[item.id];
-	                if (!layer) return;
-	                console.log('[SELECT]', item.id, layer);
 	            }, this);
 	        }
 	    }]);
