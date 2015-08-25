@@ -1,2 +1,2 @@
 
-import './lib/Map.less';
+import './lib/MapView.less';
