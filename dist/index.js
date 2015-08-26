@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("promise"), require("leaflet"), require("react")) : factory(root["promise"], root["leaflet"], root["react"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_30__, __WEBPACK_EXTERNAL_MODULE_36__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_31__, __WEBPACK_EXTERNAL_MODULE_41__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,8 +54,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// import InteractionLayer from './lib/Leaflet.InteractionLayer';
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -64,53 +62,61 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libLeafletAdapter = __webpack_require__(1);
-
-	var _libLeafletAdapter2 = _interopRequireDefault(_libLeafletAdapter);
-
-	var _libTilesInfo = __webpack_require__(31);
-
-	var _libTilesInfo2 = _interopRequireDefault(_libTilesInfo);
-
-	var _libLeafletTilesAdapter = __webpack_require__(32);
-
-	var _libLeafletTilesAdapter2 = _interopRequireDefault(_libLeafletTilesAdapter);
-
-	var _libDataSetLeafletAdapter = __webpack_require__(33);
+	var _libDataSetLeafletAdapter = __webpack_require__(1);
 
 	var _libDataSetLeafletAdapter2 = _interopRequireDefault(_libDataSetLeafletAdapter);
 
-	var _libDataSetLeafletLayer = __webpack_require__(34);
+	var _libDataSetLeafletLayer = __webpack_require__(33);
 
 	var _libDataSetLeafletLayer2 = _interopRequireDefault(_libDataSetLeafletLayer);
 
-	// import Map from './lib/Map';
+	var _libLeafletAdapter = __webpack_require__(2);
 
-	var _libMapView = __webpack_require__(35);
+	var _libLeafletAdapter2 = _interopRequireDefault(_libLeafletAdapter);
+
+	var _libLeafletInteractionLayer = __webpack_require__(37);
+
+	var _libLeafletInteractionLayer2 = _interopRequireDefault(_libLeafletInteractionLayer);
+
+	var _libLeafletPopupAdapter = __webpack_require__(32);
+
+	var _libLeafletPopupAdapter2 = _interopRequireDefault(_libLeafletPopupAdapter);
+
+	var _libLeafletTilesAdapter = __webpack_require__(38);
+
+	var _libLeafletTilesAdapter2 = _interopRequireDefault(_libLeafletTilesAdapter);
+
+	var _libLeafletUtfGrid = __webpack_require__(39);
+
+	var _libLeafletUtfGrid2 = _interopRequireDefault(_libLeafletUtfGrid);
+
+	var _libMapView = __webpack_require__(40);
 
 	var _libMapView2 = _interopRequireDefault(_libMapView);
 
-	var _libMapViewport = __webpack_require__(42);
+	var _libMapViewport = __webpack_require__(47);
 
 	var _libMapViewport2 = _interopRequireDefault(_libMapViewport);
 
-	// import UtfGrid from './lib/Leaflet.UtfGrid';
-
-	var _libRegisterAdapters = __webpack_require__(43);
+	var _libRegisterAdapters = __webpack_require__(48);
 
 	var _libRegisterAdapters2 = _interopRequireDefault(_libRegisterAdapters);
+
+	var _libTilesInfo = __webpack_require__(49);
+
+	var _libTilesInfo2 = _interopRequireDefault(_libTilesInfo);
 
 	exports['default'] = {
 	    DataSetLeafletAdapter: _libDataSetLeafletAdapter2['default'],
 	    DataSetLeafletLayer: _libDataSetLeafletLayer2['default'],
-	    // InteractionLayer,
 	    LeafletAdapter: _libLeafletAdapter2['default'],
+	    LeafletInteractionLayer: _libLeafletInteractionLayer2['default'],
+	    LeafletPopupAdapter: _libLeafletPopupAdapter2['default'],
 	    LeafletTilesAdapter: _libLeafletTilesAdapter2['default'],
-	    // Map,
+	    LeafletUtfGrid: _libLeafletUtfGrid2['default'],
 	    MapView: _libMapView2['default'],
 	    MapViewport: _libMapViewport2['default'],
 	    TilesInfo: _libTilesInfo2['default'],
-	    // UtfGrid,
 
 	    registerAdapters: _libRegisterAdapters2['default']
 	};
@@ -128,17 +134,105 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _mosaicDataset = __webpack_require__(2);
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicDatasetGeo = __webpack_require__(20);
+	var _LeafletAdapter2 = __webpack_require__(2);
 
-	var _leaflet = __webpack_require__(30);
+	var _LeafletAdapter3 = _interopRequireDefault(_LeafletAdapter2);
+
+	var _DataSetLeafletLayer = __webpack_require__(33);
+
+	var _DataSetLeafletLayer2 = _interopRequireDefault(_DataSetLeafletLayer);
+
+	var _DataSetClusteredLeafletLayer = __webpack_require__(34);
+
+	var _DataSetClusteredLeafletLayer2 = _interopRequireDefault(_DataSetClusteredLeafletLayer);
+
+	var DataSetLeafletAdapter = (function (_LeafletAdapter) {
+	    _inherits(DataSetLeafletAdapter, _LeafletAdapter);
+
+	    function DataSetLeafletAdapter() {
+	        _classCallCheck(this, DataSetLeafletAdapter);
+
+	        _get(Object.getPrototypeOf(DataSetLeafletAdapter.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(DataSetLeafletAdapter, [{
+	        key: 'newMarker',
+	        value: function newMarker() {
+	            return null;
+	        }
+
+	        /**
+	         * Returns a leaflet layer corresponding to the underlying item.
+	         */
+	    }, {
+	        key: 'newLeafletLayer',
+	        value: function newLeafletLayer() {
+	            var dataSet = this.dataSet;
+	            var LayerType = undefined;
+	            if (dataSet.options.cluster) {
+	                LayerType = _DataSetClusteredLeafletLayer2['default'];
+	            } else {
+	                LayerType = _DataSetLeafletLayer2['default'];
+	            }
+	            var options = {
+	                dataSet: dataSet,
+	                map: this.options.map,
+	                selectedItems: this.options.selectedItems
+	            };
+	            return new LayerType(options);
+	        }
+	    }, {
+	        key: 'dataSet',
+	        get: function get() {
+	            return this.item;
+	        }
+	    }]);
+
+	    return DataSetLeafletAdapter;
+	})(_LeafletAdapter3['default']);
+
+	exports['default'] = DataSetLeafletAdapter;
+	module.exports = exports['default'];
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _mosaicDataset = __webpack_require__(3);
+
+	var _mosaicDatasetGeo = __webpack_require__(21);
+
+	var _leaflet = __webpack_require__(31);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	var _LeafletPopupAdapter = __webpack_require__(32);
+
+	var _LeafletPopupAdapter2 = _interopRequireDefault(_LeafletPopupAdapter);
 
 	var LeafletAdapter = (function () {
 	    function LeafletAdapter(options, item) {
@@ -149,14 +243,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    _createClass(LeafletAdapter, [{
+	        key: '_getPopupOffset',
+	        value: function _getPopupOffset(layer) {
+	            // Calculate the popup offset 
+	            var anchor = undefined;
+	            if (layer._getPopupAnchor) {
+	                anchor = layer._getPopupAnchor();
+	            } else if (layer.options.icon) {
+	                anchor = layer.options.icon.options.popupAnchor;
+	            }
+	            if (!anchor) {
+	                anchor = [0, 0];
+	            }
+	            var offset = _leaflet2['default'].Popup.prototype.options.offset;
+	            offset = _leaflet2['default'].point(anchor).add(offset);
+	            return offset;
+	        }
+	    }, {
+	        key: '_openPopup',
+	        value: function _openPopup(layer) {
+	            var popupAdapter = this.item.getAdapter(_LeafletPopupAdapter2['default']);
+	            if (!layer._popup) {
+	                layer._popup = new _leaflet2['default'].Popup({
+	                    autoClose: false,
+	                    closeOnClick: true,
+	                    //                keepInView : true,
+	                    closeButton: true
+	                }, layer);
+	            }
+	            var latlng = undefined;
+	            if (layer.getCenter) {
+	                latlng = layer.getCenter();
+	            } else if (layer.getLatLng) {
+	                latlng = layer.getLatLng();
+	            } else {
+	                latlng = this._getMarkerCoordinates();
+	            }
+
+	            layer._popup.options.offset = this._getPopupOffset(layer);
+
+	            //
+	            layer._popup.setLatLng(latlng);
+	            layer._popup.update();
+	            var popupContent = popupAdapter.renderPopupContent({
+	                latlng: latlng
+	            });
+	            layer._popup.setContent(popupContent);
+	            layer._map.addLayer(layer._popup);
+	        }
+	    }, {
+	        key: '_closePopup',
+	        value: function _closePopup(layer) {
+	            if (layer._popup) {
+	                layer._map.removeLayer(layer._popup);
+	            }
+	        }
+	    }, {
 	        key: 'selectLayer',
 	        value: function selectLayer(layer) {
-	            console.log('[SELECT]', this.item.id, layer);
+	            try {
+	                console.log('>>selectLayer', layer);
+	                this._openPopup(layer);
+	            } catch (err) {
+	                console.log('>> ERROR', err);
+	            }
 	        }
 	    }, {
 	        key: 'deselectLayer',
 	        value: function deselectLayer(layer) {
-	            console.log('[DESELECT]', this.item.id, layer);
+	            this._closePopup(layer);
 	        }
 
 	        /** Returns a Laflet L.LatLng object with coordinates of the marker position for this resource. */
@@ -178,28 +333,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'newMarker',
 	        value: function newMarker() {
 	            var latlng = this._getMarkerCoordinates();
-	            return _leaflet2['default'].circleMarker(latlng, {
-	                color: 'red',
-	                opacity: 0.5,
-	                weight: 0
+	            var options = {};
+	            for (var key in this.options) {
+	                options[key] = this.options[key];
+	            }
+	            var radius = 20;
+	            var icon = new MarkerIcon({
+	                radius: radius + 'px',
+	                iconAnchor: [radius / 2, 0],
+	                style: {
+	                    border: '2px solid gray',
+	                    backgroundColor: 'white'
+	                }
 	            });
+	            var marker = _leaflet2['default'].marker(latlng, {
+	                icon: icon,
+	                riseOnHover: true
+	            });
+	            return marker;
 	        }
 
 	        /**
-	         * Returns a leaflet layer corresponding to the underlying item.
+	         * Returns a leaflet layer corresponding to the underlying data item.
 	         */
 	    }, {
 	        key: 'newLeafletLayer',
 	        value: function newLeafletLayer() {
-	            var that = this;
-	            var data = that.item.data;
-	            var result = _leaflet2['default'].GeoJSON.geometryToLayer(data, {
-	                coordsToLatLng: _leaflet2['default'].GeoJSON.coordsToLatLng,
-	                pointToLayer: function pointToLayer(json) {
-	                    return that.newMarker();
-	                }
-	            });
+	            var data = this.item.data;
+	            var options = {};
+	            var result = _leaflet2['default'].GeoJSON.geometryToLayer(data, (function (json) {
+	                return this.newMarker();
+	            }).bind(this), _leaflet2['default'].GeoJSON.coordsToLatLng, options);
+	            var selectedItems = this.options.selectedItems;
+	            if (result && selectedItems) {
+	                result.on('click', (function (ev) {
+	                    selectedItems.toggle(this.item);
+	                }).bind(this));
+	            }
 	            return result;
+	        }
+	    }, {
+	        key: 'deleteLeafletLayer',
+	        value: function deleteLeafletLayer(layer) {
+	            this.deselectLayer(layer);
 	        }
 	    }]);
 
@@ -207,10 +383,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 	exports['default'] = LeafletAdapter;
+
+	var MarkerIcon = (function (_L$DivIcon) {
+	    _inherits(MarkerIcon, _L$DivIcon);
+
+	    function MarkerIcon(options) {
+	        _classCallCheck(this, MarkerIcon);
+
+	        _get(Object.getPrototypeOf(MarkerIcon.prototype), 'constructor', this).call(this, options);
+	    }
+
+	    _createClass(MarkerIcon, [{
+	        key: 'createIcon',
+	        value: function createIcon(oldIcon) {
+	            var icon = _get(Object.getPrototypeOf(MarkerIcon.prototype), 'createIcon', this).call(this, oldIcon);
+	            var radius = this.options.radius || '25px';
+	            icon.style.border = '1px solid gray';
+	            icon.style.background = 'white'; // 'transparent';
+	            icon.style.width = radius;
+	            icon.style.height = radius;
+	            icon.style.WebkitBorderRadius = radius;
+	            icon.style.MozBorderRadius = radius;
+	            icon.style.borderRadius = radius;
+	            if (this.options.style) {
+	                for (var key in this.options.style) {
+	                    icon.style[key] = this.options.style[key];
+	                }
+	            }
+
+	            return icon;
+	        }
+	    }]);
+
+	    return MarkerIcon;
+	})(_leaflet2['default'].DivIcon);
+
+	LeafletAdapter.MarkerIcon = MarkerIcon;
 	module.exports = exports['default'];
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -221,27 +433,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libData = __webpack_require__(3);
+	var _libData = __webpack_require__(4);
 
 	var _libData2 = _interopRequireDefault(_libData);
 
-	var _libDataSet = __webpack_require__(9);
+	var _libDataSet = __webpack_require__(10);
 
 	var _libDataSet2 = _interopRequireDefault(_libDataSet);
 
-	var _libDerivativeDataSet = __webpack_require__(16);
+	var _libDerivativeDataSet = __webpack_require__(17);
 
 	var _libDerivativeDataSet2 = _interopRequireDefault(_libDerivativeDataSet);
 
-	var _libDataSetFiltered = __webpack_require__(17);
+	var _libDataSetFiltered = __webpack_require__(18);
 
 	var _libDataSetFiltered2 = _interopRequireDefault(_libDataSetFiltered);
 
-	var _libDataSetPaginated = __webpack_require__(18);
+	var _libDataSetPaginated = __webpack_require__(19);
 
 	var _libDataSetPaginated2 = _interopRequireDefault(_libDataSetPaginated);
 
-	var _libDataSetSelection = __webpack_require__(19);
+	var _libDataSetSelection = __webpack_require__(20);
 
 	var _libDataSetSelection2 = _interopRequireDefault(_libDataSetSelection);
 
@@ -261,7 +473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -278,7 +490,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicAdapters = __webpack_require__(4);
+	var _mosaicAdapters = __webpack_require__(5);
 
 	var idCounter = 0;
 	/**
@@ -456,7 +668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -467,19 +679,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libTypeKey = __webpack_require__(5);
+	var _libTypeKey = __webpack_require__(6);
 
 	var _libTypeKey2 = _interopRequireDefault(_libTypeKey);
 
-	var _libAdapterManager = __webpack_require__(6);
+	var _libAdapterManager = __webpack_require__(7);
 
 	var _libAdapterManager2 = _interopRequireDefault(_libAdapterManager);
 
-	var _libAdapter = __webpack_require__(7);
+	var _libAdapter = __webpack_require__(8);
 
 	var _libAdapter2 = _interopRequireDefault(_libAdapter);
 
-	var _libAdaptable = __webpack_require__(8);
+	var _libAdaptable = __webpack_require__(9);
 
 	var _libAdaptable2 = _interopRequireDefault(_libAdaptable);
 
@@ -492,7 +704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	/**
@@ -750,7 +962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -765,7 +977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _TypeKey = __webpack_require__(5);
+	var _TypeKey = __webpack_require__(6);
 
 	var _TypeKey2 = _interopRequireDefault(_TypeKey);
 
@@ -928,7 +1140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/**
@@ -1016,7 +1228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1035,11 +1247,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _TypeKey = __webpack_require__(5);
+	var _TypeKey = __webpack_require__(6);
 
 	var _TypeKey2 = _interopRequireDefault(_TypeKey);
 
-	var _Adapter2 = __webpack_require__(7);
+	var _Adapter2 = __webpack_require__(8);
 
 	var _Adapter3 = _interopRequireDefault(_Adapter2);
 
@@ -1216,7 +1428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1236,11 +1448,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicIntents = __webpack_require__(10);
+	var _mosaicIntents = __webpack_require__(11);
 
-	var _mosaicAdapters = __webpack_require__(4);
+	var _mosaicAdapters = __webpack_require__(5);
 
-	var _Data2 = __webpack_require__(3);
+	var _Data2 = __webpack_require__(4);
 
 	var _Data3 = _interopRequireDefault(_Data2);
 
@@ -1663,7 +1875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1674,15 +1886,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libIntent = __webpack_require__(11);
+	var _libIntent = __webpack_require__(12);
 
 	var _libIntent2 = _interopRequireDefault(_libIntent);
 
-	var _libIntents = __webpack_require__(14);
+	var _libIntents = __webpack_require__(15);
 
 	var _libIntents2 = _interopRequireDefault(_libIntents);
 
-	var _libSingleton = __webpack_require__(15);
+	var _libSingleton = __webpack_require__(16);
 
 	var _libSingleton2 = _interopRequireDefault(_libSingleton);
 
@@ -1694,7 +1906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1713,11 +1925,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _promise = __webpack_require__(12);
+	var _promise = __webpack_require__(13);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _events = __webpack_require__(13);
+	var _events = __webpack_require__(14);
 
 	var Intent = (function (_EventEmitter) {
 	    _inherits(Intent, _EventEmitter);
@@ -1796,13 +2008,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -2069,7 +2281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2080,9 +2292,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _events = __webpack_require__(13);
+	var _events = __webpack_require__(14);
 
-	var _Intent = __webpack_require__(11);
+	var _Intent = __webpack_require__(12);
 
 	var _Intent2 = _interopRequireDefault(_Intent);
 
@@ -2150,7 +2362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2161,7 +2373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _promise = __webpack_require__(12);
+	var _promise = __webpack_require__(13);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
@@ -2212,7 +2424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2231,7 +2443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet2 = __webpack_require__(9);
+	var _DataSet2 = __webpack_require__(10);
 
 	var _DataSet3 = _interopRequireDefault(_DataSet2);
 
@@ -2308,7 +2520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2327,11 +2539,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet = __webpack_require__(9);
+	var _DataSet = __webpack_require__(10);
 
 	var _DataSet2 = _interopRequireDefault(_DataSet);
 
-	var _DerivativeDataSet2 = __webpack_require__(16);
+	var _DerivativeDataSet2 = __webpack_require__(17);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2363,7 +2575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2382,7 +2594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DerivativeDataSet2 = __webpack_require__(16);
+	var _DerivativeDataSet2 = __webpack_require__(17);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2504,7 +2716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2523,11 +2735,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet = __webpack_require__(9);
+	var _DataSet = __webpack_require__(10);
 
 	var _DataSet2 = _interopRequireDefault(_DataSet);
 
-	var _DerivativeDataSet2 = __webpack_require__(16);
+	var _DerivativeDataSet2 = __webpack_require__(17);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2623,7 +2835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2634,15 +2846,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libGeoJsonAdapter = __webpack_require__(21);
+	var _libGeoJsonAdapter = __webpack_require__(22);
 
 	var _libGeoJsonAdapter2 = _interopRequireDefault(_libGeoJsonAdapter);
 
-	var _libGeoJsonGenerator = __webpack_require__(29);
+	var _libGeoJsonGenerator = __webpack_require__(30);
 
 	var _libGeoJsonGenerator2 = _interopRequireDefault(_libGeoJsonGenerator);
 
-	var _libGeoJsonUtils = __webpack_require__(22);
+	var _libGeoJsonUtils = __webpack_require__(23);
 
 	var _libGeoJsonUtils2 = _interopRequireDefault(_libGeoJsonUtils);
 
@@ -2654,7 +2866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2669,7 +2881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _GeoJsonUtils = __webpack_require__(22);
+	var _GeoJsonUtils = __webpack_require__(23);
 
 	var _GeoJsonUtils2 = _interopRequireDefault(_GeoJsonUtils);
 
@@ -2744,7 +2956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2759,11 +2971,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _turfExtent = __webpack_require__(23);
+	var _turfExtent = __webpack_require__(24);
 
 	var _turfExtent2 = _interopRequireDefault(_turfExtent);
 
-	var _turfCenter = __webpack_require__(25);
+	var _turfCenter = __webpack_require__(26);
 
 	var _turfCenter2 = _interopRequireDefault(_turfCenter);
 
@@ -2847,12 +3059,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var each = __webpack_require__(24).coordEach;
+	var each = __webpack_require__(25).coordEach;
 
 	/**
 	 * Takes any {@link GeoJSON} object, calculates the extent of all input features, and returns a bounding box.
@@ -2922,7 +3134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	/**
@@ -3064,13 +3276,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.propReduce = propReduce;
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var extent = __webpack_require__(26),
-	    point = __webpack_require__(28);
+	var extent = __webpack_require__(27),
+	    point = __webpack_require__(29);
 
 	/**
 	 * Takes a {@link FeatureCollection} of any type and returns the absolute center point of all features.
@@ -3193,12 +3405,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var each = __webpack_require__(27).coordEach;
+	var each = __webpack_require__(28).coordEach;
 
 	/**
 	 * Takes any {@link GeoJSON} object, calculates the extent of all input features, and returns a bounding box.
@@ -3268,7 +3480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/**
@@ -3410,7 +3622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.propReduce = propReduce;
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 	/**
@@ -3447,7 +3659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3524,14 +3736,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_30__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_31__;
 
 /***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
+/* 32 */
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -3541,48 +3753,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	var LeafletPopupAdapter = (function () {
+	    function LeafletPopupAdapter(options, item) {
+	        _classCallCheck(this, LeafletPopupAdapter);
 
-	var _mosaicDataset = __webpack_require__(2);
-
-	var TilesInfo = (function (_Data) {
-	    _inherits(TilesInfo, _Data);
-
-	    function TilesInfo(options) {
-	        var _get2;
-
-	        _classCallCheck(this, TilesInfo);
-
-	        for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	            params[_key - 1] = arguments[_key];
-	        }
-
-	        (_get2 = _get(Object.getPrototypeOf(TilesInfo.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(params));
-	        options = options || {};
+	        this.options = options || {};
+	        this.item = item || this.options.item;
 	    }
 
-	    _createClass(TilesInfo, [{
-	        key: 'tilesUrl',
-	        get: function get() {
-	            return this.get('properties.tilesUrl');
-	        },
-	        set: function set(url) {
-	            this.set('properties.tilesUrl', url);
+	    _createClass(LeafletPopupAdapter, [{
+	        key: 'renderPopupContent',
+	        value: function renderPopupContent() {
+	            return this.item.get('properties.description');
 	        }
 	    }]);
 
-	    return TilesInfo;
-	})(_mosaicDataset.Data);
+	    return LeafletPopupAdapter;
+	})();
 
-	exports['default'] = TilesInfo;
+	exports['default'] = LeafletPopupAdapter;
 	module.exports = exports['default'];
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3601,11 +3796,950 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(30);
+	var _leaflet = __webpack_require__(31);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	var _LeafletAdapter2 = __webpack_require__(1);
+	var _LeafletAdapter = __webpack_require__(2);
+
+	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
+
+	var _mosaicDataset = __webpack_require__(3);
+
+	var DataSetLeafletLayer = (function (_L$FeatureGroup) {
+	    _inherits(DataSetLeafletLayer, _L$FeatureGroup);
+
+	    function DataSetLeafletLayer(options) {
+	        _classCallCheck(this, DataSetLeafletLayer);
+
+	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
+	        this._constructorOptions = options;
+	        this.dataSet = options.dataSet;
+	        this.selectedItems = options.selectedItems;
+	        this._layersIndex = {};
+	        this._onDataSetUpdate = this._onDataSetUpdate.bind(this);
+	        this._onSelectionUpdate = this._onSelectionUpdate.bind(this);
+	    }
+
+	    _createClass(DataSetLeafletLayer, [{
+	        key: 'onAdd',
+	        value: function onAdd() {
+	            for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+	                params[_key] = arguments[_key];
+	            }
+
+	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onAdd', this).apply(this, params);
+	            this.dataSet.addListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.addListener('update', this._onSelectionUpdate);
+	            }
+	            this._redrawLayers({
+	                added: this.dataSet.items,
+	                removed: [],
+	                updated: []
+	            });
+	        }
+	    }, {
+	        key: 'onRemove',
+	        value: function onRemove() {
+	            this.dataSet.removeListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.removeListener('update', this._onSelectionUpdate);
+	            }
+
+	            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	                params[_key2] = arguments[_key2];
+	            }
+
+	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onRemove', this).apply(this, params);
+	        }
+	    }, {
+	        key: '_onDataSetUpdate',
+	        value: function _onDataSetUpdate(intent) {
+	            _mosaicDataset.DataSet.diff(this.dataSet, intent).then(this._redrawLayers.bind(this));
+	        }
+	    }, {
+	        key: '_onSelectionUpdate',
+	        value: function _onSelectionUpdate(intent) {
+	            _mosaicDataset.DataSet.diff(this.selectedItems, intent).then(this._updateSelection.bind(this));
+	        }
+	    }, {
+	        key: '_updateSelection',
+	        value: function _updateSelection(diff) {
+	            var that = this;
+	            diff.added.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.selectLayer(layer);
+	            });
+	            diff.removed.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.deselectLayer(layer);
+	            });
+	        }
+	    }, {
+	        key: '_redrawLayers',
+	        value: function _redrawLayers(diff) {
+	            var that = this;
+	            diff.added.forEach(function (item) {
+	                var adapter = that._getLeafletAdapter(item);
+	                if (!adapter) return;
+	                var layer = adapter.newLeafletLayer();
+	                if (!layer) return;
+	                that._layersIndex[item.id] = layer;
+	                that.addLayer(layer);
+	            });
+	            diff.removed.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                delete that._layersIndex[item.id];
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.deleteLeafletLayer(layer);
+	                that.removeLayer(layer);
+	            });
+	        }
+	    }, {
+	        key: '_getLeafletAdapter',
+	        value: function _getLeafletAdapter(item) {
+	            return item.getAdapter(_LeafletAdapter2['default'], this._constructorOptions);
+	        }
+	    }]);
+
+	    return DataSetLeafletLayer;
+	})(_leaflet2['default'].FeatureGroup);
+
+	exports['default'] = DataSetLeafletLayer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _leaflet = __webpack_require__(31);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	__webpack_require__(35);
+
+	var _LeafletAdapter = __webpack_require__(2);
+
+	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
+
+	var _LeafletClusterAdapter = __webpack_require__(36);
+
+	var _LeafletClusterAdapter2 = _interopRequireDefault(_LeafletClusterAdapter);
+
+	var _mosaicDataset = __webpack_require__(3);
+
+	console.log(_leaflet2['default'].MarkerClusterGroup);
+
+	var DataSetLeafletLayer = (function (_L$MarkerClusterGroup) {
+	    _inherits(DataSetLeafletLayer, _L$MarkerClusterGroup);
+
+	    function DataSetLeafletLayer(options) {
+	        _classCallCheck(this, DataSetLeafletLayer);
+
+	        var that = undefined;
+	        options = options || {};
+	        options.iconCreateFunction = function (cluster) {
+	            var icon = that._newClusterIcon(cluster);
+	            return icon;
+	        };
+	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
+	        that = this;
+	        this._constructorOptions = options || {};
+	        this.dataSet = options.dataSet;
+	        this.selectedItems = options.selectedItems;
+	        this._layersIndex = {};
+	        this._onDataSetUpdate = this._onDataSetUpdate.bind(this);
+	        this._onSelectionUpdate = this._onSelectionUpdate.bind(this);
+	    }
+
+	    _createClass(DataSetLeafletLayer, [{
+	        key: 'onAdd',
+	        value: function onAdd() {
+	            for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+	                params[_key] = arguments[_key];
+	            }
+
+	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onAdd', this).apply(this, params);
+	            this.dataSet.addListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.addListener('update', this._onSelectionUpdate);
+	            }
+	            this._redrawLayers({
+	                added: this.dataSet.items,
+	                removed: [],
+	                updated: []
+	            });
+	        }
+	    }, {
+	        key: 'onRemove',
+	        value: function onRemove() {
+	            this.dataSet.removeListener('update', this._onDataSetUpdate);
+	            if (this.selectedItems) {
+	                this.selectedItems.removeListener('update', this._onSelectionUpdate);
+	            }
+
+	            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	                params[_key2] = arguments[_key2];
+	            }
+
+	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onRemove', this).apply(this, params);
+	        }
+	    }, {
+	        key: '_onDataSetUpdate',
+	        value: function _onDataSetUpdate(intent) {
+	            _mosaicDataset.DataSet.diff(this.dataSet, intent).then(this._redrawLayers.bind(this));
+	        }
+	    }, {
+	        key: '_onSelectionUpdate',
+	        value: function _onSelectionUpdate(intent) {
+	            _mosaicDataset.DataSet.diff(this.selectedItems, intent).then(this._updateSelection.bind(this));
+	        }
+	    }, {
+	        key: '_updateSelection',
+	        value: function _updateSelection(diff) {
+	            var that = this;
+	            if (diff.added.length) {
+	                (function () {
+	                    var item = diff.added[0];
+	                    var layer = that._layersIndex[item.id];
+	                    var adapter = that._getLeafletAdapter(item);
+	                    if (adapter && layer) {
+	                        that.zoomToShowLayer(layer, function () {
+	                            setTimeout(function () {
+	                                var latlng = layer.getLatLng();
+	                                adapter.selectLayer(layer);
+	                            }, 50);
+	                        });
+	                    }
+	                })();
+	            }
+	            diff.removed.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.deselectLayer(layer);
+	            });
+	        }
+	    }, {
+	        key: '_redrawLayers',
+	        value: function _redrawLayers(diff) {
+	            var that = this;
+	            var toAdd = [];
+	            var toRemove = [];
+	            diff.added.forEach(function (item) {
+	                var adapter = that._getLeafletAdapter(item);
+	                if (!adapter) return;
+	                var layer = adapter.newLeafletLayer();
+	                if (!layer) return;
+	                that._layersIndex[item.id] = layer;
+	                toAdd.push(layer);
+	            });
+	            diff.removed.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                delete that._layersIndex[item.id];
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.deleteLeafletLayer(layer);
+	                toRemove.push(layer);
+	            });
+	            that.removeLayers(toRemove);
+	            that.addLayers(toAdd);
+	        }
+	    }, {
+	        key: '_getLeafletAdapter',
+	        value: function _getLeafletAdapter(item) {
+	            return item.getAdapter(_LeafletAdapter2['default'], this._constructorOptions);
+	        }
+	    }, {
+	        key: '_getClusterAdapter',
+	        value: function _getClusterAdapter() {
+	            if (!this._clusterAdapter) {
+	                this._clusterAdapter = this.dataSet.getAdapter(_LeafletClusterAdapter2['default'], this._constructorOptions);
+	            }
+	            return this._clusterAdapter;
+	        }
+	    }, {
+	        key: '_newClusterIcon',
+	        value: function _newClusterIcon(cluster) {
+	            var clusterAdapter = this._getClusterAdapter();
+	            return clusterAdapter.newClusterIcon(cluster);
+	        }
+	    }]);
+
+	    return DataSetLeafletLayer;
+	})(_leaflet2['default'].MarkerClusterGroup);
+
+	exports['default'] = DataSetLeafletLayer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	/*
+	 Leaflet.markercluster, Provides Beautiful Animated Marker Clustering functionality for Leaflet, a JS library for interactive maps.
+	 https://github.com/Leaflet/Leaflet.markercluster
+	 (c) 2012-2013, Dave Leaver, smartrak
+	*/
+	"use strict";
+
+	!(function (t, e) {
+	  L.MarkerClusterGroup = L.FeatureGroup.extend({ options: { maxClusterRadius: 80, iconCreateFunction: null, spiderfyOnMaxZoom: !0, showCoverageOnHover: !0, zoomToBoundsOnClick: !0, singleMarkerMode: !1, disableClusteringAtZoom: null, removeOutsideVisibleBounds: !0, animateAddingMarkers: !1, spiderfyDistanceMultiplier: 1, polygonOptions: {} }, initialize: function initialize(t) {
+	      L.Util.setOptions(this, t), this.options.iconCreateFunction || (this.options.iconCreateFunction = this._defaultIconCreateFunction), this._featureGroup = L.featureGroup(), this._featureGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this), this._nonPointGroup = L.featureGroup(), this._nonPointGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this), this._inZoomAnimation = 0, this._needsClustering = [], this._needsRemoving = [], this._currentShownBounds = null, this._queue = [];
+	    }, addLayer: function addLayer(t) {
+	      if (t instanceof L.LayerGroup) {
+	        var e = [];for (var i in t._layers) e.push(t._layers[i]);return this.addLayers(e);
+	      }if (!t.getLatLng) return (this._nonPointGroup.addLayer(t), this);if (!this._map) return (this._needsClustering.push(t), this);if (this.hasLayer(t)) return this;this._unspiderfy && this._unspiderfy(), this._addLayer(t, this._maxZoom);var n = t,
+	          s = this._map.getZoom();if (t.__parent) for (; n.__parent._zoom >= s;) n = n.__parent;return (this._currentShownBounds.contains(n.getLatLng()) && (this.options.animateAddingMarkers ? this._animationAddLayer(t, n) : this._animationAddLayerNonAnimated(t, n)), this);
+	    }, removeLayer: function removeLayer(t) {
+	      if (t instanceof L.LayerGroup) {
+	        var e = [];for (var i in t._layers) e.push(t._layers[i]);return this.removeLayers(e);
+	      }return t.getLatLng ? this._map ? t.__parent ? (this._unspiderfy && (this._unspiderfy(), this._unspiderfyLayer(t)), this._removeLayer(t, !0), this._featureGroup.hasLayer(t) && (this._featureGroup.removeLayer(t), t.setOpacity && t.setOpacity(1)), this) : this : (!this._arraySplice(this._needsClustering, t) && this.hasLayer(t) && this._needsRemoving.push(t), this) : (this._nonPointGroup.removeLayer(t), this);
+	    }, addLayers: function addLayers(t) {
+	      var e,
+	          i,
+	          n,
+	          s = this._map,
+	          r = this._featureGroup,
+	          o = this._nonPointGroup;for (e = 0, i = t.length; i > e; e++) if ((n = t[e], n.getLatLng)) {
+	        if (!this.hasLayer(n)) if (s) {
+	          if ((this._addLayer(n, this._maxZoom), n.__parent && 2 === n.__parent.getChildCount())) {
+	            var a = n.__parent.getAllChildMarkers(),
+	                h = a[0] === n ? a[1] : a[0];r.removeLayer(h);
+	          }
+	        } else this._needsClustering.push(n);
+	      } else o.addLayer(n);return (s && (r.eachLayer(function (t) {
+	        t instanceof L.MarkerCluster && t._iconNeedsUpdate && t._updateIcon();
+	      }), this._topClusterLevel._recursivelyAddChildrenToMap(null, this._zoom, this._currentShownBounds)), this);
+	    }, removeLayers: function removeLayers(t) {
+	      var e,
+	          i,
+	          n,
+	          s = this._featureGroup,
+	          r = this._nonPointGroup;if (!this._map) {
+	        for (e = 0, i = t.length; i > e; e++) n = t[e], this._arraySplice(this._needsClustering, n), r.removeLayer(n);return this;
+	      }for (e = 0, i = t.length; i > e; e++) n = t[e], n.__parent ? (this._removeLayer(n, !0, !0), s.hasLayer(n) && (s.removeLayer(n), n.setOpacity && n.setOpacity(1))) : r.removeLayer(n);return (this._topClusterLevel._recursivelyAddChildrenToMap(null, this._zoom, this._currentShownBounds), s.eachLayer(function (t) {
+	        t instanceof L.MarkerCluster && t._updateIcon();
+	      }), this);
+	    }, clearLayers: function clearLayers() {
+	      return (this._map || (this._needsClustering = [], delete this._gridClusters, delete this._gridUnclustered), this._noanimationUnspiderfy && this._noanimationUnspiderfy(), this._featureGroup.clearLayers(), this._nonPointGroup.clearLayers(), this.eachLayer(function (t) {
+	        delete t.__parent;
+	      }), this._map && this._generateInitialClusters(), this);
+	    }, getBounds: function getBounds() {
+	      var t = new L.LatLngBounds();if (this._topClusterLevel) t.extend(this._topClusterLevel._bounds);else for (var e = this._needsClustering.length - 1; e >= 0; e--) t.extend(this._needsClustering[e].getLatLng());return (t.extend(this._nonPointGroup.getBounds()), t);
+	    }, eachLayer: function eachLayer(t, e) {
+	      var i,
+	          n = this._needsClustering.slice();for (this._topClusterLevel && this._topClusterLevel.getAllChildMarkers(n), i = n.length - 1; i >= 0; i--) t.call(e, n[i]);this._nonPointGroup.eachLayer(t, e);
+	    }, getLayers: function getLayers() {
+	      var t = [];return (this.eachLayer(function (e) {
+	        t.push(e);
+	      }), t);
+	    }, getLayer: function getLayer(t) {
+	      var e = null;return (this.eachLayer(function (i) {
+	        L.stamp(i) === t && (e = i);
+	      }), e);
+	    }, hasLayer: function hasLayer(t) {
+	      if (!t) return !1;var e,
+	          i = this._needsClustering;for (e = i.length - 1; e >= 0; e--) if (i[e] === t) return !0;for (i = this._needsRemoving, e = i.length - 1; e >= 0; e--) if (i[e] === t) return !1;return !(!t.__parent || t.__parent._group !== this) || this._nonPointGroup.hasLayer(t);
+	    }, zoomToShowLayer: function zoomToShowLayer(t, e) {
+	      var i = function i() {
+	        if ((t._icon || t.__parent._icon) && !this._inZoomAnimation) if ((this._map.off("moveend", i, this), this.off("animationend", i, this), t._icon)) e();else if (t.__parent._icon) {
+	          var n = function n() {
+	            this.off("spiderfied", n, this), e();
+	          };this.on("spiderfied", n, this), t.__parent.spiderfy();
+	        }
+	      };t._icon && this._map.getBounds().contains(t.getLatLng()) ? e() : t.__parent._zoom < this._map.getZoom() ? (this._map.on("moveend", i, this), this._map.panTo(t.getLatLng())) : (this._map.on("moveend", i, this), this.on("animationend", i, this), this._map.setView(t.getLatLng(), t.__parent._zoom + 1), t.__parent.zoomToBounds());
+	    }, onAdd: function onAdd(t) {
+	      this._map = t;var e, i, n;if (!isFinite(this._map.getMaxZoom())) throw "Map has no maxZoom specified";for (this._featureGroup.onAdd(t), this._nonPointGroup.onAdd(t), this._gridClusters || this._generateInitialClusters(), e = 0, i = this._needsRemoving.length; i > e; e++) n = this._needsRemoving[e], this._removeLayer(n, !0);for (this._needsRemoving = [], e = 0, i = this._needsClustering.length; i > e; e++) n = this._needsClustering[e], n.getLatLng ? n.__parent || this._addLayer(n, this._maxZoom) : this._featureGroup.addLayer(n);this._needsClustering = [], this._map.on("zoomend", this._zoomEnd, this), this._map.on("moveend", this._moveEnd, this), this._spiderfierOnAdd && this._spiderfierOnAdd(), this._bindEvents(), this._zoom = this._map.getZoom(), this._currentShownBounds = this._getExpandedVisibleBounds(), this._topClusterLevel._recursivelyAddChildrenToMap(null, this._zoom, this._currentShownBounds);
+	    }, onRemove: function onRemove(t) {
+	      t.off("zoomend", this._zoomEnd, this), t.off("moveend", this._moveEnd, this), this._unbindEvents(), this._map._mapPane.className = this._map._mapPane.className.replace(" leaflet-cluster-anim", ""), this._spiderfierOnRemove && this._spiderfierOnRemove(), this._hideCoverage(), this._featureGroup.onRemove(t), this._nonPointGroup.onRemove(t), this._featureGroup.clearLayers(), this._map = null;
+	    }, getVisibleParent: function getVisibleParent(t) {
+	      for (var e = t; e && !e._icon;) e = e.__parent;return e || null;
+	    }, _arraySplice: function _arraySplice(t, e) {
+	      for (var i = t.length - 1; i >= 0; i--) if (t[i] === e) return (t.splice(i, 1), !0);
+	    }, _removeLayer: function _removeLayer(t, e, i) {
+	      var n = this._gridClusters,
+	          s = this._gridUnclustered,
+	          r = this._featureGroup,
+	          o = this._map;if (e) for (var a = this._maxZoom; a >= 0 && s[a].removeObject(t, o.project(t.getLatLng(), a)); a--);var h,
+	          _ = t.__parent,
+	          u = _._markers;for (this._arraySplice(u, t); _ && (_._childCount--, !(_._zoom < 0));) e && _._childCount <= 1 ? (h = _._markers[0] === t ? _._markers[1] : _._markers[0], n[_._zoom].removeObject(_, o.project(_._cLatLng, _._zoom)), s[_._zoom].addObject(h, o.project(h.getLatLng(), _._zoom)), this._arraySplice(_.__parent._childClusters, _), _.__parent._markers.push(h), h.__parent = _.__parent, _._icon && (r.removeLayer(_), i || r.addLayer(h))) : (_._recalculateBounds(), i && _._icon || _._updateIcon()), _ = _.__parent;delete t.__parent;
+	    }, _isOrIsParent: function _isOrIsParent(t, e) {
+	      for (; e;) {
+	        if (t === e) return !0;e = e.parentNode;
+	      }return !1;
+	    }, _propagateEvent: function _propagateEvent(t) {
+	      if (t.layer instanceof L.MarkerCluster) {
+	        if (t.originalEvent && this._isOrIsParent(t.layer._icon, t.originalEvent.relatedTarget)) return;t.type = "cluster" + t.type;
+	      }this.fire(t.type, t);
+	    }, _defaultIconCreateFunction: function _defaultIconCreateFunction(t) {
+	      var e = t.getChildCount(),
+	          i = " marker-cluster-";return (i += 10 > e ? "small" : 100 > e ? "medium" : "large", new L.DivIcon({ html: "<div><span>" + e + "</span></div>", className: "marker-cluster" + i, iconSize: new L.Point(40, 40) }));
+	    }, _bindEvents: function _bindEvents() {
+	      var t = this._map,
+	          e = this.options.spiderfyOnMaxZoom,
+	          i = this.options.showCoverageOnHover,
+	          n = this.options.zoomToBoundsOnClick;(e || n) && this.on("clusterclick", this._zoomOrSpiderfy, this), i && (this.on("clustermouseover", this._showCoverage, this), this.on("clustermouseout", this._hideCoverage, this), t.on("zoomend", this._hideCoverage, this));
+	    }, _zoomOrSpiderfy: function _zoomOrSpiderfy(t) {
+	      var e = this._map;e.getMaxZoom() === e.getZoom() ? this.options.spiderfyOnMaxZoom && t.layer.spiderfy() : this.options.zoomToBoundsOnClick && t.layer.zoomToBounds(), t.originalEvent && 13 === t.originalEvent.keyCode && e._container.focus();
+	    }, _showCoverage: function _showCoverage(t) {
+	      var e = this._map;this._inZoomAnimation || (this._shownPolygon && e.removeLayer(this._shownPolygon), t.layer.getChildCount() > 2 && t.layer !== this._spiderfied && (this._shownPolygon = new L.Polygon(t.layer.getConvexHull(), this.options.polygonOptions), e.addLayer(this._shownPolygon)));
+	    }, _hideCoverage: function _hideCoverage() {
+	      this._shownPolygon && (this._map.removeLayer(this._shownPolygon), this._shownPolygon = null);
+	    }, _unbindEvents: function _unbindEvents() {
+	      var t = this.options.spiderfyOnMaxZoom,
+	          e = this.options.showCoverageOnHover,
+	          i = this.options.zoomToBoundsOnClick,
+	          n = this._map;(t || i) && this.off("clusterclick", this._zoomOrSpiderfy, this), e && (this.off("clustermouseover", this._showCoverage, this), this.off("clustermouseout", this._hideCoverage, this), n.off("zoomend", this._hideCoverage, this));
+	    }, _zoomEnd: function _zoomEnd() {
+	      this._map && (this._mergeSplitClusters(), this._zoom = this._map._zoom, this._currentShownBounds = this._getExpandedVisibleBounds());
+	    }, _moveEnd: function _moveEnd() {
+	      if (!this._inZoomAnimation) {
+	        var t = this._getExpandedVisibleBounds();this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, this._zoom, t), this._topClusterLevel._recursivelyAddChildrenToMap(null, this._map._zoom, t), this._currentShownBounds = t;
+	      }
+	    }, _generateInitialClusters: function _generateInitialClusters() {
+	      var t = this._map.getMaxZoom(),
+	          e = this.options.maxClusterRadius;this.options.disableClusteringAtZoom && (t = this.options.disableClusteringAtZoom - 1), this._maxZoom = t, this._gridClusters = {}, this._gridUnclustered = {};for (var i = t; i >= 0; i--) this._gridClusters[i] = new L.DistanceGrid(e), this._gridUnclustered[i] = new L.DistanceGrid(e);this._topClusterLevel = new L.MarkerCluster(this, -1);
+	    }, _addLayer: function _addLayer(t, e) {
+	      var i,
+	          n,
+	          s = this._gridClusters,
+	          r = this._gridUnclustered;for (this.options.singleMarkerMode && (t.options.icon = this.options.iconCreateFunction({ getChildCount: function getChildCount() {
+	          return 1;
+	        }, getAllChildMarkers: function getAllChildMarkers() {
+	          return [t];
+	        } })); e >= 0; e--) {
+	        i = this._map.project(t.getLatLng(), e);var o = s[e].getNearObject(i);if (o) return (o._addChild(t), t.__parent = o, void 0);if (o = r[e].getNearObject(i)) {
+	          var a = o.__parent;a && this._removeLayer(o, !1);var h = new L.MarkerCluster(this, e, o, t);s[e].addObject(h, this._map.project(h._cLatLng, e)), o.__parent = h, t.__parent = h;var _ = h;for (n = e - 1; n > a._zoom; n--) _ = new L.MarkerCluster(this, n, _), s[n].addObject(_, this._map.project(o.getLatLng(), n));for (a._addChild(_), n = e; n >= 0 && r[n].removeObject(o, this._map.project(o.getLatLng(), n)); n--);return;
+	        }r[e].addObject(t, i);
+	      }this._topClusterLevel._addChild(t), t.__parent = this._topClusterLevel;
+	    }, _enqueue: function _enqueue(t) {
+	      this._queue.push(t), this._queueTimeout || (this._queueTimeout = setTimeout(L.bind(this._processQueue, this), 300));
+	    }, _processQueue: function _processQueue() {
+	      for (var t = 0; t < this._queue.length; t++) this._queue[t].call(this);this._queue.length = 0, clearTimeout(this._queueTimeout), this._queueTimeout = null;
+	    }, _mergeSplitClusters: function _mergeSplitClusters() {
+	      this._processQueue(), this._zoom < this._map._zoom && this._currentShownBounds.contains(this._getExpandedVisibleBounds()) ? (this._animationStart(), this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, this._zoom, this._getExpandedVisibleBounds()), this._animationZoomIn(this._zoom, this._map._zoom)) : this._zoom > this._map._zoom ? (this._animationStart(), this._animationZoomOut(this._zoom, this._map._zoom)) : this._moveEnd();
+	    }, _getExpandedVisibleBounds: function _getExpandedVisibleBounds() {
+	      if (!this.options.removeOutsideVisibleBounds) return this.getBounds();var t = this._map,
+	          e = t.getBounds(),
+	          i = e._southWest,
+	          n = e._northEast,
+	          s = L.Browser.mobile ? 0 : Math.abs(i.lat - n.lat),
+	          r = L.Browser.mobile ? 0 : Math.abs(i.lng - n.lng);return new L.LatLngBounds(new L.LatLng(i.lat - s, i.lng - r, !0), new L.LatLng(n.lat + s, n.lng + r, !0));
+	    }, _animationAddLayerNonAnimated: function _animationAddLayerNonAnimated(t, e) {
+	      if (e === t) this._featureGroup.addLayer(t);else if (2 === e._childCount) {
+	        e._addToMap();var i = e.getAllChildMarkers();this._featureGroup.removeLayer(i[0]), this._featureGroup.removeLayer(i[1]);
+	      } else e._updateIcon();
+	    } }), L.MarkerClusterGroup.include(L.DomUtil.TRANSITION ? { _animationStart: function _animationStart() {
+	      this._map._mapPane.className += " leaflet-cluster-anim", this._inZoomAnimation++;
+	    }, _animationEnd: function _animationEnd() {
+	      this._map && (this._map._mapPane.className = this._map._mapPane.className.replace(" leaflet-cluster-anim", "")), this._inZoomAnimation--, this.fire("animationend");
+	    }, _animationZoomIn: function _animationZoomIn(t, e) {
+	      var i,
+	          n = this._getExpandedVisibleBounds(),
+	          s = this._featureGroup;this._topClusterLevel._recursively(n, t, 0, function (r) {
+	        var o,
+	            a = r._latlng,
+	            h = r._markers;for (n.contains(a) || (a = null), r._isSingleParent() && t + 1 === e ? (s.removeLayer(r), r._recursivelyAddChildrenToMap(null, e, n)) : (r.setOpacity(0), r._recursivelyAddChildrenToMap(a, e, n)), i = h.length - 1; i >= 0; i--) o = h[i], n.contains(o._latlng) || s.removeLayer(o);
+	      }), this._forceLayout(), this._topClusterLevel._recursivelyBecomeVisible(n, e), s.eachLayer(function (t) {
+	        t instanceof L.MarkerCluster || !t._icon || t.setOpacity(1);
+	      }), this._topClusterLevel._recursively(n, t, e, function (t) {
+	        t._recursivelyRestoreChildPositions(e);
+	      }), this._enqueue(function () {
+	        this._topClusterLevel._recursively(n, t, 0, function (t) {
+	          s.removeLayer(t), t.setOpacity(1);
+	        }), this._animationEnd();
+	      });
+	    }, _animationZoomOut: function _animationZoomOut(t, e) {
+	      this._animationZoomOutSingle(this._topClusterLevel, t - 1, e), this._topClusterLevel._recursivelyAddChildrenToMap(null, e, this._getExpandedVisibleBounds()), this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, t, this._getExpandedVisibleBounds());
+	    }, _animationZoomOutSingle: function _animationZoomOutSingle(t, e, i) {
+	      var n = this._getExpandedVisibleBounds();t._recursivelyAnimateChildrenInAndAddSelfToMap(n, e + 1, i);var s = this;this._forceLayout(), t._recursivelyBecomeVisible(n, i), this._enqueue(function () {
+	        if (1 === t._childCount) {
+	          var r = t._markers[0];r.setLatLng(r.getLatLng()), r.setOpacity(1);
+	        } else t._recursively(n, i, 0, function (t) {
+	          t._recursivelyRemoveChildrenFromMap(n, e + 1);
+	        });s._animationEnd();
+	      });
+	    }, _animationAddLayer: function _animationAddLayer(t, e) {
+	      var i = this,
+	          n = this._featureGroup;n.addLayer(t), e !== t && (e._childCount > 2 ? (e._updateIcon(), this._forceLayout(), this._animationStart(), t._setPos(this._map.latLngToLayerPoint(e.getLatLng())), t.setOpacity(0), this._enqueue(function () {
+	        n.removeLayer(t), t.setOpacity(1), i._animationEnd();
+	      })) : (this._forceLayout(), i._animationStart(), i._animationZoomOutSingle(e, this._map.getMaxZoom(), this._map.getZoom())));
+	    }, _forceLayout: function _forceLayout() {
+	      L.Util.falseFn(e.body.offsetWidth);
+	    } } : { _animationStart: function _animationStart() {}, _animationZoomIn: function _animationZoomIn(t, e) {
+	      this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, t), this._topClusterLevel._recursivelyAddChildrenToMap(null, e, this._getExpandedVisibleBounds());
+	    }, _animationZoomOut: function _animationZoomOut(t, e) {
+	      this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, t), this._topClusterLevel._recursivelyAddChildrenToMap(null, e, this._getExpandedVisibleBounds());
+	    }, _animationAddLayer: function _animationAddLayer(t, e) {
+	      this._animationAddLayerNonAnimated(t, e);
+	    } }), L.markerClusterGroup = function (t) {
+	    return new L.MarkerClusterGroup(t);
+	  }, L.MarkerCluster = L.Marker.extend({ initialize: function initialize(t, e, i, n) {
+	      L.Marker.prototype.initialize.call(this, i ? i._cLatLng || i.getLatLng() : new L.LatLng(0, 0), { icon: this }), this._group = t, this._zoom = e, this._markers = [], this._childClusters = [], this._childCount = 0, this._iconNeedsUpdate = !0, this._bounds = new L.LatLngBounds(), i && this._addChild(i), n && this._addChild(n);
+	    }, getAllChildMarkers: function getAllChildMarkers(t) {
+	      t = t || [];for (var e = this._childClusters.length - 1; e >= 0; e--) this._childClusters[e].getAllChildMarkers(t);for (var i = this._markers.length - 1; i >= 0; i--) t.push(this._markers[i]);return t;
+	    }, getChildCount: function getChildCount() {
+	      return this._childCount;
+	    }, zoomToBounds: function zoomToBounds() {
+	      for (var t, e = this._childClusters.slice(), i = this._group._map, n = i.getBoundsZoom(this._bounds), s = this._zoom + 1, r = i.getZoom(); e.length > 0 && n > s;) {
+	        s++;var o = [];for (t = 0; t < e.length; t++) o = o.concat(e[t]._childClusters);e = o;
+	      }n > s ? this._group._map.setView(this._latlng, s) : r >= n ? this._group._map.setView(this._latlng, r + 1) : this._group._map.fitBounds(this._bounds);
+	    }, getBounds: function getBounds() {
+	      var t = new L.LatLngBounds();return (t.extend(this._bounds), t);
+	    }, _updateIcon: function _updateIcon() {
+	      this._iconNeedsUpdate = !0, this._icon && this.setIcon(this);
+	    }, createIcon: function createIcon() {
+	      return (this._iconNeedsUpdate && (this._iconObj = this._group.options.iconCreateFunction(this), this._iconNeedsUpdate = !1), this._iconObj.createIcon());
+	    }, createShadow: function createShadow() {
+	      return this._iconObj.createShadow();
+	    }, _addChild: function _addChild(t, e) {
+	      this._iconNeedsUpdate = !0, this._expandBounds(t), t instanceof L.MarkerCluster ? (e || (this._childClusters.push(t), t.__parent = this), this._childCount += t._childCount) : (e || this._markers.push(t), this._childCount++), this.__parent && this.__parent._addChild(t, !0);
+	    }, _expandBounds: function _expandBounds(t) {
+	      var e,
+	          i = t._wLatLng || t._latlng;t instanceof L.MarkerCluster ? (this._bounds.extend(t._bounds), e = t._childCount) : (this._bounds.extend(i), e = 1), this._cLatLng || (this._cLatLng = t._cLatLng || i);var n = this._childCount + e;this._wLatLng ? (this._wLatLng.lat = (i.lat * e + this._wLatLng.lat * this._childCount) / n, this._wLatLng.lng = (i.lng * e + this._wLatLng.lng * this._childCount) / n) : this._latlng = this._wLatLng = new L.LatLng(i.lat, i.lng);
+	    }, _addToMap: function _addToMap(t) {
+	      t && (this._backupLatlng = this._latlng, this.setLatLng(t)), this._group._featureGroup.addLayer(this);
+	    }, _recursivelyAnimateChildrenIn: function _recursivelyAnimateChildrenIn(t, e, i) {
+	      this._recursively(t, 0, i - 1, function (t) {
+	        var i,
+	            n,
+	            s = t._markers;for (i = s.length - 1; i >= 0; i--) n = s[i], n._icon && (n._setPos(e), n.setOpacity(0));
+	      }, function (t) {
+	        var i,
+	            n,
+	            s = t._childClusters;for (i = s.length - 1; i >= 0; i--) n = s[i], n._icon && (n._setPos(e), n.setOpacity(0));
+	      });
+	    }, _recursivelyAnimateChildrenInAndAddSelfToMap: function _recursivelyAnimateChildrenInAndAddSelfToMap(t, e, i) {
+	      this._recursively(t, i, 0, function (n) {
+	        n._recursivelyAnimateChildrenIn(t, n._group._map.latLngToLayerPoint(n.getLatLng()).round(), e), n._isSingleParent() && e - 1 === i ? (n.setOpacity(1), n._recursivelyRemoveChildrenFromMap(t, e)) : n.setOpacity(0), n._addToMap();
+	      });
+	    }, _recursivelyBecomeVisible: function _recursivelyBecomeVisible(t, e) {
+	      this._recursively(t, 0, e, null, function (t) {
+	        t.setOpacity(1);
+	      });
+	    }, _recursivelyAddChildrenToMap: function _recursivelyAddChildrenToMap(t, e, i) {
+	      this._recursively(i, -1, e, function (n) {
+	        if (e !== n._zoom) for (var s = n._markers.length - 1; s >= 0; s--) {
+	          var r = n._markers[s];i.contains(r._latlng) && (t && (r._backupLatlng = r.getLatLng(), r.setLatLng(t), r.setOpacity && r.setOpacity(0)), n._group._featureGroup.addLayer(r));
+	        }
+	      }, function (e) {
+	        e._addToMap(t);
+	      });
+	    }, _recursivelyRestoreChildPositions: function _recursivelyRestoreChildPositions(t) {
+	      for (var e = this._markers.length - 1; e >= 0; e--) {
+	        var i = this._markers[e];i._backupLatlng && (i.setLatLng(i._backupLatlng), delete i._backupLatlng);
+	      }if (t - 1 === this._zoom) for (var n = this._childClusters.length - 1; n >= 0; n--) this._childClusters[n]._restorePosition();else for (var s = this._childClusters.length - 1; s >= 0; s--) this._childClusters[s]._recursivelyRestoreChildPositions(t);
+	    }, _restorePosition: function _restorePosition() {
+	      this._backupLatlng && (this.setLatLng(this._backupLatlng), delete this._backupLatlng);
+	    }, _recursivelyRemoveChildrenFromMap: function _recursivelyRemoveChildrenFromMap(t, e, i) {
+	      var n, s;this._recursively(t, -1, e - 1, function (t) {
+	        for (s = t._markers.length - 1; s >= 0; s--) n = t._markers[s], i && i.contains(n._latlng) || (t._group._featureGroup.removeLayer(n), n.setOpacity && n.setOpacity(1));
+	      }, function (t) {
+	        for (s = t._childClusters.length - 1; s >= 0; s--) n = t._childClusters[s], i && i.contains(n._latlng) || (t._group._featureGroup.removeLayer(n), n.setOpacity && n.setOpacity(1));
+	      });
+	    }, _recursively: function _recursively(t, e, i, n, s) {
+	      var r,
+	          o,
+	          a = this._childClusters,
+	          h = this._zoom;if (e > h) for (r = a.length - 1; r >= 0; r--) o = a[r], t.intersects(o._bounds) && o._recursively(t, e, i, n, s);else if ((n && n(this), s && this._zoom === i && s(this), i > h)) for (r = a.length - 1; r >= 0; r--) o = a[r], t.intersects(o._bounds) && o._recursively(t, e, i, n, s);
+	    }, _recalculateBounds: function _recalculateBounds() {
+	      var t,
+	          e = this._markers,
+	          i = this._childClusters;for (this._bounds = new L.LatLngBounds(), delete this._wLatLng, t = e.length - 1; t >= 0; t--) this._expandBounds(e[t]);for (t = i.length - 1; t >= 0; t--) this._expandBounds(i[t]);
+	    }, _isSingleParent: function _isSingleParent() {
+	      return this._childClusters.length > 0 && this._childClusters[0]._childCount === this._childCount;
+	    } }), L.DistanceGrid = function (t) {
+	    this._cellSize = t, this._sqCellSize = t * t, this._grid = {}, this._objectPoint = {};
+	  }, L.DistanceGrid.prototype = { addObject: function addObject(t, e) {
+	      var i = this._getCoord(e.x),
+	          n = this._getCoord(e.y),
+	          s = this._grid,
+	          r = s[n] = s[n] || {},
+	          o = r[i] = r[i] || [],
+	          a = L.Util.stamp(t);this._objectPoint[a] = e, o.push(t);
+	    }, updateObject: function updateObject(t, e) {
+	      this.removeObject(t), this.addObject(t, e);
+	    }, removeObject: function removeObject(t, e) {
+	      var i,
+	          n,
+	          s = this._getCoord(e.x),
+	          r = this._getCoord(e.y),
+	          o = this._grid,
+	          a = o[r] = o[r] || {},
+	          h = a[s] = a[s] || [];for (delete this._objectPoint[L.Util.stamp(t)], i = 0, n = h.length; n > i; i++) if (h[i] === t) return (h.splice(i, 1), 1 === n && delete a[s], !0);
+	    }, eachObject: function eachObject(t, e) {
+	      var i,
+	          n,
+	          s,
+	          r,
+	          o,
+	          a,
+	          h,
+	          _ = this._grid;for (i in _) {
+	        o = _[i];for (n in o) for (a = o[n], s = 0, r = a.length; r > s; s++) h = t.call(e, a[s]), h && (s--, r--);
+	      }
+	    }, getNearObject: function getNearObject(t) {
+	      var e,
+	          i,
+	          n,
+	          s,
+	          r,
+	          o,
+	          a,
+	          h,
+	          _ = this._getCoord(t.x),
+	          u = this._getCoord(t.y),
+	          l = this._objectPoint,
+	          d = this._sqCellSize,
+	          p = null;for (e = u - 1; u + 1 >= e; e++) if (s = this._grid[e]) for (i = _ - 1; _ + 1 >= i; i++) if (r = s[i]) for (n = 0, o = r.length; o > n; n++) a = r[n], h = this._sqDist(l[L.Util.stamp(a)], t), d > h && (d = h, p = a);return p;
+	    }, _getCoord: function _getCoord(t) {
+	      return Math.floor(t / this._cellSize);
+	    }, _sqDist: function _sqDist(t, e) {
+	      var i = e.x - t.x,
+	          n = e.y - t.y;return i * i + n * n;
+	    } }, (function () {
+	    L.QuickHull = { getDistant: function getDistant(t, e) {
+	        var i = e[1].lat - e[0].lat,
+	            n = e[0].lng - e[1].lng;return n * (t.lat - e[0].lat) + i * (t.lng - e[0].lng);
+	      }, findMostDistantPointFromBaseLine: function findMostDistantPointFromBaseLine(t, e) {
+	        var i,
+	            n,
+	            s,
+	            r = 0,
+	            o = null,
+	            a = [];for (i = e.length - 1; i >= 0; i--) n = e[i], s = this.getDistant(n, t), s > 0 && (a.push(n), s > r && (r = s, o = n));return { maxPoint: o, newPoints: a };
+	      }, buildConvexHull: function buildConvexHull(t, e) {
+	        var i = [],
+	            n = this.findMostDistantPointFromBaseLine(t, e);return n.maxPoint ? (i = i.concat(this.buildConvexHull([t[0], n.maxPoint], n.newPoints)), i = i.concat(this.buildConvexHull([n.maxPoint, t[1]], n.newPoints))) : [t[0]];
+	      }, getConvexHull: function getConvexHull(t) {
+	        var e,
+	            i = !1,
+	            n = !1,
+	            s = null,
+	            r = null;for (e = t.length - 1; e >= 0; e--) {
+	          var o = t[e];(i === !1 || o.lat > i) && (s = o, i = o.lat), (n === !1 || o.lat < n) && (r = o, n = o.lat);
+	        }var a = [].concat(this.buildConvexHull([r, s], t), this.buildConvexHull([s, r], t));return a;
+	      } };
+	  })(), L.MarkerCluster.include({ getConvexHull: function getConvexHull() {
+	      var t,
+	          e,
+	          i = this.getAllChildMarkers(),
+	          n = [];for (e = i.length - 1; e >= 0; e--) t = i[e].getLatLng(), n.push(t);return L.QuickHull.getConvexHull(n);
+	    } }), L.MarkerCluster.include({ _2PI: 2 * Math.PI, _circleFootSeparation: 25, _circleStartAngle: Math.PI / 6, _spiralFootSeparation: 28, _spiralLengthStart: 11, _spiralLengthFactor: 5, _circleSpiralSwitchover: 9, spiderfy: function spiderfy() {
+	      if (this._group._spiderfied !== this && !this._group._inZoomAnimation) {
+	        var t,
+	            e = this.getAllChildMarkers(),
+	            i = this._group,
+	            n = i._map,
+	            s = n.latLngToLayerPoint(this._latlng);this._group._unspiderfy(), this._group._spiderfied = this, e.length >= this._circleSpiralSwitchover ? t = this._generatePointsSpiral(e.length, s) : (s.y += 10, t = this._generatePointsCircle(e.length, s)), this._animationSpiderfy(e, t);
+	      }
+	    }, unspiderfy: function unspiderfy(t) {
+	      this._group._inZoomAnimation || (this._animationUnspiderfy(t), this._group._spiderfied = null);
+	    }, _generatePointsCircle: function _generatePointsCircle(t, e) {
+	      var i,
+	          n,
+	          s = this._group.options.spiderfyDistanceMultiplier * this._circleFootSeparation * (2 + t),
+	          r = s / this._2PI,
+	          o = this._2PI / t,
+	          a = [];for (a.length = t, i = t - 1; i >= 0; i--) n = this._circleStartAngle + i * o, a[i] = new L.Point(e.x + r * Math.cos(n), e.y + r * Math.sin(n))._round();return a;
+	    }, _generatePointsSpiral: function _generatePointsSpiral(t, e) {
+	      var i,
+	          n = this._group.options.spiderfyDistanceMultiplier * this._spiralLengthStart,
+	          s = this._group.options.spiderfyDistanceMultiplier * this._spiralFootSeparation,
+	          r = this._group.options.spiderfyDistanceMultiplier * this._spiralLengthFactor,
+	          o = 0,
+	          a = [];for (a.length = t, i = t - 1; i >= 0; i--) o += s / n + 5e-4 * i, a[i] = new L.Point(e.x + n * Math.cos(o), e.y + n * Math.sin(o))._round(), n += this._2PI * r / o;return a;
+	    }, _noanimationUnspiderfy: function _noanimationUnspiderfy() {
+	      var t,
+	          e,
+	          i = this._group,
+	          n = i._map,
+	          s = i._featureGroup,
+	          r = this.getAllChildMarkers();for (this.setOpacity(1), e = r.length - 1; e >= 0; e--) t = r[e], s.removeLayer(t), t._preSpiderfyLatlng && (t.setLatLng(t._preSpiderfyLatlng), delete t._preSpiderfyLatlng), t.setZIndexOffset && t.setZIndexOffset(0), t._spiderLeg && (n.removeLayer(t._spiderLeg), delete t._spiderLeg);i._spiderfied = null;
+	    } }), L.MarkerCluster.include(L.DomUtil.TRANSITION ? { SVG_ANIMATION: (function () {
+	      return e.createElementNS("http://www.w3.org/2000/svg", "animate").toString().indexOf("SVGAnimate") > -1;
+	    })(), _animationSpiderfy: function _animationSpiderfy(t, i) {
+	      var n,
+	          s,
+	          r,
+	          o,
+	          a = this,
+	          h = this._group,
+	          _ = h._map,
+	          u = h._featureGroup,
+	          l = _.latLngToLayerPoint(this._latlng);for (n = t.length - 1; n >= 0; n--) s = t[n], s.setOpacity ? (s.setZIndexOffset(1e6), s.setOpacity(0), u.addLayer(s), s._setPos(l)) : u.addLayer(s);h._forceLayout(), h._animationStart();var d = L.Path.SVG ? 0 : .3,
+	          p = L.Path.SVG_NS;for (n = t.length - 1; n >= 0; n--) if ((o = _.layerPointToLatLng(i[n]), s = t[n], s._preSpiderfyLatlng = s._latlng, s.setLatLng(o), s.setOpacity && s.setOpacity(1), r = new L.Polyline([a._latlng, o], { weight: 1.5, color: "#222", opacity: d }), _.addLayer(r), s._spiderLeg = r, L.Path.SVG && this.SVG_ANIMATION)) {
+	        var c = r._path.getTotalLength();r._path.setAttribute("stroke-dasharray", c + "," + c);var m = e.createElementNS(p, "animate");m.setAttribute("attributeName", "stroke-dashoffset"), m.setAttribute("begin", "indefinite"), m.setAttribute("from", c), m.setAttribute("to", 0), m.setAttribute("dur", .25), r._path.appendChild(m), m.beginElement(), m = e.createElementNS(p, "animate"), m.setAttribute("attributeName", "stroke-opacity"), m.setAttribute("attributeName", "stroke-opacity"), m.setAttribute("begin", "indefinite"), m.setAttribute("from", 0), m.setAttribute("to", .5), m.setAttribute("dur", .25), r._path.appendChild(m), m.beginElement();
+	      }if ((a.setOpacity(.3), L.Path.SVG)) for (this._group._forceLayout(), n = t.length - 1; n >= 0; n--) s = t[n]._spiderLeg, s.options.opacity = .5, s._path.setAttribute("stroke-opacity", .5);setTimeout(function () {
+	        h._animationEnd(), h.fire("spiderfied");
+	      }, 200);
+	    }, _animationUnspiderfy: function _animationUnspiderfy(t) {
+	      var e,
+	          i,
+	          n,
+	          s = this._group,
+	          r = s._map,
+	          o = s._featureGroup,
+	          a = t ? r._latLngToNewLayerPoint(this._latlng, t.zoom, t.center) : r.latLngToLayerPoint(this._latlng),
+	          h = this.getAllChildMarkers(),
+	          _ = L.Path.SVG && this.SVG_ANIMATION;for (s._animationStart(), this.setOpacity(1), i = h.length - 1; i >= 0; i--) e = h[i], e._preSpiderfyLatlng && (e.setLatLng(e._preSpiderfyLatlng), delete e._preSpiderfyLatlng, e.setOpacity ? (e._setPos(a), e.setOpacity(0)) : o.removeLayer(e), _ && (n = e._spiderLeg._path.childNodes[0], n.setAttribute("to", n.getAttribute("from")), n.setAttribute("from", 0), n.beginElement(), n = e._spiderLeg._path.childNodes[1], n.setAttribute("from", .5), n.setAttribute("to", 0), n.setAttribute("stroke-opacity", 0), n.beginElement(), e._spiderLeg._path.setAttribute("stroke-opacity", 0)));setTimeout(function () {
+	        var t = 0;for (i = h.length - 1; i >= 0; i--) e = h[i], e._spiderLeg && t++;for (i = h.length - 1; i >= 0; i--) e = h[i], e._spiderLeg && (e.setOpacity && (e.setOpacity(1), e.setZIndexOffset(0)), t > 1 && o.removeLayer(e), r.removeLayer(e._spiderLeg), delete e._spiderLeg);s._animationEnd();
+	      }, 200);
+	    } } : { _animationSpiderfy: function _animationSpiderfy(t, e) {
+	      var i,
+	          n,
+	          s,
+	          r,
+	          o = this._group,
+	          a = o._map,
+	          h = o._featureGroup;for (i = t.length - 1; i >= 0; i--) r = a.layerPointToLatLng(e[i]), n = t[i], n._preSpiderfyLatlng = n._latlng, n.setLatLng(r), n.setZIndexOffset && n.setZIndexOffset(1e6), h.addLayer(n), s = new L.Polyline([this._latlng, r], { weight: 1.5, color: "#222" }), a.addLayer(s), n._spiderLeg = s;this.setOpacity(.3), o.fire("spiderfied");
+	    }, _animationUnspiderfy: function _animationUnspiderfy() {
+	      this._noanimationUnspiderfy();
+	    } }), L.MarkerClusterGroup.include({ _spiderfied: null, _spiderfierOnAdd: function _spiderfierOnAdd() {
+	      this._map.on("click", this._unspiderfyWrapper, this), this._map.options.zoomAnimation && this._map.on("zoomstart", this._unspiderfyZoomStart, this), this._map.on("zoomend", this._noanimationUnspiderfy, this), L.Path.SVG && !L.Browser.touch && this._map._initPathRoot();
+	    }, _spiderfierOnRemove: function _spiderfierOnRemove() {
+	      this._map.off("click", this._unspiderfyWrapper, this), this._map.off("zoomstart", this._unspiderfyZoomStart, this), this._map.off("zoomanim", this._unspiderfyZoomAnim, this), this._unspiderfy();
+	    }, _unspiderfyZoomStart: function _unspiderfyZoomStart() {
+	      this._map && this._map.on("zoomanim", this._unspiderfyZoomAnim, this);
+	    }, _unspiderfyZoomAnim: function _unspiderfyZoomAnim(t) {
+	      L.DomUtil.hasClass(this._map._mapPane, "leaflet-touching") || (this._map.off("zoomanim", this._unspiderfyZoomAnim, this), this._unspiderfy(t));
+	    }, _unspiderfyWrapper: function _unspiderfyWrapper() {
+	      this._unspiderfy();
+	    }, _unspiderfy: function _unspiderfy(t) {
+	      this._spiderfied && this._spiderfied.unspiderfy(t);
+	    }, _noanimationUnspiderfy: function _noanimationUnspiderfy() {
+	      this._spiderfied && this._spiderfied._noanimationUnspiderfy();
+	    }, _unspiderfyLayer: function _unspiderfyLayer(t) {
+	      t._spiderLeg && (this._featureGroup.removeLayer(t), t.setOpacity(1), t.setZIndexOffset(0), this._map.removeLayer(t._spiderLeg), delete t._spiderLeg);
+	    } });
+	})(window, document);
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _mosaicDataset = __webpack_require__(3);
+
+	var _leaflet = __webpack_require__(31);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	var LeafletClusterAdapter = (function () {
+	    function LeafletClusterAdapter(options, dataSet) {
+	        _classCallCheck(this, LeafletClusterAdapter);
+
+	        this.options = options || {};
+	        this.dataSet = dataSet;
+	    }
+
+	    _createClass(LeafletClusterAdapter, [{
+	        key: 'newClusterIcon',
+	        value: function newClusterIcon(cluster) {
+	            var childCount = cluster.getChildCount();
+
+	            var c = ' marker-cluster-';
+	            if (childCount < 10) {
+	                c += 'small';
+	            } else if (childCount < 100) {
+	                c += 'medium';
+	            } else {
+	                c += 'large';
+	            }
+
+	            return new _leaflet2['default'].DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new _leaflet2['default'].Point(40, 40) });
+	        }
+	    }]);
+
+	    return LeafletClusterAdapter;
+	})();
+
+	exports['default'] = LeafletClusterAdapter;
+	module.exports = exports['default'];
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var L = __webpack_require__(31);
+
+	/**
+	 * 
+	 */
+	var InteractionLayer = L.Class.extend({
+
+	    includes: L.Mixin.Events,
+
+	    options: {
+	        resolution: 4,
+	        pointerCursor: true
+	    },
+
+	    /** Initializes this layer */
+	    initialize: function initialize(options) {
+	        L.setOptions(this, options);
+	        // this._move = _.throttle(this._move, 20);
+	        // this._update = _.debounce(this._update, 10);
+	    },
+
+	    /**
+	     * This method is called when this layer is added to the map.
+	     */
+	    onAdd: function onAdd(map) {
+	        this._map = map;
+	        this._container = this._map._container;
+	        // this._update();
+	        map.on('click', this._click, this);
+	        map.on('mousemove', this._move, this);
+	        // map.on('moveend', this._update, this);
+	    },
+
+	    /**
+	     * This method is called when this layer is removed from the map.
+	     */
+	    onRemove: function onRemove() {
+	        var map = this._map;
+	        map.off('click', this._click, this);
+	        map.off('mousemove', this._move, this);
+	        // map.off('moveend', this._update, this);
+	        this._removeMouseCursorStyle();
+	    },
+
+	    /** Map click handler */
+	    _click: function _click(e) {
+	        this._objectForEvent(e, (function (err, on) {
+	            if (err) {
+	                return;
+	            }
+	            if (on.data) {
+	                this.fire('click', on);
+	            }
+	        }).bind(this));
+	    },
+
+	    /** Map move handler */
+	    _move: function _move(e) {
+	        this._objectForEvent(e, (function (err, on) {
+	            if (err) return;
+	            if (on.data !== this._mouseOn) {
+	                if (this._mouseOn) {
+	                    this.fire('mouseout', {
+	                        latlng: e.latlng,
+	                        data: this._mouseOn
+	                    });
+	                    this._removeMouseCursorStyle();
+	                }
+	                if (on.data) {
+	                    this.fire('mouseover', on);
+	                    this._setMouseCursorStyle();
+	                }
+	                this._mouseOn = on.data;
+	            } else if (on.data) {
+	                this.fire('mousemove', on);
+	            }
+	        }).bind(this));
+	    },
+
+	    /**
+	     * Checks if the cursor style of the container should be changed to pointer
+	     * cursor
+	     */
+	    _setMouseCursorStyle: function _setMouseCursorStyle() {
+	        if (!this.options.pointerCursor) return;
+	        if (!this._container._pointerCursorCount) {
+	            this._container._pointerCursorCount = 1;
+	            this._container.style.cursor = 'pointer';
+	        } else {
+	            this._container._pointerCursorCount++;
+	        }
+	    },
+
+	    /** Removes cursor style from the container */
+	    _removeMouseCursorStyle: function _removeMouseCursorStyle() {
+	        if (!this.options.pointerCursor) return;
+	        if (this._container._pointerCursorCount) {
+	            this._container._pointerCursorCount--;
+	            if (this._container._pointerCursorCount === 0) {
+	                this._container.style.cursor = '';
+	                delete this._container._pointerCursorCount;
+	            }
+	        }
+	    },
+
+	    /**
+	     * Returns an object from UTF grid corresponding to the coordinates of the
+	     * mouse event.
+	     */
+	    _objectForEvent: function _objectForEvent(e, callback) {
+	        throw new Error('This method should be implemented ' + //
+	        'in subclasses.');
+	    }
+
+	});
+
+	module.exports = InteractionLayer;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _leaflet = __webpack_require__(31);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	var _LeafletAdapter2 = __webpack_require__(2);
 
 	var _LeafletAdapter3 = _interopRequireDefault(_LeafletAdapter2);
 
@@ -3646,197 +4780,293 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 33 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	var L = __webpack_require__(31);
+	var InteractionLayer = __webpack_require__(37);
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _LeafletAdapter2 = __webpack_require__(1);
-
-	var _LeafletAdapter3 = _interopRequireDefault(_LeafletAdapter2);
-
-	var _DataSetLeafletLayer = __webpack_require__(34);
-
-	var _DataSetLeafletLayer2 = _interopRequireDefault(_DataSetLeafletLayer);
-
-	var DataSetLeafletAdapter = (function (_LeafletAdapter) {
-	    _inherits(DataSetLeafletAdapter, _LeafletAdapter);
-
-	    function DataSetLeafletAdapter() {
-	        _classCallCheck(this, DataSetLeafletAdapter);
-
-	        _get(Object.getPrototypeOf(DataSetLeafletAdapter.prototype), 'constructor', this).apply(this, arguments);
+	// Copied from the Leaflet.utfgrid implementation
+	GridLoader.ajax = function (url, cb) {
+	    // the following is from JavaScript: The Definitive Guide
+	    // and
+	    // https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest_in_IE6
+	    if (window.XMLHttpRequest === undefined) {
+	        window.XMLHttpRequest = function () {
+	            /* global ActiveXObject:true */
+	            try {
+	                return new ActiveXObject("Microsoft.XMLHTTP");
+	            } catch (e) {
+	                throw new Error("XMLHttpRequest is not supported");
+	            }
+	        };
 	    }
-
-	    _createClass(DataSetLeafletAdapter, [{
-	        key: 'newMarker',
-	        value: function newMarker() {
-	            return null;
+	    var response,
+	        request = new XMLHttpRequest();
+	    request.open("GET", url);
+	    request.onreadystatechange = function () {
+	        /* jshint evil: true */
+	        if (request.readyState === 4 && request.status === 200) {
+	            if (window.JSON) {
+	                response = JSON.parse(request.responseText);
+	            } else {
+	                response = eval("(" + request.responseText + ")");
+	            }
+	            cb(response);
 	        }
+	    };
+	    request.send();
+	    return request;
+	};
 
-	        /**
-	         * Returns a leaflet layer corresponding to the underlying item.
-	         */
-	    }, {
-	        key: 'newLeafletLayer',
-	        value: function newLeafletLayer() {
-	            return new _DataSetLeafletLayer2['default']({
-	                selectedItems: this.options.selectedItems,
-	                dataSet: this.dataSet
-	            });
-	        }
-	    }, {
-	        key: 'dataSet',
-	        get: function get() {
-	            return this.item;
-	        }
-	    }]);
-
-	    return DataSetLeafletAdapter;
-	})(_LeafletAdapter3['default']);
-
-	exports['default'] = DataSetLeafletAdapter;
-	module.exports = exports['default'];
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _leaflet = __webpack_require__(30);
-
-	var _leaflet2 = _interopRequireDefault(_leaflet);
-
-	var _LeafletAdapter = __webpack_require__(1);
-
-	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
-
-	var _mosaicDataset = __webpack_require__(2);
-
-	var DataSetLeafletLayer = (function (_L$FeatureGroup) {
-	    _inherits(DataSetLeafletLayer, _L$FeatureGroup);
-
-	    function DataSetLeafletLayer(options) {
-	        _classCallCheck(this, DataSetLeafletLayer);
-
-	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
-	        this.dataSet = options.dataSet;
-	        this.selectedItems = options.selectedItems;
-	        this._onDataSetUpdate = this._onDataSetUpdate.bind(this);
-	        this._onSelectionUpdate = this._onSelectionUpdate.bind(this);
+	function now() {
+	    return new Date().getTime();
+	}
+	GridLoader.Slot = function () {
+	    this.isExpired = isExpired;
+	    this.finish = finish;
+	    this.onFinish = onFinish;
+	    this.cancel = cancel;
+	    // ------------------------------
+	    var timestamp;
+	    var finished = false;
+	    var listeners = [];
+	    var error;
+	    var data;
+	    function isExpired(time, timeout) {
+	        return time - timestamp > timeout;
 	    }
-
-	    _createClass(DataSetLeafletLayer, [{
-	        key: 'onAdd',
-	        value: function onAdd() {
-	            for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-	                params[_key] = arguments[_key];
-	            }
-
-	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onAdd', this).apply(this, params);
-	            this.dataSet.addListener('update', this._onDataSetUpdate);
-	            if (this.selectedItems) {
-	                this.selectedItems.addListener('update', this._onSelectionUpdate);
-	            }
-	            this._redrawLayers();
+	    function onFinish(listener) {
+	        timestamp = now();
+	        listeners.push(listener);
+	        notify();
+	    }
+	    function finish(err, d) {
+	        if (!finished) {
+	            finished = true;
+	            error = err;
+	            data = d;
 	        }
-	    }, {
-	        key: 'onRemove',
-	        value: function onRemove() {
-	            this.dataSet.removeListener('update', this._onDataSetUpdate);
-	            if (this.selectedItems) {
-	                this.selectedItems.removeListener('update', this._onSelectionUpdate);
-	            }
-
-	            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	                params[_key2] = arguments[_key2];
-	            }
-
-	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onRemove', this).apply(this, params);
+	        notify();
+	    }
+	    function cancel() {
+	        finish(new Error('Cancelled'));
+	    }
+	    function notify() {
+	        if (!finished) return;
+	        for (var i = 0; i < listeners.length; i++) {
+	            try {
+	                listeners[i](error, data);
+	            } catch (e) {}
 	        }
-	    }, {
-	        key: '_onDataSetUpdate',
-	        value: function _onDataSetUpdate(intent) {
-	            var that = this;
-	            intent.then(function () {
-	                that._redrawLayers();
+	        listeners = [];
+	    }
+	};
+
+	function GridLoader(options) {
+	    this.options = options || {};
+	    this.options.subdomains = this.options.subdomains || 'abc';
+	    var cache = {};
+	    var cacheTimeout = this.options.cacheTimeout || 60 * 1000 * 5; // 5 min
+	    this.loadTile = (function (zoom, pos, callback) {
+	        var url = L.Util.template(this.options.url, L.Util.extend({
+	            s: L.TileLayer.prototype._getSubdomain.call(this, {
+	                x: pos.x,
+	                y: pos.y
+	            }),
+	            z: zoom,
+	            x: pos.x,
+	            y: pos.y
+	        }, this.options));
+	        var time = cleanCache();
+	        var key = zoom + '_' + pos.x + '_' + pos.y; // Cache key for this tile
+	        var slot = cache[key];
+	        if (!slot) {
+	            slot = cache[key] = new GridLoader.Slot();
+	            GridLoader.ajax(url, (function (data) {
+	                slot.finish(null, data);
+	            }).bind(this));
+	        }
+	        slot.onFinish(callback);
+	    }).bind(this);
+
+	    this.setUrl = function (url) {
+	        this.options.url = url;
+	        this.clear();
+	    };
+
+	    this.clear = function () {
+	        prevTime = 0;
+	        cleanCache();
+	        cache = {};
+	    };
+	    var prevTime = 0;
+	    function cleanCache() {
+	        var time = now();
+	        if (time - prevTime > cacheTimeout) {
+	            var remove = [];
+	            for (var key in cache) {
+	                var slot = cache[key];
+	                if (slot.isExpired(time, cacheTimeout)) {
+	                    slot.cancel();
+	                    remove.push(key);
+	                }
+	            }
+	            for (var i = 0; i < remove.length; i++) {
+	                delete cache[remove[i]];
+	            }
+	            prevTime = time;
+	        }
+	        return time;
+	    }
+	}
+
+	/**
+	 * The code of this class was mostly copied from the leaflet.utfgrid Leaflet
+	 * extension (MIT license, by David Leaver). The difference with the original
+	 * implementation is that 1) this class delegates tiles
+	 * loading/caching/canceling operations to an external "loader" instance (which
+	 * can be overloaded in the constructor); 2) this class notifies about loading
+	 * of tiles for each new screen using the "startLoading"/"endLoading" events; 3)
+	 * it loads tiles starting from the center of the current screen.
+	 */
+	var UtfGrid = InteractionLayer.extend({
+
+	    options: {
+	        resolution: 4,
+	        pointerCursor: true,
+	        tileSize: 256,
+	        subdomains: 'abc'
+	    },
+
+	    /** Initializes this layer */
+	    initialize: function initialize(options) {
+	        var parent = InteractionLayer.prototype;
+	        parent.initialize.call(this, options);
+	        this.options.resolution = this.options.resolution || 4;
+	        this.options.pointerCursor = this.options.pointerCursor || true;
+	        this._loader = this._newLoader();
+	    },
+
+	    _newLoader: function _newLoader() {
+	        return this.options.loader || new UtfGrid.GridLoader(this.options);
+	    },
+
+	    /**
+	     * Returns an object from UTF grid corresponding to the coordinates of the
+	     * mouse event.
+	     */
+	    _objectForEvent: function _objectForEvent(e, callback) {
+	        var map = this._map;
+	        var zoom = map.getZoom();
+	        var point = map.project(e.latlng);
+	        var pos = this._getTilePosition(point);
+	        this._loader.loadTile(zoom, pos, (function (err, tile) {
+	            if (err) {
+	                callback(err);
+	                return;
+	            }
+	            var result;
+	            if (tile) {
+	                result = this._getTileObject(tile, point);
+	            }
+	            callback(null, {
+	                latlng: e.latlng,
+	                data: result
 	            });
+	        }).bind(this));
+	    },
+
+	    /**
+	     * Returns an object from the specified tile corresponding to the given
+	     * position.
+	     */
+	    _getTileObject: function _getTileObject(tile, point) {
+	        var gridX = this._getTileShift(point.x);
+	        var gridY = this._getTileShift(point.y);
+	        var idx = this._utfDecode(tile.grid[gridY].charCodeAt(gridX));
+	        var key = tile.keys[idx];
+	        var result = this._processData(tile.data[key]);
+	        return result;
+	    },
+
+	    /** Sets a new URL template. */
+	    setUrl: function setUrl(url) {
+	        if (this._loader.setUrl) {
+	            this._loader.setUrl(url);
 	        }
-	    }, {
-	        key: '_onSelectionUpdate',
-	        value: function _onSelectionUpdate(intent) {
-	            var that = this;
-	            _mosaicDataset.DataSet.diff(that.selectedItems, intent).then(function (diff) {
-	                diff.removed.forEach(function (item) {
-	                    var layer = that._layersIndex[item.id];
-	                    if (!layer) return;
-	                    var adapter = item.getAdapter(_LeafletAdapter2['default']);
-	                    adapter.deselectLayer(layer);
-	                });
-	                diff.added.forEach(function (item) {
-	                    var layer = that._layersIndex[item.id];
-	                    if (!layer) return;
-	                    var adapter = item.getAdapter(_LeafletAdapter2['default']);
-	                    adapter.selectLayer(layer);
-	                });
-	            });
-	        }
-	    }, {
-	        key: '_redrawLayers',
-	        value: function _redrawLayers() {
-	            this.clearLayers();
-	            this._layersIndex = {};
-	            var dataSet = this.dataSet;
-	            dataSet.forEach(function (item) {
-	                var adapter = item.getAdapter(_LeafletAdapter2['default'], {
-	                    selectedItems: this.selectedItems
-	                });
-	                if (!adapter) return;
-	                var layer = adapter.newLeafletLayer();
-	                if (!layer) return;
-	                this._layersIndex[item.id] = layer;
-	                this.addLayer(layer);
+	    },
+
+	    /**
+	     * Returns X/Y coordinates of the tile corresponding to the specified point
+	     * on the map
+	     */
+	    _getTilePosition: function _getTilePosition(point) {
+	        var tileSize = this.options.tileSize;
+	        return L.point(Math.floor(point.x / tileSize), Math.floor(point.y / tileSize));
+	    },
+
+	    /**
+	     * Returns a list of all objects contained in the specified UTFGrid tile.
+	     */
+	    getTileObjects: function getTileObjects(tile) {
+	        var result = [];
+	        if (tile && tile.data) {
+	            var data = tile.data;
+	            result = Object.keys(data).map(function (key) {
+	                return this._processData(data[key]);
 	            }, this);
 	        }
-	    }]);
+	        return result;
+	    },
 
-	    return DataSetLeafletLayer;
-	})(_leaflet2['default'].FeatureGroup);
+	    /**
+	     * Pre-process individual data object before returning it to the caller.
+	     */
+	    _processData: function _processData(data) {
+	        if (!data) return data;
+	        if (!this._processDataF) {
+	            this._processDataF = this.options.processData || //
+	            function (data) {
+	                return data;
+	            };
+	        }
+	        return this._processDataF(data);
+	    },
 
-	exports['default'] = DataSetLeafletLayer;
-	module.exports = exports['default'];
+	    /**
+	     * Returns position of the specified coordinates in a tile
+	     */
+	    _getTileShift: function _getTileShift(val) {
+	        var tileSize = this.options.tileSize;
+	        var resolution = this.options.resolution;
+	        return Math.floor((val - Math.floor(val / tileSize) * tileSize) / //
+	        resolution);
+	    },
+
+	    /**
+	     * Decodes the specified character and transforms it in an index
+	     */
+	    _utfDecode: function _utfDecode(ch) {
+	        if (ch >= 93) {
+	            ch--;
+	        }
+	        if (ch >= 35) {
+	            ch--;
+	        }
+	        return ch - 32;
+	    }
+
+	});
+
+	UtfGrid.GridLoader = GridLoader;
+
+	module.exports = UtfGrid;
 
 /***/ },
-/* 35 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3844,6 +5074,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -3855,21 +5087,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(36);
+	var _react = __webpack_require__(41);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _promise = __webpack_require__(12);
+	var _promise = __webpack_require__(13);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _mosaicUi = __webpack_require__(37);
+	var _mosaicUi = __webpack_require__(42);
 
-	var _MapViewport = __webpack_require__(42);
+	var _MapViewport = __webpack_require__(47);
 
 	var _MapViewport2 = _interopRequireDefault(_MapViewport);
 
-	var _LeafletAdapter = __webpack_require__(1);
+	var _LeafletAdapter = __webpack_require__(2);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
@@ -3886,7 +5118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'renderView',
 	        value: function renderView() {
 	            var dependencies = this.options.dependencies || [this.dataSet];
-	            return _react2['default'].createElement(MapLayout, { view: this, dependencies: dependencies });
+	            return _react2['default'].createElement(MapLayout, _extends({ view: this, dependencies: dependencies }, this.options));
 	        }
 	    }, {
 	        key: 'bbox',
@@ -3964,9 +5196,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            this.map.on('zoomend', this._onZoomEnd, this);
 	            this._updateMapView();
-	            this._updateMapLayers();
 	            this._updateViewport();
 	            this._updateZoomStyles();
+	            this._updateMapLayers();
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
@@ -3996,7 +5228,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _newMap() {
 	            var options = L.Util.extend({}, {
 	                zoomControl: false,
-	                attributionControl: false
+	                attributionControl: false,
+	                maxZoom: this.props.maxZoom || 22,
+	                minZoom: this.props.minZoom || 0
 	            });
 	            var container = _react2['default'].findDOMNode(this);
 	            var map = new L.Map(container, options);
@@ -4064,9 +5298,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var view = this.props.view;
 	            var dataSet = view.dataSet;
 	            var adapter = dataSet.getAdapter(_LeafletAdapter2['default'], {
+	                map: this.map,
+	                dataSet: dataSet,
 	                selectedItems: view.options.selectedItems
 	            });
 	            this._leafletLayer = adapter.newLeafletLayer();
+
 	            if (this._leafletLayer) {
 	                this.map.addLayer(this._leafletLayer);
 	            }
@@ -4085,7 +5322,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    };
 	                    if (!bbox) {
-	                        // console.log('[ERROR][MapView] Bounding box is not defined',
+	                        // console.log('[ERROR][MapView] Bounding box is not
+	                        // defined',
 	                        // new Error().stack);
 	                        return handler();
 	                    }
@@ -4189,13 +5427,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 36 */
+/* 41 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_36__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_41__;
 
 /***/ },
-/* 37 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4206,19 +5444,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libDataSetLayout = __webpack_require__(38);
+	var _libDataSetLayout = __webpack_require__(43);
 
 	var _libDataSetLayout2 = _interopRequireDefault(_libDataSetLayout);
 
-	var _libUtils = __webpack_require__(40);
+	var _libUtils = __webpack_require__(45);
 
 	var _libUtils2 = _interopRequireDefault(_libUtils);
 
-	var _libView = __webpack_require__(41);
+	var _libView = __webpack_require__(46);
 
 	var _libView2 = _interopRequireDefault(_libView);
 
-	var _libViewLayout = __webpack_require__(39);
+	var _libViewLayout = __webpack_require__(44);
 
 	var _libViewLayout2 = _interopRequireDefault(_libViewLayout);
 
@@ -4231,7 +5469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 38 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4250,15 +5488,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(36);
+	var _react = __webpack_require__(41);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ViewLayout2 = __webpack_require__(39);
+	var _ViewLayout2 = __webpack_require__(44);
 
 	var _ViewLayout3 = _interopRequireDefault(_ViewLayout2);
 
-	var _Utils = __webpack_require__(40);
+	var _Utils = __webpack_require__(45);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -4319,7 +5557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 39 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4338,11 +5576,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(36);
+	var _react = __webpack_require__(41);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Utils = __webpack_require__(40);
+	var _Utils = __webpack_require__(45);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -4400,7 +5638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 40 */
+/* 45 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4466,7 +5704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 41 */
+/* 46 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4517,12 +5755,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var L = __webpack_require__(30);
+	var L = __webpack_require__(31);
 
 	/**
 	 * This class provides common utility methods to manage specific geographic zone
@@ -4698,7 +5936,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MapViewport;
 
 /***/ },
-/* 43 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4710,21 +5948,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mosaicDataset = __webpack_require__(2);
+	var _mosaicDataset = __webpack_require__(3);
 
-	var _DataSetLeafletAdapter = __webpack_require__(33);
+	var _DataSetLeafletAdapter = __webpack_require__(1);
 
 	var _DataSetLeafletAdapter2 = _interopRequireDefault(_DataSetLeafletAdapter);
 
-	var _LeafletAdapter = __webpack_require__(1);
+	var _LeafletAdapter = __webpack_require__(2);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _LeafletTilesAdapter = __webpack_require__(32);
+	var _LeafletTilesAdapter = __webpack_require__(38);
 
 	var _LeafletTilesAdapter2 = _interopRequireDefault(_LeafletTilesAdapter);
 
-	var _TilesInfo = __webpack_require__(31);
+	var _TilesInfo = __webpack_require__(49);
 
 	var _TilesInfo2 = _interopRequireDefault(_TilesInfo);
 
@@ -4734,6 +5972,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	    adapters.registerAdapter(_mosaicDataset.DataSet, _LeafletAdapter2['default'], _DataSetLeafletAdapter2['default']);
 	}
 
+	module.exports = exports['default'];
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _mosaicDataset = __webpack_require__(3);
+
+	var TilesInfo = (function (_Data) {
+	    _inherits(TilesInfo, _Data);
+
+	    function TilesInfo(options) {
+	        var _get2;
+
+	        _classCallCheck(this, TilesInfo);
+
+	        for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            params[_key - 1] = arguments[_key];
+	        }
+
+	        (_get2 = _get(Object.getPrototypeOf(TilesInfo.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(params));
+	        options = options || {};
+	    }
+
+	    _createClass(TilesInfo, [{
+	        key: 'tilesUrl',
+	        get: function get() {
+	            return this.get('properties.tilesUrl');
+	        },
+	        set: function set(url) {
+	            this.set('properties.tilesUrl', url);
+	        }
+	    }]);
+
+	    return TilesInfo;
+	})(_mosaicDataset.Data);
+
+	exports['default'] = TilesInfo;
 	module.exports = exports['default'];
 
 /***/ }
