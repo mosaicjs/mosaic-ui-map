@@ -294,7 +294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_closePopup',
 	        value: function _closePopup(layer) {
-	            if (layer._popup) {
+	            if (layer._popup && layer._map) {
 	                layer._map.removeLayer(layer._popup);
 	            }
 	        }
@@ -4213,14 +4213,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                that._layersIndex[item.id] = layer;
 	                toAdd.push(layer);
 	            });
-	            diff.removed.forEach(function (item) {
-	                var layer = that._layersIndex[item.id];
-	                if (!layer) return;
-	                delete that._layersIndex[item.id];
-	                var adapter = that._getLeafletAdapter(item);
-	                adapter.deleteLeafletLayer(layer);
-	                toRemove.push(layer);
-	            });
+	            try {
+	                diff.removed.forEach(function (item) {
+	                    var layer = that._layersIndex[item.id];
+	                    if (!layer) return;
+	                    delete that._layersIndex[item.id];
+	                    var adapter = that._getLeafletAdapter(item);
+	                    adapter.deleteLeafletLayer(layer);
+	                    toRemove.push(layer);
+	                });
+	            } catch (err) {
+	                console.log('ERROR', err);
+	            }
+	            console.log('>>>>', diff.removed);
 	            that.removeLayers(toRemove);
 	            that.addLayers(toAdd);
 	        }
@@ -5273,9 +5278,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _createClass(MapView, [{
 	        key: 'renderView',
-	        value: function renderView() {
+	        value: function renderView(options) {
 	            var dependencies = this.options.dependencies || [this.dataSet];
-	            return _react2['default'].createElement(MapLayout, _extends({ view: this, dependencies: dependencies }, this.options));
+	            var opt = _extends({}, this.options, options);
+	            return _react2['default'].createElement(MapLayout, _extends({ view: this, dependencies: dependencies }, opt));
 	        }
 	    }, {
 	        key: 'bbox',
@@ -5332,8 +5338,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(MapLayout, [{
 	        key: 'render',
 	        value: function render() {
-	            var className = this.props.view.options.className;
-	            return _react2['default'].createElement('div', { className: className, style: this.style });
+	            var className = this.props.className;
+	            var style = this.props.style;
+	            var id = this.props.id;
+	            var key = this.props.key || id;
+	            console.log('id=' + id, 'key=' + key);
+	            return _react2['default'].createElement('div', { className: className, style: style, id: id, key: key });
 	        }
 
 	        // -------------------------------------------------------------------
