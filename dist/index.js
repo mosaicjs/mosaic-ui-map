@@ -74,6 +74,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libLeafletAdapter2 = _interopRequireDefault(_libLeafletAdapter);
 
+	var _libLeafletClusterAdapter = __webpack_require__(36);
+
+	var _libLeafletClusterAdapter2 = _interopRequireDefault(_libLeafletClusterAdapter);
+
 	var _libLeafletInteractionLayer = __webpack_require__(37);
 
 	var _libLeafletInteractionLayer2 = _interopRequireDefault(_libLeafletInteractionLayer);
@@ -110,6 +114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    DataSetLeafletAdapter: _libDataSetLeafletAdapter2['default'],
 	    DataSetLeafletLayer: _libDataSetLeafletLayer2['default'],
 	    LeafletAdapter: _libLeafletAdapter2['default'],
+	    LeafletClusterAdapter: _libLeafletClusterAdapter2['default'],
 	    LeafletInteractionLayer: _libLeafletInteractionLayer2['default'],
 	    LeafletPopupAdapter: _libLeafletPopupAdapter2['default'],
 	    LeafletTilesAdapter: _libLeafletTilesAdapter2['default'],
@@ -301,12 +306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'selectLayer',
 	        value: function selectLayer(layer) {
-	            try {
-	                console.log('>>selectLayer', layer);
-	                this._openPopup(layer);
-	            } catch (err) {
-	                console.log('>> ERROR', err);
-	            }
+	            this._openPopup(layer);
 	        }
 	    }, {
 	        key: 'deselectLayer',
@@ -4107,8 +4107,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _mosaicDataset = __webpack_require__(3);
 
-	console.log(_leaflet2['default'].MarkerClusterGroup);
-
 	var DataSetLeafletLayer = (function (_L$MarkerClusterGroup) {
 	    _inherits(DataSetLeafletLayer, _L$MarkerClusterGroup);
 
@@ -4129,6 +4127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._layersIndex = {};
 	        this._onDataSetUpdate = this._onDataSetUpdate.bind(this);
 	        this._onSelectionUpdate = this._onSelectionUpdate.bind(this);
+	        this.options.polygonOptions = that._getClusterPolygonOptions();
 	    }
 
 	    _createClass(DataSetLeafletLayer, [{
@@ -4213,19 +4212,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                that._layersIndex[item.id] = layer;
 	                toAdd.push(layer);
 	            });
-	            try {
-	                diff.removed.forEach(function (item) {
-	                    var layer = that._layersIndex[item.id];
-	                    if (!layer) return;
-	                    delete that._layersIndex[item.id];
-	                    var adapter = that._getLeafletAdapter(item);
-	                    adapter.deleteLeafletLayer(layer);
-	                    toRemove.push(layer);
-	                });
-	            } catch (err) {
-	                console.log('ERROR', err);
-	            }
-	            console.log('>>>>', diff.removed);
+	            diff.removed.forEach(function (item) {
+	                var layer = that._layersIndex[item.id];
+	                if (!layer) return;
+	                delete that._layersIndex[item.id];
+	                var adapter = that._getLeafletAdapter(item);
+	                adapter.deleteLeafletLayer(layer);
+	                toRemove.push(layer);
+	            });
 	            that.removeLayers(toRemove);
 	            that.addLayers(toAdd);
 	        }
@@ -4246,7 +4240,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_newClusterIcon',
 	        value: function _newClusterIcon(cluster) {
 	            var clusterAdapter = this._getClusterAdapter();
-	            return clusterAdapter.newClusterIcon(cluster);
+	            return clusterAdapter.newClusterIcon(cluster, this);
+	        }
+	    }, {
+	        key: '_getClusterPolygonOptions',
+	        value: function _getClusterPolygonOptions() {
+	            var clusterAdapter = this._getClusterAdapter();
+	            return clusterAdapter.getClusterPolygonOptions(this);
 	        }
 	    }]);
 
@@ -4743,7 +4743,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	                c += 'large';
 	            }
 
-	            return new _leaflet2['default'].DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new _leaflet2['default'].Point(40, 40) });
+	            return new _leaflet2['default'].DivIcon({
+	                html: '<div><span>' + childCount + '</span></div>',
+	                className: 'marker-cluster' + c,
+	                iconSize: new _leaflet2['default'].Point(40, 40)
+	            });
+	        }
+	    }, {
+	        key: 'getClusterPolygonOptions',
+	        value: function getClusterPolygonOptions() {
+	            return {
+	                stroke: true,
+	                color: 'white',
+	                weight: 1,
+	                opacity: 1,
+	                fill: true,
+	                fillColor: 'white',
+	                fillOpacity: 0.3
+	            };
 	        }
 	    }]);
 
@@ -5342,7 +5359,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var style = this.props.style;
 	            var id = this.props.id;
 	            var key = this.props.key || id;
-	            console.log('id=' + id, 'key=' + key);
 	            return _react2['default'].createElement('div', { className: className, style: style, id: id, key: key });
 	        }
 
@@ -5490,8 +5506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    };
 	                    if (!bbox) {
 	                        // console.log('[ERROR][MapView] Bounding box is not
-	                        // defined',
-	                        // new Error().stack);
+	                        // defined', new Error().stack);
 	                        return handler();
 	                    }
 	                    var viewport = that._viewport;
