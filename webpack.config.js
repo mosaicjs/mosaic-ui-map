@@ -14,5 +14,5 @@ module.exports = {
         } ],
         noParse : [ /leaflet/ ]
     },
-    externals : [ 'react', 'promise', 'leaflet' ]
+    externals : [ 'react', 'promise', 'leaflet', 'leaflet-active-area' ]
 };
