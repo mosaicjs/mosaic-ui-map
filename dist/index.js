@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("promise"), require("leaflet"), require("react")) : factory(root["promise"], root["leaflet"], root["react"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_31__, __WEBPACK_EXTERNAL_MODULE_41__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_31__, __WEBPACK_EXTERNAL_MODULE_42__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -98,15 +98,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libMapView2 = _interopRequireDefault(_libMapView);
 
-	var _libMapViewport = __webpack_require__(47);
+	var _libMapViewport = __webpack_require__(48);
 
 	var _libMapViewport2 = _interopRequireDefault(_libMapViewport);
 
-	var _libRegisterAdapters = __webpack_require__(48);
+	var _libRegisterAdapters = __webpack_require__(49);
 
 	var _libRegisterAdapters2 = _interopRequireDefault(_libRegisterAdapters);
 
-	var _libTilesInfo = __webpack_require__(49);
+	var _libTilesInfo = __webpack_require__(50);
 
 	var _libTilesInfo2 = _interopRequireDefault(_libTilesInfo);
 
@@ -190,6 +190,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var options = {
 	                dataSet: dataSet,
 	                map: this.options.map,
+	                mapLayout: this.options.mapLayout,
+	                mapView: this.options.mapView,
 	                selectedItems: this.options.selectedItems
 	            };
 	            return new LayerType(options);
@@ -4185,6 +4187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        that.zoomToShowLayer(layer, function () {
 	                            setTimeout(function () {
 	                                var latlng = layer.getLatLng();
+	                                that._map.panTo(latlng);
 	                                adapter.selectLayer(layer);
 	                            }, 50);
 	                        });
@@ -5266,7 +5269,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(41);
+	var _leaflet = __webpack_require__(31);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	__webpack_require__(41);
+
+	var _react = __webpack_require__(42);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -5274,11 +5283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _mosaicUi = __webpack_require__(42);
-
-	var _MapViewport = __webpack_require__(47);
-
-	var _MapViewport2 = _interopRequireDefault(_MapViewport);
+	var _mosaicUi = __webpack_require__(43);
 
 	var _LeafletAdapter = __webpack_require__(2);
 
@@ -5319,11 +5324,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'events',
 	        get: function get() {
 	            return this.options.events || {};
-	        }
-	    }, {
-	        key: 'viewportInfo',
-	        get: function get() {
-	            return this.options.viewportInfo;
 	        }
 	    }, {
 	        key: 'zoom',
@@ -5368,9 +5368,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.map = this._newMap();
-	            this._viewport = new _MapViewport2['default']({
-	                map: this.map
-	            });
 	            var view = this.props.view;
 	            var events = view.events;
 	            for (var key in events) {
@@ -5379,7 +5376,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            this.map.on('zoomend', this._onZoomEnd, this);
 	            this._updateMapView();
-	            this._updateViewport();
+
+	            var info = this.props.view.viewportInfo;
+	            this.setViewportBox(info);
 	            this._updateZoomStyles();
 	            this._updateMapLayers();
 	        }
@@ -5395,13 +5394,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            this.map.off('zoomend', this._onZoomEnd, this);
 	            this.map.remove();
-	            delete this._viewport;
 	            delete this.map;
 	        }
 	    }, {
-	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate(props) {
-	            this._updateMapLayers();
+	        key: 'componentWillUpdate',
+	        value: function componentWillUpdate(props) {
+	            if (this.map) {
+	                this.setViewportBox(props.viewportInfo);
+	                this.map.invalidateSize();
+	            }
+	            // this._updateMapLayers();
 	        }
 
 	        // -------------------------------------------------------------------
@@ -5409,25 +5411,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_newMap',
 	        value: function _newMap() {
-	            var options = L.Util.extend({}, {
+	            var options = _leaflet2['default'].Util.extend({}, {
 	                zoomControl: false,
 	                attributionControl: false,
 	                maxZoom: this.props.maxZoom || 22,
 	                minZoom: this.props.minZoom || 0
 	            });
 	            var container = _react2['default'].findDOMNode(this);
-	            var map = new L.Map(container, options);
+	            var map = new _leaflet2['default'].Map(container, options);
 
 	            // Set the initial view of this map
 	            if (this.props.zoomControl !== false) {
 	                var zoomControlOptions = this.props.zoomControl || {};
-	                var zoomControl = L.control.zoom(options);
+	                var zoomControl = _leaflet2['default'].control.zoom(options);
 	                map.addControl(zoomControl);
 	            }
 
 	            if (this.props.attribution !== false) {
 	                var attributionControlOptions = this.props.attribution || {};
-	                var attributionControl = L.control.attribution(attributionControlOptions);
+	                var attributionControl = _leaflet2['default'].control.attribution(attributionControlOptions);
 	                map.addControl(attributionControl);
 	            }
 	            return map;
@@ -5480,13 +5482,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._removeMapLayers();
 	            var view = this.props.view;
 	            var dataSet = view.dataSet;
-	            var adapter = dataSet.getAdapter(_LeafletAdapter2['default'], {
+	            var options = {
+	                mapView: view,
+	                mapLayout: this,
 	                map: this.map,
 	                dataSet: dataSet,
 	                selectedItems: view.options.selectedItems
-	            });
+	            };
+	            var adapter = dataSet.getAdapter(_LeafletAdapter2['default'], options);
+	            adapter.options.mapView = view;
+	            adapter.options.mapLayout = this;
+	            adapter.options.map = this;
+	            adapter.options.dataSet = dataSet;
+	            adapter.options.selectedItems = view.options.selectedItems;
 	            this._leafletLayer = adapter.newLeafletLayer();
-
 	            if (this._leafletLayer) {
 	                this.map.addLayer(this._leafletLayer);
 	            }
@@ -5509,16 +5518,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        // defined', new Error().stack);
 	                        return handler();
 	                    }
-	                    var viewport = that._viewport;
 	                    if (isEmptyBox(bbox, 4)) {
-	                        var center = L.latLng(bbox[1], bbox[0]);
-	                        viewport.focusTo(center, handler);
+	                        var center = _leaflet2['default'].latLng(bbox[1], bbox[0]);
+	                        that.map.panTo(center, handler);
 	                    } else {
-	                        var bounds = L.latLngBounds( //
-	                        L.latLng(bbox[1], bbox[0]), //
-	                        L.latLng(bbox[3], bbox[2]) //
+	                        var bounds = _leaflet2['default'].latLngBounds( //
+	                        _leaflet2['default'].latLng(bbox[1], bbox[0]), //
+	                        _leaflet2['default'].latLng(bbox[3], bbox[2]) //
 	                        );
-	                        viewport.panInsideBounds(bounds, handler);
+	                        that.map.panInsideBounds(bounds, handler);
 	                    }
 	                } catch (err) {
 	                    reject(err);
@@ -5531,11 +5539,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var view = this.props.view;
 	            var center = view.center;
 	            if (Array.isArray(center)) {
-	                center = L.latLng(center[1], center[0]);
+	                center = _leaflet2['default'].latLng(center[1], center[0]);
 	            } else {
-	                center = L.latlng(center);
+	                center = _leaflet2['default'].latlng(center);
 	            }
-
 	            var zoom = view.zoom;
 	            var map = this.map;
 	            if (this._zoom === undefined || this._center === undefined || this._center + '' !== center + '' || this._zoom != zoom) {
@@ -5550,23 +5557,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /** Sets a new viewport bounding box for this map. */
 	    }, {
-	        key: '_updateViewport',
-	        value: function _updateViewport() {
-	            if (!this._viewport) return;
-	            var view = this.props.view;
-	            var info = view.viewportInfo;
-	            if (!info) return;
-	            var topLeft = info.topLeft;
-	            var bottomRight = info.bottomRight;
-	            if (!topLeft || !bottomRight) return;
-	            var focusPosition = info.focusPosition;
-	            var bounds = L.bounds(topLeft, bottomRight);
-	            this._viewport.setViewport(bounds);
-	            if (focusPosition) {
-	                this._viewport.setFocusPosition({
-	                    top: focusPosition[1],
-	                    left: focusPosition[0]
-	                });
+	        key: 'setViewportBox',
+	        value: function setViewportBox(info) {
+	            if (info) {
+	                var options = {
+	                    position: 'absolute',
+	                    left: info.topLeft[1] + 'px',
+	                    top: info.topLeft[0] + 'px',
+	                    height: Math.abs(info.bottomRight[0] - info.topLeft[0]) + 'px',
+	                    width: Math.abs(info.bottomRight[1] - info.topLeft[1]) + 'px'
+	                };
+	                var center = this.map.getCenter();
+	                this.map.setActiveArea(options);
+	                this.map.setView(center);
 	            }
 	        }
 	    }]);
@@ -5612,10 +5615,189 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 41 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_41__;
+	'use strict';
+
+	(function (previousMethods) {
+	    if (typeof previousMethods === 'undefined') {
+	        // Defining previously that object allows you to use that plugin even if you have overridden L.map
+	        previousMethods = {
+	            getCenter: L.Map.prototype.getCenter,
+	            setView: L.Map.prototype.setView,
+	            setZoomAround: L.Map.prototype.setZoomAround,
+	            getBoundsZoom: L.Map.prototype.getBoundsZoom,
+	            scaleUpdate: L.Control.Scale.prototype._update
+	        };
+	    }
+
+	    L.Map.include({
+	        getBounds: function getBounds() {
+	            if (this._viewport) {
+	                return this.getViewportLatLngBounds();
+	            } else {
+	                var bounds = this.getPixelBounds(),
+	                    sw = this.unproject(bounds.getBottomLeft()),
+	                    ne = this.unproject(bounds.getTopRight());
+
+	                return new L.LatLngBounds(sw, ne);
+	            }
+	        },
+
+	        getViewport: function getViewport() {
+	            return this._viewport;
+	        },
+
+	        getViewportBounds: function getViewportBounds() {
+	            var vp = this._viewport,
+	                topleft = L.point(vp.offsetLeft, vp.offsetTop),
+	                vpsize = L.point(vp.clientWidth, vp.clientHeight);
+
+	            if (vpsize.x === 0 || vpsize.y === 0) {
+	                //Our own viewport has no good size - so we fallback to the container size:
+	                vp = this.getContainer();
+	                if (vp) {
+	                    topleft = L.point(0, 0);
+	                    vpsize = L.point(vp.clientWidth, vp.clientHeight);
+	                }
+	            }
+
+	            return L.bounds(topleft, topleft.add(vpsize));
+	        },
+
+	        getViewportLatLngBounds: function getViewportLatLngBounds() {
+	            var bounds = this.getViewportBounds();
+	            return L.latLngBounds(this.containerPointToLatLng(bounds.min), this.containerPointToLatLng(bounds.max));
+	        },
+
+	        getOffset: function getOffset() {
+	            var mCenter = this.getSize().divideBy(2),
+	                vCenter = this.getViewportBounds().getCenter();
+
+	            return mCenter.subtract(vCenter);
+	        },
+
+	        getCenter: function getCenter() {
+	            var center = previousMethods.getCenter.call(this);
+
+	            if (this.getViewport()) {
+	                var zoom = this.getZoom(),
+	                    point = this.project(center, zoom);
+	                point = point.subtract(this.getOffset());
+
+	                center = this.unproject(point, zoom);
+	            }
+
+	            return center;
+	        },
+
+	        setView: function setView(center, zoom, options) {
+	            center = L.latLng(center);
+	            zoom = zoom || this.getZoom();
+
+	            if (this.getViewport()) {
+	                var point = this.project(center, this._limitZoom(zoom));
+	                point = point.add(this.getOffset());
+	                center = this.unproject(point, this._limitZoom(zoom));
+	            }
+
+	            return previousMethods.setView.call(this, center, zoom, options);
+	        },
+
+	        setZoomAround: function setZoomAround(latlng, zoom, options) {
+	            var vp = this.getViewport();
+
+	            if (vp) {
+	                var scale = this.getZoomScale(zoom),
+	                    viewHalf = this.getViewportBounds().getCenter(),
+	                    containerPoint = latlng instanceof L.Point ? latlng : this.latLngToContainerPoint(latlng),
+	                    centerOffset = containerPoint.subtract(viewHalf).multiplyBy(1 - 1 / scale),
+	                    newCenter = this.containerPointToLatLng(viewHalf.add(centerOffset));
+
+	                return this.setView(newCenter, zoom, { zoom: options });
+	            } else {
+	                return previousMethods.setZoomAround.call(this, latlng, zoom, options);
+	            }
+	        },
+
+	        getBoundsZoom: function getBoundsZoom(bounds, inside, padding) {
+	            // (LatLngBounds[, Boolean, Point]) -> Number
+	            bounds = L.latLngBounds(bounds);
+
+	            var zoom = this.getMinZoom() - (inside ? 1 : 0),
+	                maxZoom = this.getMaxZoom(),
+	                vp = this.getViewport(),
+	                size = vp ? L.point(vp.clientWidth, vp.clientHeight) : this.getSize(),
+	                nw = bounds.getNorthWest(),
+	                se = bounds.getSouthEast(),
+	                zoomNotFound = true,
+	                boundsSize;
+
+	            padding = L.point(padding || [0, 0]);
+
+	            do {
+	                zoom++;
+	                boundsSize = this.project(se, zoom).subtract(this.project(nw, zoom)).add(padding);
+	                zoomNotFound = !inside ? size.contains(boundsSize) : boundsSize.x < size.x || boundsSize.y < size.y;
+	            } while (zoomNotFound && zoom <= maxZoom);
+
+	            if (zoomNotFound && inside) {
+	                return null;
+	            }
+
+	            return inside ? zoom : zoom - 1;
+	        }
+	    });
+
+	    L.Control.Scale.include({
+	        _update: function _update() {
+	            if (!this._map._viewport) {
+	                previousMethods.scaleUpdate.call(this);
+	            } else {
+	                var bounds = this._map.getBounds(),
+	                    centerLat = bounds.getCenter().lat,
+	                    halfWorldMeters = 6378137 * Math.PI * Math.cos(centerLat * Math.PI / 180),
+	                    dist = halfWorldMeters * (bounds.getNorthEast().lng - bounds.getSouthWest().lng) / 180,
+	                    size = this._map.getSize(),
+	                    options = this.options,
+	                    maxMeters = 0;
+
+	                var size = new L.Point(this._map._viewport.clientWidth, this._map._viewport.clientHeight);
+
+	                if (size.x > 0) {
+	                    maxMeters = dist * (options.maxWidth / size.x);
+	                }
+
+	                this._updateScales(options, maxMeters);
+	            }
+	        }
+	    });
+
+	    L.Map.include({
+	        setActiveArea: function setActiveArea(css) {
+	            if (!this._viewport) {
+	                //Make viewport if not already made
+	                var container = this.getContainer();
+	                this._viewport = L.DomUtil.create('div', '');
+	                container.insertBefore(this._viewport, container.firstChild);
+	            }
+	            console.log(this._viewport);
+	            if (typeof css === 'string') {
+	                this._viewport.className = css;
+	            } else {
+	                L.extend(this._viewport.style, css);
+	            }
+	            return this;
+	        }
+	    });
+	})(window.leafletActiveAreaPreviousMethods);
 
 /***/ },
 /* 42 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_42__;
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5626,19 +5808,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libDataSetLayout = __webpack_require__(43);
+	var _libDataSetLayout = __webpack_require__(44);
 
 	var _libDataSetLayout2 = _interopRequireDefault(_libDataSetLayout);
 
-	var _libUtils = __webpack_require__(45);
+	var _libUtils = __webpack_require__(46);
 
 	var _libUtils2 = _interopRequireDefault(_libUtils);
 
-	var _libView = __webpack_require__(46);
+	var _libView = __webpack_require__(47);
 
 	var _libView2 = _interopRequireDefault(_libView);
 
-	var _libViewLayout = __webpack_require__(44);
+	var _libViewLayout = __webpack_require__(45);
 
 	var _libViewLayout2 = _interopRequireDefault(_libViewLayout);
 
@@ -5651,7 +5833,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5670,15 +5852,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(41);
+	var _react = __webpack_require__(42);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ViewLayout2 = __webpack_require__(44);
+	var _ViewLayout2 = __webpack_require__(45);
 
 	var _ViewLayout3 = _interopRequireDefault(_ViewLayout2);
 
-	var _Utils = __webpack_require__(45);
+	var _Utils = __webpack_require__(46);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -5739,7 +5921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5758,11 +5940,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(41);
+	var _react = __webpack_require__(42);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Utils = __webpack_require__(45);
+	var _Utils = __webpack_require__(46);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -5820,7 +6002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5886,7 +6068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5937,7 +6119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6048,6 +6230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        callback = this._checkCallback(callback);
 	        var map = this.getMap();
 	        focusPos = this._getAbsFocusPosition(focusPos);
+	        console.log('MapViewport focusTo', coords, focusPos, this.getFocusPosition());
 	        var shift = map.project(coords).subtract(focusPos);
 	        map.once('moveend', function (ev) {
 	            callback(null, ev);
@@ -6118,7 +6301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MapViewport;
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6144,7 +6327,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _LeafletTilesAdapter2 = _interopRequireDefault(_LeafletTilesAdapter);
 
-	var _TilesInfo = __webpack_require__(49);
+	var _TilesInfo = __webpack_require__(50);
 
 	var _TilesInfo2 = _interopRequireDefault(_TilesInfo);
 
@@ -6157,7 +6340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
