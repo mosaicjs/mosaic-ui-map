@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("promise"), require("leaflet"), require("react")) : factory(root["promise"], root["leaflet"], root["react"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_31__, __WEBPACK_EXTERNAL_MODULE_42__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_35__, __WEBPACK_EXTERNAL_MODULE_46__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -66,7 +66,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libDataSetLeafletAdapter2 = _interopRequireDefault(_libDataSetLeafletAdapter);
 
-	var _libDataSetLeafletLayer = __webpack_require__(33);
+	var _libDataSetLeafletLayer = __webpack_require__(37);
 
 	var _libDataSetLeafletLayer2 = _interopRequireDefault(_libDataSetLeafletLayer);
 
@@ -74,39 +74,39 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libLeafletAdapter2 = _interopRequireDefault(_libLeafletAdapter);
 
-	var _libLeafletClusterAdapter = __webpack_require__(36);
+	var _libLeafletClusterAdapter = __webpack_require__(40);
 
 	var _libLeafletClusterAdapter2 = _interopRequireDefault(_libLeafletClusterAdapter);
 
-	var _libLeafletInteractionLayer = __webpack_require__(37);
+	var _libLeafletInteractionLayer = __webpack_require__(41);
 
 	var _libLeafletInteractionLayer2 = _interopRequireDefault(_libLeafletInteractionLayer);
 
-	var _libLeafletPopupAdapter = __webpack_require__(32);
+	var _libLeafletPopupAdapter = __webpack_require__(36);
 
 	var _libLeafletPopupAdapter2 = _interopRequireDefault(_libLeafletPopupAdapter);
 
-	var _libLeafletTilesAdapter = __webpack_require__(38);
+	var _libLeafletTilesAdapter = __webpack_require__(42);
 
 	var _libLeafletTilesAdapter2 = _interopRequireDefault(_libLeafletTilesAdapter);
 
-	var _libLeafletUtfGrid = __webpack_require__(39);
+	var _libLeafletUtfGrid = __webpack_require__(43);
 
 	var _libLeafletUtfGrid2 = _interopRequireDefault(_libLeafletUtfGrid);
 
-	var _libMapView = __webpack_require__(40);
+	var _libMapView = __webpack_require__(44);
 
 	var _libMapView2 = _interopRequireDefault(_libMapView);
 
-	var _libMapViewport = __webpack_require__(48);
+	var _libMapViewport = __webpack_require__(52);
 
 	var _libMapViewport2 = _interopRequireDefault(_libMapViewport);
 
-	var _libRegisterAdapters = __webpack_require__(49);
+	var _libRegisterAdapters = __webpack_require__(53);
 
 	var _libRegisterAdapters2 = _interopRequireDefault(_libRegisterAdapters);
 
-	var _libTilesInfo = __webpack_require__(50);
+	var _libTilesInfo = __webpack_require__(54);
 
 	var _libTilesInfo2 = _interopRequireDefault(_libTilesInfo);
 
@@ -151,11 +151,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _LeafletAdapter3 = _interopRequireDefault(_LeafletAdapter2);
 
-	var _DataSetLeafletLayer = __webpack_require__(33);
+	var _DataSetLeafletLayer = __webpack_require__(37);
 
 	var _DataSetLeafletLayer2 = _interopRequireDefault(_DataSetLeafletLayer);
 
-	var _DataSetClusteredLeafletLayer = __webpack_require__(34);
+	var _DataSetClusteredLeafletLayer = __webpack_require__(38);
 
 	var _DataSetClusteredLeafletLayer2 = _interopRequireDefault(_DataSetClusteredLeafletLayer);
 
@@ -229,15 +229,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicIntents = __webpack_require__(3);
 
-	var _mosaicDatasetGeo = __webpack_require__(21);
+	var _mosaicDataset = __webpack_require__(9);
 
-	var _leaflet = __webpack_require__(31);
+	var _mosaicDatasetGeo = __webpack_require__(25);
+
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	var _LeafletPopupAdapter = __webpack_require__(32);
+	var _LeafletPopupAdapter = __webpack_require__(36);
 
 	var _LeafletPopupAdapter2 = _interopRequireDefault(_LeafletPopupAdapter);
 
@@ -252,7 +254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(LeafletAdapter, [{
 	        key: '_getPopupOffset',
 	        value: function _getPopupOffset(layer) {
-	            // Calculate the popup offset 
+	            // Calculate the popup offset
 	            var anchor = undefined;
 	            if (layer._getPopupAnchor) {
 	                anchor = layer._getPopupAnchor();
@@ -269,54 +271,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_openPopup',
 	        value: function _openPopup(layer) {
-	            var popupAdapter = this.item.getAdapter(_LeafletPopupAdapter2['default']);
-	            if (!layer._popup) {
-	                layer._popup = new _leaflet2['default'].Popup({
-	                    autoClose: false,
-	                    closeOnClick: true,
-	                    //                keepInView : true,
-	                    closeButton: true
-	                }, layer);
-	            }
-	            var latlng = undefined;
-	            if (layer.getCenter) {
-	                latlng = layer.getCenter();
-	            } else if (layer.getLatLng) {
-	                latlng = layer.getLatLng();
-	            } else {
-	                latlng = this._getMarkerCoordinates();
-	            }
+	            var that = this;
+	            var intent = new _mosaicIntents.Intent({}, 'popup');
+	            that._closePopup(layer).then(function () {
+	                if (intent.handled) return;
+	                if (!layer._popup) {
+	                    layer._popup = new _leaflet2['default'].Popup({
+	                        autoClose: true,
+	                        closeOnClick: true,
+	                        // keepInView : true,
+	                        closeButton: true
+	                    }, layer);
+	                }
+	                var latlng = undefined;
+	                if (layer.getCenter) {
+	                    latlng = layer.getCenter();
+	                } else if (layer.getLatLng) {
+	                    latlng = layer.getLatLng();
+	                } else {
+	                    latlng = that._getMarkerCoordinates();
+	                }
 
-	            layer._popup.options.offset = this._getPopupOffset(layer);
+	                layer._popup.options.offset = that._getPopupOffset(layer);
+	                layer._popup.once('close', function () {
+	                    intent.resolve(true);
+	                });
+	                //
+	                layer._popup.setLatLng(latlng);
+	                layer._popup.update();
 
-	            //
-	            layer._popup.setLatLng(latlng);
-	            layer._popup.update();
-	            var popupContent = popupAdapter.renderPopupContent({
-	                latlng: latlng
+	                var popupAdapter = that.item.getAdapter(_LeafletPopupAdapter2['default']);
+	                var popupContent = popupAdapter.renderPopupContent({
+	                    latlng: latlng
+	                });
+	                layer._popup.setContent(popupContent);
+
+	                var onClose = undefined;
+	                if (typeof layer.bindPopup) {
+	                    layer.bindPopup(layer._popup);
+	                    layer.openPopup();
+	                    onClose = function () {
+	                        layer.closePopup();
+	                    };
+	                } else {
+	                    (function () {
+	                        var map = layer._map;
+	                        onClose = function () {
+	                            map.removeLayer(layer._popup);
+	                        };
+	                        map.addLayer(layer._popup);
+	                    })();
+	                }
+	                layer._popupIntent = intent;
+	                intent.then(function () {
+	                    delete layer._popupIntent;
+	                });
+	                intent.after(onClose, onClose);
 	            });
-	            layer._popup.setContent(popupContent);
-	            layer._map.addLayer(layer._popup);
+	            return intent;
 	        }
 	    }, {
 	        key: '_closePopup',
 	        value: function _closePopup(layer) {
-	            if (layer._popup && layer._map) {
-	                layer._map.removeLayer(layer._popup);
+	            var promise = undefined;
+	            if (layer._popupIntent) {
+	                promise = layer._popupIntent.promise;
+	                layer._popupIntent.resolve();
+	            } else {
+	                promise = Promise.resolve();
 	            }
+	            return promise;
 	        }
 	    }, {
 	        key: 'selectLayer',
 	        value: function selectLayer(layer) {
-	            this._openPopup(layer);
+	            return this._openPopup(layer);
 	        }
 	    }, {
 	        key: 'deselectLayer',
 	        value: function deselectLayer(layer) {
-	            this._closePopup(layer);
+	            return this._closePopup(layer);
 	        }
 
-	        /** Returns a Laflet L.LatLng object with coordinates of the marker position for this resource. */
+	        /**
+	         * Returns a Laflet L.LatLng object with coordinates of the marker position
+	         * for this resource.
+	         */
 	    }, {
 	        key: '_getMarkerCoordinates',
 	        value: function _getMarkerCoordinates() {
@@ -341,8 +381,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            var radius = 20;
 	            var icon = new MarkerIcon({
-	                radius: radius + 'px',
-	                iconAnchor: [radius / 2, 0],
+	                // radius : radius + 'px',
+	                // iconAnchor: [radius / 2, 0],
 	                style: {
 	                    border: '2px solid gray',
 	                    backgroundColor: 'white'
@@ -435,27 +475,576 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libData = __webpack_require__(4);
+	var _libIntent = __webpack_require__(4);
+
+	var _libIntent2 = _interopRequireDefault(_libIntent);
+
+	var _libIntents = __webpack_require__(7);
+
+	var _libIntents2 = _interopRequireDefault(_libIntents);
+
+	var _libSingleton = __webpack_require__(8);
+
+	var _libSingleton2 = _interopRequireDefault(_libSingleton);
+
+	exports['default'] = {
+	    Intent: _libIntent2['default'],
+	    Intents: _libIntents2['default'],
+	    Singleton: _libSingleton2['default']
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _promise = __webpack_require__(5);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	var _events = __webpack_require__(6);
+
+	var Intent = (function (_EventEmitter) {
+	    _inherits(Intent, _EventEmitter);
+
+	    function Intent(params, key) {
+	        _classCallCheck(this, Intent);
+
+	        _get(Object.getPrototypeOf(Intent.prototype), 'constructor', this).call(this);
+	        var that = this;
+	        that.params = params;
+	        if (key) {
+	            that.key = key;
+	        }
+	        that.handled = false;
+	        that._after = [];
+	        that._innerPromise = new _promise2['default'](function (resolve, reject) {
+	            that.resolve = function (result) {
+	                that.handled = true;
+	                resolve(result);
+	                return that;
+	            };
+	            that.reject = function (err) {
+	                that.handled = true;
+	                reject(err);
+	                return that;
+	            };
+	        });
+	        that.promise = that._innerPromise.then(function (res) {
+	            if (that._after.length) {
+	                return _promise2['default'].all(that._after).then(function () {
+	                    return res;
+	                }, function (err) {
+	                    throw err;
+	                });
+	            }
+	            return res;
+	        });
+	        that.finalize = that['finally'] = function (method) {
+	            return that.then(function (result) {
+	                try {
+	                    method(null, result);
+	                } catch (e) {}
+	                return result;
+	            }, function (err) {
+	                try {
+	                    method(err);
+	                } catch (e) {}
+	                throw err;
+	            });
+	        };
+	    }
+
+	    _createClass(Intent, [{
+	        key: 'then',
+	        value: function then(onResolve, onReject) {
+	            return this.promise.then(onResolve, onReject);
+	        }
+
+	        /**
+	         * The specified action will be executed just after the main promise is
+	         * resolved.
+	         */
+	    }, {
+	        key: 'after',
+	        value: function after(onResolve, onReject) {
+	            var res = this._innerPromise.then(onResolve, onReject);
+	            this._after.push(res);
+	            return res;
+	        }
+	    }]);
+
+	    return Intent;
+	})(_events.EventEmitter);
+
+	exports['default'] = Intent;
+	module.exports = exports['default'];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	'use strict';
+
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function (n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+
+	EventEmitter.prototype.emit = function (type) {
+	  var er, handler, len, args, i, listeners;
+
+	  if (!this._events) this._events = {};
+
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      }
+	      throw TypeError('Uncaught, unspecified "error" event.');
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler)) return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        len = arguments.length;
+	        args = new Array(len - 1);
+	        for (i = 1; i < len; i++) args[i - 1] = arguments[i];
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    len = arguments.length;
+	    args = new Array(len - 1);
+	    for (i = 1; i < len; i++) args[i - 1] = arguments[i];
+
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function (type, listener) {
+	  var m;
+
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  if (!this._events) this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    var m;
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function (type, listener) {
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function (type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type]) return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+	    delete this._events[type];
+	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0) return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function (type) {
+	  var key, listeners;
+
+	  if (!this._events) return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else {
+	    // LIFO order
+	    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function (type) {
+	  var ret;
+	  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.listenerCount = function (emitter, type) {
+	  var ret;
+	  if (!emitter._events || !emitter._events[type]) ret = 0;else if (isFunction(emitter._events[type])) ret = 1;else ret = emitter._events[type].length;
+	  return ret;
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _events = __webpack_require__(6);
+
+	var _Intent = __webpack_require__(4);
+
+	var _Intent2 = _interopRequireDefault(_Intent);
+
+	function Intents(obj) {
+	    obj = obj || this;
+	    _events.EventEmitter.apply(obj);
+	}
+	extend(Intents.prototype, {
+	    intent: function intent(key, params) {
+	        var intent = this._newIntent(key, params);
+	        return this.fireIntent(key, intent);
+	    },
+	    action: function action(key, params, _action) {
+	        if (_action === undefined) {
+	            _action = params;
+	            params = undefined;
+	        }
+	        var intent = this._newIntent(key, params);
+	        return this.runAction(key, intent, _action);
+	    },
+	    fireIntent: function fireIntent(key, intent) {
+	        try {
+	            this.emit(key, intent);
+	        } catch (err) {
+	            intent.reject(err);
+	        }
+	        return intent;
+	    },
+	    runAction: function runAction(key, intent, action) {
+	        try {
+	            var that = this;
+	            intent = that.fireIntent(key, intent);
+	            if (!intent.handled) {
+	                var result = action.call(that, intent);
+	                if (result !== undefined && !intent.handled) {
+	                    intent.resolve(result);
+	                }
+	            }
+	        } catch (err) {
+	            intent.reject(err);
+	        }
+	        return intent;
+	    },
+	    _newIntent: function _newIntent(key, params) {
+	        return new _Intent2['default'](params, key);
+	    }
+	}, _events.EventEmitter.prototype);
+
+	Intents.addTo = function (Type) {
+	    extend(Type.prototype, Intents.prototype);
+	};
+
+	function extend(to) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var from = arguments[i];
+	        for (var key in from) {
+	            if (!to[key] && Object.prototype.hasOwnProperty.call(from, key)) {
+	                to[key] = from[key];
+	            }
+	        }
+	    }
+	}
+
+	exports['default'] = Intents;
+	module.exports = exports['default'];
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _promise = __webpack_require__(5);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	exports['default'] = {
+	    singletonPromise: function singletonPromise(method) {
+	        function runAction(params) {
+	            params = params || {};
+	            for (var key in params) {
+	                runAction.params[key] = params[key];
+	            }
+	            if (!runAction.promise) {
+	                runAction.promise = _promise2['default'].resolve().then(function (result) {
+	                    delete runAction.promise;
+	                    runAction.params = {};
+	                    return method.call(that, params);
+	                });
+	            }
+	            return runAction.promise;
+	        }
+	        runAction.params = {};
+	        runAction.promise;
+	        return runAction;
+	    },
+	    singletonAction: function singletonAction(that, actionName, action) {
+	        function runAction(params) {
+	            params = params || {};
+	            for (var key in params) {
+	                runAction.params[key] = params[key];
+	            }
+	            if (!runAction.intent) {
+	                runAction.intent = that.action(actionName, runAction.params, function (n) {
+	                    function clear() {
+	                        if (n === runAction.intent) {
+	                            runAction.params = {};
+	                            delete runAction.intent;
+	                        }
+	                    }
+	                    n.after(clear, clear);
+	                    return action.call(that, n);
+	                });
+	            }
+	            return runAction.intent;
+	        }
+	        runAction.params = {};
+	        return runAction;
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _libData = __webpack_require__(10);
 
 	var _libData2 = _interopRequireDefault(_libData);
 
-	var _libDataSet = __webpack_require__(10);
+	var _libDataSet = __webpack_require__(16);
 
 	var _libDataSet2 = _interopRequireDefault(_libDataSet);
 
-	var _libDerivativeDataSet = __webpack_require__(17);
+	var _libDerivativeDataSet = __webpack_require__(21);
 
 	var _libDerivativeDataSet2 = _interopRequireDefault(_libDerivativeDataSet);
 
-	var _libDataSetFiltered = __webpack_require__(18);
+	var _libDataSetFiltered = __webpack_require__(22);
 
 	var _libDataSetFiltered2 = _interopRequireDefault(_libDataSetFiltered);
 
-	var _libDataSetPaginated = __webpack_require__(19);
+	var _libDataSetPaginated = __webpack_require__(23);
 
 	var _libDataSetPaginated2 = _interopRequireDefault(_libDataSetPaginated);
 
-	var _libDataSetSelection = __webpack_require__(20);
+	var _libDataSetSelection = __webpack_require__(24);
 
 	var _libDataSetSelection2 = _interopRequireDefault(_libDataSetSelection);
 
@@ -475,7 +1064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 4 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -492,7 +1081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicAdapters = __webpack_require__(5);
+	var _mosaicAdapters = __webpack_require__(11);
 
 	var idCounter = 0;
 	/**
@@ -670,7 +1259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 5 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -681,19 +1270,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libTypeKey = __webpack_require__(6);
+	var _libTypeKey = __webpack_require__(12);
 
 	var _libTypeKey2 = _interopRequireDefault(_libTypeKey);
 
-	var _libAdapterManager = __webpack_require__(7);
+	var _libAdapterManager = __webpack_require__(13);
 
 	var _libAdapterManager2 = _interopRequireDefault(_libAdapterManager);
 
-	var _libAdapter = __webpack_require__(8);
+	var _libAdapter = __webpack_require__(14);
 
 	var _libAdapter2 = _interopRequireDefault(_libAdapter);
 
-	var _libAdaptable = __webpack_require__(9);
+	var _libAdaptable = __webpack_require__(15);
 
 	var _libAdaptable2 = _interopRequireDefault(_libAdaptable);
 
@@ -706,7 +1295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/**
@@ -964,7 +1553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 7 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -979,7 +1568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _TypeKey = __webpack_require__(6);
+	var _TypeKey = __webpack_require__(12);
 
 	var _TypeKey2 = _interopRequireDefault(_TypeKey);
 
@@ -1142,7 +1731,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 14 */
 /***/ function(module, exports) {
 
 	/**
@@ -1230,7 +1819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1249,11 +1838,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _TypeKey = __webpack_require__(6);
+	var _TypeKey = __webpack_require__(12);
 
 	var _TypeKey2 = _interopRequireDefault(_TypeKey);
 
-	var _Adapter2 = __webpack_require__(8);
+	var _Adapter2 = __webpack_require__(14);
 
 	var _Adapter3 = _interopRequireDefault(_Adapter2);
 
@@ -1430,7 +2019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 10 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1450,11 +2039,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicIntents = __webpack_require__(11);
+	var _mosaicIntents = __webpack_require__(17);
 
-	var _mosaicAdapters = __webpack_require__(5);
+	var _mosaicAdapters = __webpack_require__(11);
 
-	var _Data2 = __webpack_require__(4);
+	var _Data2 = __webpack_require__(10);
 
 	var _Data3 = _interopRequireDefault(_Data2);
 
@@ -2012,7 +2601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2023,15 +2612,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libIntent = __webpack_require__(12);
+	var _libIntent = __webpack_require__(18);
 
 	var _libIntent2 = _interopRequireDefault(_libIntent);
 
-	var _libIntents = __webpack_require__(15);
+	var _libIntents = __webpack_require__(19);
 
 	var _libIntents2 = _interopRequireDefault(_libIntents);
 
-	var _libSingleton = __webpack_require__(16);
+	var _libSingleton = __webpack_require__(20);
 
 	var _libSingleton2 = _interopRequireDefault(_libSingleton);
 
@@ -2043,7 +2632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2062,11 +2651,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _promise = __webpack_require__(13);
+	var _promise = __webpack_require__(5);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _events = __webpack_require__(14);
+	var _events = __webpack_require__(6);
 
 	var Intent = (function (_EventEmitter) {
 	    _inherits(Intent, _EventEmitter);
@@ -2145,280 +2734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	'use strict';
-
-	function EventEmitter() {
-	  this._events = this._events || {};
-	  this._maxListeners = this._maxListeners || undefined;
-	}
-	module.exports = EventEmitter;
-
-	// Backwards-compat with node 0.10.x
-	EventEmitter.EventEmitter = EventEmitter;
-
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
-
-	// By default EventEmitters will print a warning if more than 10 listeners are
-	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
-
-	// Obviously not all Emitters should be limited to 10. This function allows
-	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function (n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
-	  this._maxListeners = n;
-	  return this;
-	};
-
-	EventEmitter.prototype.emit = function (type) {
-	  var er, handler, len, args, i, listeners;
-
-	  if (!this._events) this._events = {};
-
-	  // If there is no 'error' event listener then throw.
-	  if (type === 'error') {
-	    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
-	      er = arguments[1];
-	      if (er instanceof Error) {
-	        throw er; // Unhandled 'error' event
-	      }
-	      throw TypeError('Uncaught, unspecified "error" event.');
-	    }
-	  }
-
-	  handler = this._events[type];
-
-	  if (isUndefined(handler)) return false;
-
-	  if (isFunction(handler)) {
-	    switch (arguments.length) {
-	      // fast cases
-	      case 1:
-	        handler.call(this);
-	        break;
-	      case 2:
-	        handler.call(this, arguments[1]);
-	        break;
-	      case 3:
-	        handler.call(this, arguments[1], arguments[2]);
-	        break;
-	      // slower
-	      default:
-	        len = arguments.length;
-	        args = new Array(len - 1);
-	        for (i = 1; i < len; i++) args[i - 1] = arguments[i];
-	        handler.apply(this, args);
-	    }
-	  } else if (isObject(handler)) {
-	    len = arguments.length;
-	    args = new Array(len - 1);
-	    for (i = 1; i < len; i++) args[i - 1] = arguments[i];
-
-	    listeners = handler.slice();
-	    len = listeners.length;
-	    for (i = 0; i < len; i++) listeners[i].apply(this, args);
-	  }
-
-	  return true;
-	};
-
-	EventEmitter.prototype.addListener = function (type, listener) {
-	  var m;
-
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
-
-	  if (!this._events) this._events = {};
-
-	  // To avoid recursion in the case that type === "newListener"! Before
-	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
-
-	  if (!this._events[type])
-	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;else if (isObject(this._events[type]))
-	    // If we've already got an array, just append.
-	    this._events[type].push(listener);else
-	    // Adding the second element, need to change to array.
-	    this._events[type] = [this._events[type], listener];
-
-	  // Check for listener leak
-	  if (isObject(this._events[type]) && !this._events[type].warned) {
-	    var m;
-	    if (!isUndefined(this._maxListeners)) {
-	      m = this._maxListeners;
-	    } else {
-	      m = EventEmitter.defaultMaxListeners;
-	    }
-
-	    if (m && m > 0 && this._events[type].length > m) {
-	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
-	      if (typeof console.trace === 'function') {
-	        // not supported in IE 10
-	        console.trace();
-	      }
-	    }
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-	EventEmitter.prototype.once = function (type, listener) {
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
-
-	  var fired = false;
-
-	  function g() {
-	    this.removeListener(type, g);
-
-	    if (!fired) {
-	      fired = true;
-	      listener.apply(this, arguments);
-	    }
-	  }
-
-	  g.listener = listener;
-	  this.on(type, g);
-
-	  return this;
-	};
-
-	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function (type, listener) {
-	  var list, position, length, i;
-
-	  if (!isFunction(listener)) throw TypeError('listener must be a function');
-
-	  if (!this._events || !this._events[type]) return this;
-
-	  list = this._events[type];
-	  length = list.length;
-	  position = -1;
-
-	  if (list === listener || isFunction(list.listener) && list.listener === listener) {
-	    delete this._events[type];
-	    if (this._events.removeListener) this.emit('removeListener', type, listener);
-	  } else if (isObject(list)) {
-	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
-	        position = i;
-	        break;
-	      }
-	    }
-
-	    if (position < 0) return this;
-
-	    if (list.length === 1) {
-	      list.length = 0;
-	      delete this._events[type];
-	    } else {
-	      list.splice(position, 1);
-	    }
-
-	    if (this._events.removeListener) this.emit('removeListener', type, listener);
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.removeAllListeners = function (type) {
-	  var key, listeners;
-
-	  if (!this._events) return this;
-
-	  // not listening for removeListener, no need to emit
-	  if (!this._events.removeListener) {
-	    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
-	    return this;
-	  }
-
-	  // emit removeListener for all listeners on all events
-	  if (arguments.length === 0) {
-	    for (key in this._events) {
-	      if (key === 'removeListener') continue;
-	      this.removeAllListeners(key);
-	    }
-	    this.removeAllListeners('removeListener');
-	    this._events = {};
-	    return this;
-	  }
-
-	  listeners = this._events[type];
-
-	  if (isFunction(listeners)) {
-	    this.removeListener(type, listeners);
-	  } else {
-	    // LIFO order
-	    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
-	  }
-	  delete this._events[type];
-
-	  return this;
-	};
-
-	EventEmitter.prototype.listeners = function (type) {
-	  var ret;
-	  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
-	  return ret;
-	};
-
-	EventEmitter.listenerCount = function (emitter, type) {
-	  var ret;
-	  if (!emitter._events || !emitter._events[type]) ret = 0;else if (isFunction(emitter._events[type])) ret = 1;else ret = emitter._events[type].length;
-	  return ret;
-	};
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-
-/***/ },
-/* 15 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2429,9 +2745,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _events = __webpack_require__(14);
+	var _events = __webpack_require__(6);
 
-	var _Intent = __webpack_require__(12);
+	var _Intent = __webpack_require__(18);
 
 	var _Intent2 = _interopRequireDefault(_Intent);
 
@@ -2499,7 +2815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2510,7 +2826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _promise = __webpack_require__(13);
+	var _promise = __webpack_require__(5);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
@@ -2561,7 +2877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2580,7 +2896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet2 = __webpack_require__(10);
+	var _DataSet2 = __webpack_require__(16);
 
 	var _DataSet3 = _interopRequireDefault(_DataSet2);
 
@@ -2657,7 +2973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2676,11 +2992,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet = __webpack_require__(10);
+	var _DataSet = __webpack_require__(16);
 
 	var _DataSet2 = _interopRequireDefault(_DataSet);
 
-	var _DerivativeDataSet2 = __webpack_require__(17);
+	var _DerivativeDataSet2 = __webpack_require__(21);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2712,7 +3028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2731,7 +3047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DerivativeDataSet2 = __webpack_require__(17);
+	var _DerivativeDataSet2 = __webpack_require__(21);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2853,7 +3169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2872,11 +3188,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _DataSet = __webpack_require__(10);
+	var _DataSet = __webpack_require__(16);
 
 	var _DataSet2 = _interopRequireDefault(_DataSet);
 
-	var _DerivativeDataSet2 = __webpack_require__(17);
+	var _DerivativeDataSet2 = __webpack_require__(21);
 
 	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
 
@@ -2986,7 +3302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2997,15 +3313,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libGeoJsonAdapter = __webpack_require__(22);
+	var _libGeoJsonAdapter = __webpack_require__(26);
 
 	var _libGeoJsonAdapter2 = _interopRequireDefault(_libGeoJsonAdapter);
 
-	var _libGeoJsonGenerator = __webpack_require__(30);
+	var _libGeoJsonGenerator = __webpack_require__(34);
 
 	var _libGeoJsonGenerator2 = _interopRequireDefault(_libGeoJsonGenerator);
 
-	var _libGeoJsonUtils = __webpack_require__(23);
+	var _libGeoJsonUtils = __webpack_require__(27);
 
 	var _libGeoJsonUtils2 = _interopRequireDefault(_libGeoJsonUtils);
 
@@ -3017,7 +3333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3032,7 +3348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _GeoJsonUtils = __webpack_require__(23);
+	var _GeoJsonUtils = __webpack_require__(27);
 
 	var _GeoJsonUtils2 = _interopRequireDefault(_GeoJsonUtils);
 
@@ -3115,7 +3431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3130,11 +3446,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _turfExtent = __webpack_require__(24);
+	var _turfExtent = __webpack_require__(28);
 
 	var _turfExtent2 = _interopRequireDefault(_turfExtent);
 
-	var _turfCenter = __webpack_require__(26);
+	var _turfCenter = __webpack_require__(30);
 
 	var _turfCenter2 = _interopRequireDefault(_turfCenter);
 
@@ -3218,12 +3534,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var each = __webpack_require__(25).coordEach;
+	var each = __webpack_require__(29).coordEach;
 
 	/**
 	 * Takes any {@link GeoJSON} object, calculates the extent of all input features, and returns a bounding box.
@@ -3293,7 +3609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports) {
 
 	/**
@@ -3435,13 +3751,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.propReduce = propReduce;
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var extent = __webpack_require__(27),
-	    point = __webpack_require__(29);
+	var extent = __webpack_require__(31),
+	    point = __webpack_require__(33);
 
 	/**
 	 * Takes a {@link FeatureCollection} of any type and returns the absolute center point of all features.
@@ -3564,12 +3880,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var each = __webpack_require__(28).coordEach;
+	var each = __webpack_require__(32).coordEach;
 
 	/**
 	 * Takes any {@link GeoJSON} object, calculates the extent of all input features, and returns a bounding box.
@@ -3639,7 +3955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 28 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/**
@@ -3781,7 +4097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.propReduce = propReduce;
 
 /***/ },
-/* 29 */
+/* 33 */
 /***/ function(module, exports) {
 
 	/**
@@ -3818,7 +4134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 30 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3895,13 +4211,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 31 */
+/* 35 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_31__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_35__;
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3936,7 +4252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 33 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3955,7 +4271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(31);
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
@@ -3963,7 +4279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicDataset = __webpack_require__(9);
 
 	var DataSetLeafletLayer = (function (_L$FeatureGroup) {
 	    _inherits(DataSetLeafletLayer, _L$FeatureGroup);
@@ -4030,7 +4346,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var layer = that._layersIndex[item.id];
 	                if (!layer) return;
 	                var adapter = that._getLeafletAdapter(item);
-	                adapter.selectLayer(layer);
+	                function remove() {
+	                    that.selectedItems.removeItem(item);
+	                }
+	                adapter.selectLayer(layer).then(remove, remove);
 	            });
 	            diff.removed.forEach(function (item) {
 	                var layer = that._layersIndex[item.id];
@@ -4074,7 +4393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4093,21 +4412,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(31);
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(35);
+	__webpack_require__(39);
 
 	var _LeafletAdapter = __webpack_require__(2);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _LeafletClusterAdapter = __webpack_require__(36);
+	var _LeafletClusterAdapter = __webpack_require__(40);
 
 	var _LeafletClusterAdapter2 = _interopRequireDefault(_LeafletClusterAdapter);
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicDataset = __webpack_require__(9);
 
 	var DataSetLeafletLayer = (function (_L$MarkerClusterGroup) {
 	    _inherits(DataSetLeafletLayer, _L$MarkerClusterGroup);
@@ -4188,7 +4507,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            setTimeout(function () {
 	                                var latlng = layer.getLatLng();
 	                                that._map.panTo(latlng);
-	                                adapter.selectLayer(layer);
+	                                function remove() {
+	                                    that.selectedItems.removeItem(item);
+	                                }
+	                                adapter.selectLayer(layer).then(remove, remove);
 	                            }, 50);
 	                        });
 	                    }
@@ -4260,7 +4582,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports) {
 
 	/*
@@ -4703,7 +5025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(window, document);
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4718,9 +5040,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicDataset = __webpack_require__(9);
 
-	var _leaflet = __webpack_require__(31);
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
@@ -4774,12 +5096,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var L = __webpack_require__(31);
+	var L = __webpack_require__(35);
 
 	/**
 	 * 
@@ -4898,7 +5220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractionLayer;
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4917,7 +5239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(31);
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
@@ -4962,13 +5284,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var L = __webpack_require__(31);
-	var InteractionLayer = __webpack_require__(37);
+	var L = __webpack_require__(35);
+	var InteractionLayer = __webpack_require__(41);
 
 	// Copied from the Leaflet.utfgrid implementation
 	GridLoader.ajax = function (url, cb) {
@@ -5248,7 +5570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UtfGrid;
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5269,21 +5591,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(31);
+	var _leaflet = __webpack_require__(35);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(41);
+	__webpack_require__(45);
 
-	var _react = __webpack_require__(42);
+	var _react = __webpack_require__(46);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _promise = __webpack_require__(13);
+	var _promise = __webpack_require__(5);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _mosaicUi = __webpack_require__(43);
+	var _mosaicUi = __webpack_require__(47);
 
 	var _LeafletAdapter = __webpack_require__(2);
 
@@ -5612,7 +5934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5791,13 +6113,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(window.leafletActiveAreaPreviousMethods);
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_42__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_46__;
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5808,19 +6130,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libDataSetLayout = __webpack_require__(44);
+	var _libDataSetLayout = __webpack_require__(48);
 
 	var _libDataSetLayout2 = _interopRequireDefault(_libDataSetLayout);
 
-	var _libUtils = __webpack_require__(46);
+	var _libUtils = __webpack_require__(50);
 
 	var _libUtils2 = _interopRequireDefault(_libUtils);
 
-	var _libView = __webpack_require__(47);
+	var _libView = __webpack_require__(51);
 
 	var _libView2 = _interopRequireDefault(_libView);
 
-	var _libViewLayout = __webpack_require__(45);
+	var _libViewLayout = __webpack_require__(49);
 
 	var _libViewLayout2 = _interopRequireDefault(_libViewLayout);
 
@@ -5833,7 +6155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5852,15 +6174,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(42);
+	var _react = __webpack_require__(46);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ViewLayout2 = __webpack_require__(45);
+	var _ViewLayout2 = __webpack_require__(49);
 
 	var _ViewLayout3 = _interopRequireDefault(_ViewLayout2);
 
-	var _Utils = __webpack_require__(46);
+	var _Utils = __webpack_require__(50);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -5921,7 +6243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5940,11 +6262,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(42);
+	var _react = __webpack_require__(46);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Utils = __webpack_require__(46);
+	var _Utils = __webpack_require__(50);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -6002,7 +6324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6068,7 +6390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6119,12 +6441,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var L = __webpack_require__(31);
+	var L = __webpack_require__(35);
 
 	/**
 	 * This class provides common utility methods to manage specific geographic zone
@@ -6301,7 +6623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MapViewport;
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6313,7 +6635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicDataset = __webpack_require__(9);
 
 	var _DataSetLeafletAdapter = __webpack_require__(1);
 
@@ -6323,11 +6645,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _LeafletTilesAdapter = __webpack_require__(38);
+	var _LeafletTilesAdapter = __webpack_require__(42);
 
 	var _LeafletTilesAdapter2 = _interopRequireDefault(_LeafletTilesAdapter);
 
-	var _TilesInfo = __webpack_require__(50);
+	var _TilesInfo = __webpack_require__(54);
 
 	var _TilesInfo2 = _interopRequireDefault(_TilesInfo);
 
@@ -6340,7 +6662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6357,7 +6679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _mosaicDataset = __webpack_require__(3);
+	var _mosaicDataset = __webpack_require__(9);
 
 	var TilesInfo = (function (_Data) {
 	    _inherits(TilesInfo, _Data);
