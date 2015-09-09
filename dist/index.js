@@ -6101,7 +6101,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this._viewport = L.DomUtil.create('div', '');
 	                container.insertBefore(this._viewport, container.firstChild);
 	            }
-	            console.log(this._viewport);
 	            if (typeof css === 'string') {
 	                this._viewport.className = css;
 	            } else {
