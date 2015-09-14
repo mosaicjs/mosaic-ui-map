@@ -1,6 +1,6 @@
 {
   "name": "mosaic-ui-map",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Message internationalization (uiList)",
   "main": "index.js",
   "scripts": {
