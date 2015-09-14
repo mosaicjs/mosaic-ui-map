@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("promise"), require("leaflet"), require("react")) : factory(root["promise"], root["leaflet"], root["react"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_35__, __WEBPACK_EXTERNAL_MODULE_46__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_35__, __WEBPACK_EXTERNAL_MODULE_47__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,15 +70,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libDataSetLeafletLayer2 = _interopRequireDefault(_libDataSetLeafletLayer);
 
+	var _libDataSetLeafletUtils = __webpack_require__(38);
+
+	var _libDataSetLeafletUtils2 = _interopRequireDefault(_libDataSetLeafletUtils);
+
 	var _libLeafletAdapter = __webpack_require__(2);
 
 	var _libLeafletAdapter2 = _interopRequireDefault(_libLeafletAdapter);
 
-	var _libLeafletClusterAdapter = __webpack_require__(40);
+	var _libLeafletClusterAdapter = __webpack_require__(41);
 
 	var _libLeafletClusterAdapter2 = _interopRequireDefault(_libLeafletClusterAdapter);
 
-	var _libLeafletInteractionLayer = __webpack_require__(41);
+	var _libLeafletInteractionLayer = __webpack_require__(42);
 
 	var _libLeafletInteractionLayer2 = _interopRequireDefault(_libLeafletInteractionLayer);
 
@@ -86,33 +90,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libLeafletPopupAdapter2 = _interopRequireDefault(_libLeafletPopupAdapter);
 
-	var _libLeafletTilesAdapter = __webpack_require__(42);
+	var _libLeafletTilesAdapter = __webpack_require__(43);
 
 	var _libLeafletTilesAdapter2 = _interopRequireDefault(_libLeafletTilesAdapter);
 
-	var _libLeafletUtfGrid = __webpack_require__(43);
+	var _libLeafletUtfGrid = __webpack_require__(44);
 
 	var _libLeafletUtfGrid2 = _interopRequireDefault(_libLeafletUtfGrid);
 
-	var _libMapView = __webpack_require__(44);
+	var _libMapView = __webpack_require__(45);
 
 	var _libMapView2 = _interopRequireDefault(_libMapView);
 
-	var _libMapViewport = __webpack_require__(52);
+	var _libMapViewport = __webpack_require__(53);
 
 	var _libMapViewport2 = _interopRequireDefault(_libMapViewport);
 
-	var _libRegisterAdapters = __webpack_require__(53);
+	var _libRegisterAdapters = __webpack_require__(54);
 
 	var _libRegisterAdapters2 = _interopRequireDefault(_libRegisterAdapters);
 
-	var _libTilesInfo = __webpack_require__(54);
+	var _libTilesInfo = __webpack_require__(55);
 
 	var _libTilesInfo2 = _interopRequireDefault(_libTilesInfo);
 
 	exports['default'] = {
 	    DataSetLeafletAdapter: _libDataSetLeafletAdapter2['default'],
 	    DataSetLeafletLayer: _libDataSetLeafletLayer2['default'],
+	    DataSetLeafletUtils: _libDataSetLeafletUtils2['default'],
 	    LeafletAdapter: _libLeafletAdapter2['default'],
 	    LeafletClusterAdapter: _libLeafletClusterAdapter2['default'],
 	    LeafletInteractionLayer: _libLeafletInteractionLayer2['default'],
@@ -155,7 +160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _DataSetLeafletLayer2 = _interopRequireDefault(_DataSetLeafletLayer);
 
-	var _DataSetClusteredLeafletLayer = __webpack_require__(38);
+	var _DataSetClusteredLeafletLayer = __webpack_require__(39);
 
 	var _DataSetClusteredLeafletLayer2 = _interopRequireDefault(_DataSetClusteredLeafletLayer);
 
@@ -187,13 +192,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                LayerType = _DataSetLeafletLayer2['default'];
 	            }
-	            var options = {
-	                dataSet: dataSet,
-	                map: this.options.map,
-	                mapLayout: this.options.mapLayout,
-	                mapView: this.options.mapView,
-	                selectedItems: this.options.selectedItems
-	            };
+	            LayerType = _DataSetLeafletLayer2['default'];
+	            var options = {};
+	            for (var key in this.options) {
+	                options[key] = this.options[key];
+	            }
+	            options.dataSet = dataSet;
 	            return new LayerType(options);
 	        }
 	    }, {
@@ -4275,11 +4279,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
+	var _mosaicDataset = __webpack_require__(9);
+
 	var _LeafletAdapter = __webpack_require__(2);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _mosaicDataset = __webpack_require__(9);
+	var _DataSetLeafletUtils = __webpack_require__(38);
+
+	var _DataSetLeafletUtils2 = _interopRequireDefault(_DataSetLeafletUtils);
 
 	var DataSetLeafletLayer = (function (_L$FeatureGroup) {
 	    _inherits(DataSetLeafletLayer, _L$FeatureGroup);
@@ -4288,6 +4296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, DataSetLeafletLayer);
 
 	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
+	        _leaflet2['default'].setOptions(this, options);
 	        this._constructorOptions = options;
 	        this.dataSet = options.dataSet;
 	        this.selectedItems = options.selectedItems;
@@ -4378,6 +4387,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                adapter.deleteLeafletLayer(layer);
 	                that.removeLayer(layer);
 	            });
+	            if (!this.options.noFocus) {
+	                _DataSetLeafletUtils2['default'].fitToBoundsDeferred({
+	                    dataSet: this.dataSet,
+	                    map: this._map,
+	                    bbox: this.options.bbox
+	                });
+	            }
 	        }
 	    }, {
 	        key: '_getLeafletAdapter',
@@ -4402,6 +4418,57 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _leaflet = __webpack_require__(35);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	var _mosaicDataset = __webpack_require__(9);
+
+	var _mosaicDatasetGeo = __webpack_require__(25);
+
+	exports['default'] = {
+	    fitToBoundsDeferred: function fitToBoundsDeferred(options) {
+	        var that = this;
+	        setTimeout(function () {
+	            that.fitToBounds(options);
+	        }, options.timeout || 150);
+	    },
+	    fitToBounds: function fitToBounds(options) {
+	        function getBounds(bbox) {
+	            if (!bbox) return;
+	            return _leaflet2['default'].latLngBounds([bbox[1], bbox[0]], [bbox[3], bbox[2]]);
+	        }
+	        var maxBounds = getBounds(options.bbox);
+	        var adapter = options.dataSet.getAdapter(_mosaicDatasetGeo.GeoJsonAdapter);
+	        var bbox = getBounds(adapter.boundingBox);
+	        if (!bbox) {
+	            var center = adapter.centerPoint;
+	            if (center) {
+	                var latlng = _leaflet2['default'].latLng(center[1], center[0]);
+	                options.map.panTo(latlng);
+	            }
+	        } else {
+	            if (maxBounds) {
+	                bbox = maxBounds.intersect(bbox);
+	            }
+	            options.map.fitBounds(bbox);
+	        }
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -4416,17 +4483,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(39);
+	__webpack_require__(40);
+
+	var _mosaicDataset = __webpack_require__(9);
+
+	var _mosaicDatasetGeo = __webpack_require__(25);
 
 	var _LeafletAdapter = __webpack_require__(2);
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _LeafletClusterAdapter = __webpack_require__(40);
+	var _LeafletClusterAdapter = __webpack_require__(41);
 
 	var _LeafletClusterAdapter2 = _interopRequireDefault(_LeafletClusterAdapter);
 
-	var _mosaicDataset = __webpack_require__(9);
+	var _DataSetLeafletUtils = __webpack_require__(38);
+
+	var _DataSetLeafletUtils2 = _interopRequireDefault(_DataSetLeafletUtils);
 
 	var DataSetLeafletLayer = (function (_L$MarkerClusterGroup) {
 	    _inherits(DataSetLeafletLayer, _L$MarkerClusterGroup);
@@ -4440,7 +4513,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var icon = that._newClusterIcon(cluster);
 	            return icon;
 	        };
+	        options.removeOutsideVisibleBounds = true;
 	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
+	        _leaflet2['default'].setOptions(this, options);
 	        that = this;
 	        this._constructorOptions = options || {};
 	        this.dataSet = options.dataSet;
@@ -4542,11 +4617,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (!layer) return;
 	                delete that._layersIndex[item.id];
 	                var adapter = that._getLeafletAdapter(item);
+	                that.removeLayer(layer);
 	                adapter.deleteLeafletLayer(layer);
-	                toRemove.push(layer);
 	            });
-	            that.removeLayers(toRemove);
 	            that.addLayers(toAdd);
+	            if (!this.options.noFocus) {
+	                _DataSetLeafletUtils2['default'].fitToBoundsDeferred({
+	                    dataSet: this.dataSet,
+	                    map: this._map,
+	                    bbox: this.options.bbox
+	                });
+	            }
 	        }
 	    }, {
 	        key: '_getLeafletAdapter',
@@ -4582,7 +4663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/*
@@ -5025,7 +5106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(window, document);
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5096,7 +5177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5220,7 +5301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractionLayer;
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5284,13 +5365,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var L = __webpack_require__(35);
-	var InteractionLayer = __webpack_require__(41);
+	var InteractionLayer = __webpack_require__(42);
 
 	// Copied from the Leaflet.utfgrid implementation
 	GridLoader.ajax = function (url, cb) {
@@ -5570,7 +5651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UtfGrid;
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5595,9 +5676,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(45);
+	__webpack_require__(46);
 
-	var _react = __webpack_require__(46);
+	var _react = __webpack_require__(47);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -5605,7 +5686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _promise2 = _interopRequireDefault(_promise);
 
-	var _mosaicUi = __webpack_require__(47);
+	var _mosaicUi = __webpack_require__(48);
 
 	var _LeafletAdapter = __webpack_require__(2);
 
@@ -5934,7 +6015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6112,13 +6193,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(window.leafletActiveAreaPreviousMethods);
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_46__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_47__;
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6129,19 +6210,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libDataSetLayout = __webpack_require__(48);
+	var _libDataSetLayout = __webpack_require__(49);
 
 	var _libDataSetLayout2 = _interopRequireDefault(_libDataSetLayout);
 
-	var _libUtils = __webpack_require__(50);
+	var _libUtils = __webpack_require__(51);
 
 	var _libUtils2 = _interopRequireDefault(_libUtils);
 
-	var _libView = __webpack_require__(51);
+	var _libView = __webpack_require__(52);
 
 	var _libView2 = _interopRequireDefault(_libView);
 
-	var _libViewLayout = __webpack_require__(49);
+	var _libViewLayout = __webpack_require__(50);
 
 	var _libViewLayout2 = _interopRequireDefault(_libViewLayout);
 
@@ -6154,7 +6235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6173,15 +6254,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(46);
+	var _react = __webpack_require__(47);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ViewLayout2 = __webpack_require__(49);
+	var _ViewLayout2 = __webpack_require__(50);
 
 	var _ViewLayout3 = _interopRequireDefault(_ViewLayout2);
 
-	var _Utils = __webpack_require__(50);
+	var _Utils = __webpack_require__(51);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -6242,7 +6323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6261,11 +6342,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _react = __webpack_require__(46);
+	var _react = __webpack_require__(47);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Utils = __webpack_require__(50);
+	var _Utils = __webpack_require__(51);
 
 	var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -6323,7 +6404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6389,7 +6470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6440,7 +6521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6622,7 +6703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MapViewport;
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6644,11 +6725,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _LeafletAdapter2 = _interopRequireDefault(_LeafletAdapter);
 
-	var _LeafletTilesAdapter = __webpack_require__(42);
+	var _LeafletTilesAdapter = __webpack_require__(43);
 
 	var _LeafletTilesAdapter2 = _interopRequireDefault(_LeafletTilesAdapter);
 
-	var _TilesInfo = __webpack_require__(54);
+	var _TilesInfo = __webpack_require__(55);
 
 	var _TilesInfo2 = _interopRequireDefault(_TilesInfo);
 
@@ -6661,7 +6742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

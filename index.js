@@ -1,5 +1,6 @@
 import DataSetLeafletAdapter from './lib/DataSetLeafletAdapter';
 import DataSetLeafletLayer from './lib/DataSetLeafletLayer';
+import DataSetLeafletUtils from './lib/DataSetLeafletUtils';
 import LeafletAdapter from './lib/LeafletAdapter';
 import LeafletClusterAdapter from './lib/LeafletClusterAdapter';
 import LeafletInteractionLayer from './lib/Leaflet.InteractionLayer';
@@ -14,6 +15,7 @@ import TilesInfo from './lib/TilesInfo';
 export default {
     DataSetLeafletAdapter,
     DataSetLeafletLayer,
+    DataSetLeafletUtils,
     LeafletAdapter,
     LeafletClusterAdapter,
     LeafletInteractionLayer,
