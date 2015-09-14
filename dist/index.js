@@ -192,7 +192,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else {
 	                LayerType = _DataSetLeafletLayer2['default'];
 	            }
-	            LayerType = _DataSetLeafletLayer2['default'];
 	            var options = {};
 	            for (var key in this.options) {
 	                options[key] = this.options[key];
