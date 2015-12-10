@@ -4224,11 +4224,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _DataSetLeafletUtils2 = _interopRequireDefault(_DataSetLeafletUtils);
 
-	var DataSetLeafletLayer = (function (_L$MarkerClusterGroup) {
-	    _inherits(DataSetLeafletLayer, _L$MarkerClusterGroup);
+	var DataSetClusteredLeafletLayer = (function (_L$MarkerClusterGroup) {
+	    _inherits(DataSetClusteredLeafletLayer, _L$MarkerClusterGroup);
 
-	    function DataSetLeafletLayer(options) {
-	        _classCallCheck(this, DataSetLeafletLayer);
+	    function DataSetClusteredLeafletLayer(options) {
+	        _classCallCheck(this, DataSetClusteredLeafletLayer);
 
 	        var that = undefined;
 	        options = options || {};
@@ -4237,7 +4237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return icon;
 	        };
 	        options.removeOutsideVisibleBounds = true;
-	        _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'constructor', this).call(this, options);
+	        _get(Object.getPrototypeOf(DataSetClusteredLeafletLayer.prototype), 'constructor', this).call(this, options);
 	        _leaflet2['default'].setOptions(this, options);
 	        that = this;
 	        this._constructorOptions = options || {};
@@ -4249,14 +4249,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.options.polygonOptions = that._getClusterPolygonOptions();
 	    }
 
-	    _createClass(DataSetLeafletLayer, [{
+	    _createClass(DataSetClusteredLeafletLayer, [{
 	        key: 'onAdd',
 	        value: function onAdd() {
 	            for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
 	                params[_key] = arguments[_key];
 	            }
 
-	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onAdd', this).apply(this, params);
+	            _get(Object.getPrototypeOf(DataSetClusteredLeafletLayer.prototype), 'onAdd', this).apply(this, params);
 	            this.dataSet.addListener('update', this._onDataSetUpdate);
 	            if (this.selectedItems) {
 	                this.selectedItems.addListener('update', this._onSelectionUpdate);
@@ -4279,7 +4279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                params[_key2] = arguments[_key2];
 	            }
 
-	            _get(Object.getPrototypeOf(DataSetLeafletLayer.prototype), 'onRemove', this).apply(this, params);
+	            _get(Object.getPrototypeOf(DataSetClusteredLeafletLayer.prototype), 'onRemove', this).apply(this, params);
 	        }
 	    }, {
 	        key: '_onDataSetUpdate',
@@ -4379,10 +4379,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }]);
 
-	    return DataSetLeafletLayer;
+	    return DataSetClusteredLeafletLayer;
 	})(_leaflet2['default'].MarkerClusterGroup);
 
-	exports['default'] = DataSetLeafletLayer;
+	exports['default'] = DataSetClusteredLeafletLayer;
 	module.exports = exports['default'];
 
 /***/ },
@@ -5460,6 +5460,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        get: function get() {
 	            return this.options.zoom || 0;
 	        }
+	    }], [{
+	        key: 'debounce',
+	        value: function debounce(method, timeout) {
+	            var timerId = undefined;
+	            return function () {
+	                var that = this;
+	                var args = [];
+	                for (var i = 0; i < arguments.length; i++) {
+	                    args.push(arguments[i]);
+	                }
+	                clearTimeout(timerId);
+	                timerId = setTimeout(function () {
+	                    method.apply(that, args);
+	                }, timeout);
+	            };
+	        }
 	    }]);
 
 	    return MapView;
@@ -5479,8 +5495,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        _get(Object.getPrototypeOf(MapLayout.prototype), 'constructor', this).apply(this, params);
 	        var timeout = 50;
-	        this._onZoomEnd = debounce(this._onZoomEnd, timeout);
+	        this._onZoomEnd = MapView.debounce(this._onZoomEnd, timeout);
 	    }
+
+	    /**
+	     * Returns <code>true</code> if the specified bounding box is empty.
+	     *
+	     * @see http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude/8674#8674
+	     */
 
 	    _createClass(MapLayout, [{
 	        key: 'render',
@@ -5505,10 +5527,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.map.on(key, handler);
 	            }
 	            this.map.on('zoomend', this._onZoomEnd, this);
-	            this._updateMapView();
+	            this.map.on('movestart', this._onMoveStart, this);
+	            this.map.on('moveend', this._onMoveEnd, this);
 
 	            var info = this.props.view.viewportInfo;
 	            this.setViewportBox(info);
+	            this._updateMapView();
 	            this._updateZoomStyles();
 	            this._updateMapLayers();
 	        }
@@ -5523,6 +5547,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.map.off(key, handler);
 	            }
 	            this.map.off('zoomend', this._onZoomEnd, this);
+	            this.map.off('moveend', this._onMoveEnd, this);
+	            this.map.off('movestart', this._onMoveStart, this);
 	            this.map.remove();
 	            delete this.map;
 	        }
@@ -5534,6 +5560,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.map.invalidateSize();
 	            }
 	            // this._updateMapLayers();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            this._updateMapCenterAndZoom();
 	        }
 
 	        // -------------------------------------------------------------------
@@ -5574,6 +5605,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._updateZoomStyles();
 	        }
 	    }, {
+	        key: '_onMoveEnd',
+	        value: function _onMoveEnd() {
+	            this._moving = false;
+	            if (this.props.onMoveEnd) {
+	                var zoom = this.map.getZoom();
+	                var center = this.map.getCenter();
+	                this.props.onMoveEnd({
+	                    zoom: zoom,
+	                    center: center
+	                }, this);
+	            }
+	        }
+	    }, {
+	        key: '_onMoveStart',
+	        value: function _onMoveStart() {
+	            this._moving = true;
+	        }
+	    }, {
 	        key: '_updateZoomStyles',
 	        value: function _updateZoomStyles() {
 	            var node = _reactDom2['default'].findDOMNode(this);
@@ -5596,6 +5645,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this._fitToBounds(bbox);
 	            } else {
 	                this._updateCenterAndZoom();
+	            }
+	        }
+	    }, {
+	        key: '_updateMapCenterAndZoom',
+	        value: function _updateMapCenterAndZoom() {
+	            if (this._moving) return;
+	            var center = this.props.center;
+	            var mapZoom = this.map.getZoom();
+	            var mapCenter = this.map.getCenter();
+	            var latlng = center ? _leaflet2['default'].latLng(center[1], center[0]) : mapCenter;
+	            var zoom = this.props.zoom || mapZoom;
+	            if (mapZoom != zoom || latlng != mapCenter) {
+	                this.map.setView(latlng, zoom);
 	            }
 	        }
 	    }, {
@@ -5707,26 +5769,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return MapLayout;
 	})(_mosaicUi.DataSetLayout);
 
-	function debounce(method, timeout) {
-	    var timerId = undefined;
-	    return function () {
-	        var that = this;
-	        var args = [];
-	        for (var i = 0; i < arguments.length; i++) {
-	            args.push(arguments[i]);
-	        }
-	        clearTimeout(timerId);
-	        timerId = setTimeout(function () {
-	            method.apply(that, args);
-	        }, timeout);
-	    };
-	}
-
-	/**
-	 * Returns <code>true</code> if the specified bounding box is empty.
-	 *
-	 * @see http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude/8674#8674
-	 */
 	function isEmptyBox(box, precision) {
 	    if (!box) return true;
 	    var first = round(box[0], precision);
