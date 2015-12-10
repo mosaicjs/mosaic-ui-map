@@ -5591,6 +5591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (this.props.attribution !== false) {
 	                var attributionControlOptions = this.props.attribution || {};
 	                var attributionControl = _leaflet2['default'].control.attribution(attributionControlOptions);
+	                if (attributionControlOptions.html) attributionControl.addAttribution(attributionControlOptions.html);
 	                map.addControl(attributionControl);
 	            }
 	            return map;
