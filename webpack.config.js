@@ -8,8 +8,8 @@ module.exports = {
     module : {
         loaders : [ {
             test : /\.jsx?$/,
-//            exclude : /node_modules/,
-//            includes : /node_modules\/mosaic-.*/,
+            // exclude : /node_modules/,
+            // includes : /node_modules\/mosaic-.*/,
             loader : 'babel-loader',
         } ],
         noParse : [ /leaflet/ ]

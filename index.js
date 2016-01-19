@@ -8,6 +8,7 @@ import LeafletPopupAdapter from './lib/LeafletPopupAdapter';
 import LeafletTilesAdapter from './lib/LeafletTilesAdapter';
 import LeafletUtfGrid from './lib/Leaflet.UtfGrid';
 import MapView from './lib/MapView';
+import MapLayout from './lib/MapLayout';
 import MapViewport from './lib/MapViewport';
 import registerAdapters from './lib/registerAdapters';
 import TilesInfo from './lib/TilesInfo';
@@ -23,6 +24,7 @@ export default {
     LeafletTilesAdapter,
     LeafletUtfGrid,
     MapView,
+    MapLayout,
     MapViewport,
     TilesInfo,
     
