@@ -1,3 +1,7 @@
+import AbstractDataSetLeaflet from './lib/AbstractDataSetLeaflet';
+import BasicDataSetCanvasStyle from './lib/BasicDataSetCanvasStyle';
+import DataSetCanvasLeafletLayer from './lib/DataSetCanvasLeafletLayer'; 
+import DataSetCanvasStyle from './lib/DataSetCanvasStyle';
 import DataSetLeafletAdapter from './lib/DataSetLeafletAdapter';
 import DataSetLeafletLayer from './lib/DataSetLeafletLayer';
 import DataSetLeafletUtils from './lib/DataSetLeafletUtils';
@@ -14,6 +18,10 @@ import registerAdapters from './lib/registerAdapters';
 import TilesInfo from './lib/TilesInfo';
 
 export default {
+    AbstractDataSetLeaflet,
+    BasicDataSetCanvasStyle,
+    DataSetCanvasLeafletLayer, 
+    DataSetCanvasStyle,
     DataSetLeafletAdapter,
     DataSetLeafletLayer,
     DataSetLeafletUtils,
