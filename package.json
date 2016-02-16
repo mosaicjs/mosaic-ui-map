@@ -2,7 +2,7 @@
   "name": "mosaic-ui-map",
   "version": "0.1.24",
   "description": "Message internationalization (uiList)",
-  "main": "lib",
+  "main": "index",
   "scripts": {
     "test": "mocha -R spec ./test/index.js",
     "bump": "npm test && webpack && npm version patch && git push && git push --tags && npm publish",
