@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("leaflet"));
+		module.exports = factory(require("react"), require("promise"), require("leaflet"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "leaflet"], factory);
+		define(["react", "promise", "leaflet"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("react"), require("leaflet")) : factory(root["react"], root["leaflet"]);
+		var a = typeof exports === 'object' ? factory(require("react"), require("promise"), require("leaflet")) : factory(root["react"], root["promise"], root["leaflet"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_148__, __WEBPACK_EXTERNAL_MODULE_150__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_148__, __WEBPACK_EXTERNAL_MODULE_160__, __WEBPACK_EXTERNAL_MODULE_168__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -66,11 +66,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libDataLayerTracker2 = _interopRequireDefault(_libDataLayerTracker);
 
-	var _libDataSetCanvasLayer = __webpack_require__(153);
+	var _libDataSetCanvasLayer = __webpack_require__(171);
 
 	var _libDataSetCanvasLayer2 = _interopRequireDefault(_libDataSetCanvasLayer);
 
-	var _libDataSetCanvasStyle = __webpack_require__(152);
+	var _libDataSetCanvasStyle = __webpack_require__(170);
 
 	var _libDataSetCanvasStyle2 = _interopRequireDefault(_libDataSetCanvasStyle);
 
@@ -108,15 +108,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactLeaflet = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-leaflet\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
-	var _mosaicDataset = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"mosaic-dataset\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _mosaicDataset = __webpack_require__(150);
 
-	var _leaflet = __webpack_require__(150);
+	var _leaflet = __webpack_require__(168);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(151);
+	__webpack_require__(169);
 
-	var _DataSetCanvasStyle = __webpack_require__(152);
+	var _DataSetCanvasStyle = __webpack_require__(170);
 
 	var _DataSetCanvasStyle2 = _interopRequireDefault(_DataSetCanvasStyle);
 
@@ -18777,12 +18777,2575 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 149 */,
 /* 150 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_150__;
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _libData = __webpack_require__(151);
+
+	var _libData2 = _interopRequireDefault(_libData);
+
+	var _libDataSet = __webpack_require__(157);
+
+	var _libDataSet2 = _interopRequireDefault(_libDataSet);
+
+	var _libDerivativeDataSet = __webpack_require__(164);
+
+	var _libDerivativeDataSet2 = _interopRequireDefault(_libDerivativeDataSet);
+
+	var _libDataSetFiltered = __webpack_require__(165);
+
+	var _libDataSetFiltered2 = _interopRequireDefault(_libDataSetFiltered);
+
+	var _libDataSetPaginated = __webpack_require__(166);
+
+	var _libDataSetPaginated2 = _interopRequireDefault(_libDataSetPaginated);
+
+	var _libDataSetSelection = __webpack_require__(167);
+
+	var _libDataSetSelection2 = _interopRequireDefault(_libDataSetSelection);
+
+	exports['default'] = {
+	    Data: _libData2['default'],
+	    DataSet: _libDataSet2['default'],
+	    DerivativeDataSet: _libDerivativeDataSet2['default'],
+	    DataSetFiltered: _libDataSetFiltered2['default'],
+	    DataSetPaginated: _libDataSetPaginated2['default'],
+	    DataSetSelection: _libDataSetSelection2['default'],
+	    registerDataSetAdapters: function registerDataSetAdapters(adapters) {
+	        adapters.registerAdapter(_libDataSet2['default'], _libDataSetFiltered2['default']);
+	        adapters.registerAdapter(_libDataSet2['default'], _libDataSetPaginated2['default']);
+	        adapters.registerAdapter(_libDataSet2['default'], _libDataSetSelection2['default']);
+	    }
+	};
+	module.exports = exports['default'];
 
 /***/ },
 /* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _mosaicAdapters = __webpack_require__(152);
+
+	var idCounter = 0;
+	/**
+	 * 
+	 */
+
+	var Data = (function (_Adaptable) {
+	    _inherits(Data, _Adaptable);
+
+	    /**
+	     * This constructor initializes this wrapper and sets the internal data.
+	     * 
+	     * @param options.adapters
+	     *            an adapter manager used to generate data adapters
+	     * @param options.data
+	     *            the data object
+	     */
+
+	    function Data(options) {
+	        var _get2;
+
+	        _classCallCheck(this, Data);
+
+	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            args[_key - 1] = arguments[_key];
+	        }
+
+	        (_get2 = _get(Object.getPrototypeOf(Data.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(args));
+	        this.data = options ? options.data : undefined;
+	    }
+
+	    /**
+	     * Returns the type key for this item. This is a shortcut for the
+	     * "getTypeKey" method.
+	     */
+
+	    _createClass(Data, [{
+	        key: 'getTypeKey',
+
+	        /**
+	         * Returns the type key for this item.
+	         */
+	        value: function getTypeKey() {
+	            var type = this.get('properties.type') || this.get('type');
+	            if (type) {
+	                type = _mosaicAdapters.TypeKey.getTypeKey(type);
+	            } else {
+	                // Use the class hierarchy if type is not defined in the data
+	                type = _mosaicAdapters.TypeKey.getTypeKey.apply(this);
+	            }
+	            return type;
+	        }
+
+	        /**
+	         * Returns the internal data managed by this item.
+	         */
+	    }, {
+	        key: 'get',
+
+	        /**
+	         * Returns a value corresponding to the specified path.
+	         * 
+	         * @param path
+	         *            an segment name array or a string path where individual
+	         *            segments are separated by the '.' symbol
+	         */
+	        value: function get(path) {
+	            if (typeof path === 'string') {
+	                var array = path.split('.');
+	                return this.get(array);
+	            }
+	            var data = this.data;
+	            var len = path ? path.length : 0;
+	            var i = undefined;
+	            for (i = 0; data && i < len; i++) {
+	                var segment = path[i];
+	                data = data[segment];
+	            }
+	            return i === len ? data : null;
+	        }
+
+	        /**
+	         * Sets a new value for the specified path.
+	         */
+	    }, {
+	        key: 'set',
+	        value: function set(path, value) {
+	            if (typeof path === 'string') {
+	                var array = path.split('.');
+	                return this.set(array, value);
+	            }
+	            var data = this.data;
+	            var len = path ? path.length : 0;
+	            var i = undefined;
+	            for (i = 0; i < len - 1; i++) {
+	                var segment = path[i];
+	                var next = data[segment];
+	                if (!next) break;
+	                data = next;
+	            }
+	            // Add missing objects
+	            for (; i < len - 1; i++) {
+	                var segment = path[i];
+	                data = data[segment] = {};
+	            }
+	            if (data) {
+	                var segment = path[path.length - 1];
+	                data[segment] = value;
+	            }
+	            return this;
+	        }
+
+	        /**
+	         * Visits this data object
+	         * 
+	         * @param visitor.before
+	         *            this method is called before this data object is visited
+	         * @param visitor.after
+	         *            this method is called after this data object is visited
+	         */
+	    }, {
+	        key: 'visit',
+	        value: function visit(visitor) {
+	            if (visitor.before) {
+	                visitor.before.call(visitor, this);
+	            }
+	            if (visitor.after) {
+	                visitor.after.call(visitor, this);
+	            }
+	        }
+	    }, {
+	        key: 'type',
+	        get: function get() {
+	            return this.getTypeKey();
+	        }
+	    }, {
+	        key: 'data',
+	        get: function get() {
+	            return this._data;
+	        },
+
+	        /**
+	         * Associates a new data object with this item.
+	         */
+	        set: function set(d) {
+	            if (d instanceof Data) {
+	                d = d.data;
+	            }
+	            this._data = d || {};
+	            delete this._id;
+	            return this._data;
+	        }
+
+	        /**
+	         * Returns this data object identifier. By default this method seeks the
+	         * identifier in the "id" field of the underlying data object. If there is
+	         * no such an identifier then this method generates a local ID stored in
+	         * this data object.
+	         */
+	    }, {
+	        key: 'id',
+	        get: function get() {
+	            var id = this.data.id;
+	            if (id === undefined) {
+	                id = this._id = this._id || ++idCounter;
+	            }
+	            return id;
+	        }
+	    }]);
+
+	    return Data;
+	})(_mosaicAdapters.Adaptable);
+
+	exports['default'] = Data;
+	module.exports = exports['default'];
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _libTypeKey = __webpack_require__(153);
+
+	var _libTypeKey2 = _interopRequireDefault(_libTypeKey);
+
+	var _libAdapterManager = __webpack_require__(154);
+
+	var _libAdapterManager2 = _interopRequireDefault(_libAdapterManager);
+
+	var _libAdapter = __webpack_require__(155);
+
+	var _libAdapter2 = _interopRequireDefault(_libAdapter);
+
+	var _libAdaptable = __webpack_require__(156);
+
+	var _libAdaptable2 = _interopRequireDefault(_libAdaptable);
+
+	exports['default'] = {
+	    TypeKey: _libTypeKey2['default'],
+	    AdapterManager: _libAdapterManager2['default'],
+	    Adapter: _libAdapter2['default'],
+	    Adaptable: _libAdaptable2['default']
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 153 */
+/***/ function(module, exports) {
+
+	/**
+	 * This object contains utility mix-in methods returning object types as a
+	 * TypeKey instance. The main method in the mixin is "getTypeKey" which returns
+	 * type keys for classes, objects and strings. To build a type key for a class
+	 * this method uses class names of the specified class and all their parents.
+	 * For objects (class instances) this method uses the "getTypeKey" method if it
+	 * is defined on the object. If there is no such a method then the object type
+	 * (class) is used to get the key. The "getTypeKey" method can be used to
+	 * transform strings to type keys. Type keys form hierarchies using the "/"
+	 * symbol as a separator between individual type keys (Example:
+	 * "Art/AbstractArt/Cubism" is a child of "Art/AbstractArt"). The
+	 * TypeKey.getTypeParentKey method can be used to get parent type key.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var typeCounter = 0;
+	var keyCounter = 0;
+	var keyIndex = {};
+	var typeIndex = {};
+
+	var TypeKey = (function () {
+	    function TypeKey(str) {
+	        _classCallCheck(this, TypeKey);
+
+	        this.id = typeCounter++;
+	        this.key = str ? str + '' : '';
+	    }
+
+	    /**
+	     * Returns an array of string segments of this key
+	     */
+
+	    _createClass(TypeKey, [{
+	        key: 'getParentKey',
+	        value: function getParentKey() {
+	            var segments = this.segments;
+	            segments.pop();
+	            var key = getKeyFromSegments(segments);
+	            return key;
+	        }
+
+	        /**
+	         * Returns a type key for a child type.
+	         */
+	    }, {
+	        key: 'getChildKey',
+	        value: function getChildKey(segments) {
+	            var array = getKeySegmentsFromString(segments);
+	            if (!array.length) return null;
+	            array = this.segments.concat(array);
+	            var key = getKeyFromSegments(array);
+	            return key;
+	        }
+
+	        /**
+	         * Calls the specified function starting from the given to the top. If the
+	         * specified action returns the "false" value then this method interrupt
+	         * iterations.
+	         * 
+	         * @param return
+	         *            the result of the last call to the action
+	         */
+	    }, {
+	        key: 'forEach',
+	        value: function forEach(action, context) {
+	            var i = 0;
+	            var array = this.segments;
+	            var result = undefined;
+	            while (array.length) {
+	                var k = i === 0 ? this : getKeyFromSegments(array);
+	                result = action.call(context, k, i++);
+	                if (result === false) break;
+	                array.pop();
+	            }
+	            return result;
+	        }
+
+	        // ---------------------------------------------------------------------
+	        // Public static methods and fields
+	        // ---------------------------------------------------------------------
+
+	    }, {
+	        key: 'segments',
+	        get: function get() {
+	            return getKeySegmentsFromString(this.key);
+	        }
+
+	        /**
+	         * Returns a key for the parent type.
+	         */
+	    }, {
+	        key: 'parent',
+	        get: function get() {
+	            return this.getParentKey();
+	        }
+	    }], [{
+	        key: 'fromString',
+	        value: function fromString(str) {
+	            if (!str) return null;
+	            var key = keyIndex[str];
+	            if (!key) {
+	                key = keyIndex[str] = new TypeKey(str);
+	            }
+	            return key;
+	        }
+
+	        /**
+	         * Returns the type for the specified object. If the object is not defined
+	         * then this method uses 'this' instead. If the specified parameter is a
+	         * function then the key type is defined for the hierarchy of classes. If
+	         * the given object contains a 'getTypeKey' method then it is used instead.
+	         */
+	    }, {
+	        key: 'for',
+	        value: function _for(obj) {
+	            return TypeKey.getTypeKey(obj);
+	        }
+	    }, {
+	        key: 'getTypeKey',
+	        value: function getTypeKey(obj) {
+	            if (!obj) {
+	                obj = this;
+	            } else if (typeof obj.getTypeKey === 'function') {
+	                return obj.getTypeKey();
+	            }
+	            var key = undefined;
+	            if (obj instanceof TypeKey) {
+	                key = obj.key;
+	            } else if (typeof obj === 'string') {
+	                key = obj;
+	            } else {
+	                var proto = undefined;
+	                if (typeof obj === 'function') {
+	                    proto = obj.prototype;
+	                } else {
+	                    proto = Object.getPrototypeOf(obj);
+	                }
+	                var array = [];
+	                while (proto) {
+	                    var classKey = TypeKey.getClassKey(proto.constructor);
+	                    array.push(classKey);
+	                    proto = Object.getPrototypeOf(proto);
+	                }
+	                array.reverse();
+	                key = array.join('/');
+	            }
+	            return TypeKey.fromString(key);
+	        }
+
+	        /**
+	         * Returns a unique identifier of this class.
+	         */
+	    }, {
+	        key: 'getClassId',
+	        value: function getClassId(cls, create) {
+	            var typeId = cls.__type_id;
+	            if (!typeId && create !== false) {
+	                typeId = cls.__type_id = ++typeCounter;
+	            }
+	            return typeId;
+	        }
+
+	        /**
+	         * Returns a unique string key for the specified type (JS function).
+	         */
+	    }, {
+	        key: 'getClassKey',
+	        value: function getClassKey(cls) {
+	            var typeId = TypeKey.getClassId(cls);
+	            var key = cls.name;
+	            if (!key) {
+	                // If the specified function do not have a name then we generate
+	                // a unique type key using the type identifier.
+	                key = 'Type-' + typeId;
+	            } else {
+	                // The specified function has a name.
+	                // We have to check that this name is unique and there is no
+	                // collision with an another function. Another function has
+	                // a different type identifier.
+	                var ids = typeIndex[key] = typeIndex[key] || [];
+	                // Use a binary search to find our type ID in the list of existing.
+	                // We can use a binary search because the ids array is ordered.
+	                var pos = binarySearch(ids, typeId);
+	                if (pos < 0) {
+	                    pos = ids.length;
+	                    ids.push(typeId);
+	                }
+	                if (pos !== 0) {
+	                    key = key + '-' + pos;
+	                }
+	            }
+	            return key;
+	        }
+
+	        /**
+	         * This method resets the internal index of types. It is used only for
+	         * debugging and test purposes.
+	         */
+	    }, {
+	        key: 'reset',
+	        value: function reset() {
+	            typeIndex = {};
+	        }
+	    }]);
+
+	    return TypeKey;
+	})();
+
+	exports['default'] = TypeKey;
+
+	function binarySearch(array, value) {
+	    var min = 0;
+	    var max = array.length - 1;
+	    var idx = undefined;
+	    var val = undefined;
+	    while (min <= max) {
+	        idx = min + max >> 1;
+	        val = array[idx];
+	        if (val < value) {
+	            min = idx + 1;
+	        } else if (val > value) {
+	            max = idx - 1;
+	        } else {
+	            return idx;
+	        }
+	    }
+	    return -1;
+	}
+
+	/**
+	 * Returns a new type key by joining all segments from the specified array.
+	 */
+	function getKeyFromSegments(array) {
+	    var str = array.join('/');
+	    return str ? TypeKey.fromString(str) : null;
+	}
+
+	/**
+	 * Returns an array of key segments
+	 */
+	function getKeySegmentsFromString(key) {
+	    if (!key) return [];
+	    return (key + '').split('/');
+	}
+	module.exports = exports['default'];
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _TypeKey = __webpack_require__(153);
+
+	var _TypeKey2 = _interopRequireDefault(_TypeKey);
+
+	/**
+	 * An adapter manager used to register/retrieve objects corresponding to the
+	 * types of adaptable object and the types of the target object.
+	 */
+
+	var AdapterManager = (function () {
+
+	    /**
+	     * Constructor of this class. Initializes index of adapters and an internal
+	     * cache.
+	     */
+
+	    function AdapterManager() {
+	        _classCallCheck(this, AdapterManager);
+
+	        this._adapters = {};
+	        this._cache = {};
+	    }
+
+	    /**
+	     * Registers a new adapter from one type to another.
+	     * 
+	     * @param from
+	     *            the type of the adaptable object
+	     * @param to
+	     *            type of the target object
+	     * @param adapter
+	     *            the adapter type
+	     */
+
+	    _createClass(AdapterManager, [{
+	        key: 'registerAdapter',
+	        value: function registerAdapter(from, to, adapter) {
+	            if (adapter === undefined) {
+	                adapter = to;
+	            }
+	            var fromType = _TypeKey2['default']['for'](from);
+	            var toType = _TypeKey2['default']['for'](to);
+	            toType.forEach(function (t) {
+	                var key = this._getAdapterKey(fromType, t);
+	                var slot = this._adapters[key];
+	                if (slot && slot.direct) return false;
+	                this._adapters[key] = {
+	                    adapter: adapter,
+	                    direct: t === toType
+	                };
+	            }, this);
+	            this._cache = {};
+	        }
+
+	        /** Removes an adapter from one type to another. */
+	    }, {
+	        key: 'removeAdapter',
+	        value: function removeAdapter(from, to) {
+	            var fromType = _TypeKey2['default'].getTypeKey(from);
+	            var toType = _TypeKey2['default'].getTypeKey(to);
+	            var result = undefined;
+	            toType.forEach(function (t) {
+	                var key = this._getAdapterKey(fromType, t);
+	                var slot = this._adapters[key];
+	                if (slot) {
+	                    var remove = undefined;
+	                    if (t === toType) {
+	                        result = slot.adapter;
+	                        remove = true;
+	                    } else {
+	                        if (slot.direct) return false;
+	                        remove = slot.adapter === result;
+	                    }
+	                    if (remove) {
+	                        delete this._adapters[key];
+	                    }
+	                }
+	            }, this);
+	            this._cache = {};
+	            return result;
+	        }
+
+	        /**
+	         * Returns an adapter of one type to another type. This method caches
+	         * adapter for each unique combination of keys.
+	         * 
+	         * @param from
+	         *            the type of the adaptable object
+	         * @param to
+	         *            type of the adapter
+	         * @return
+	         */
+	    }, {
+	        key: 'getAdapter',
+	        value: function getAdapter(from, to) {
+	            var fromType = _TypeKey2['default'].getTypeKey(from);
+	            var toType = _TypeKey2['default'].getTypeKey(to);
+	            var cacheKey = this._getAdapterKey(fromType, toType);
+	            var result = this._cache[cacheKey];
+	            if (!result && !(cacheKey in this._cache)) {
+	                fromType.forEach(function (f) {
+	                    var key = this._getAdapterKey(f, toType);
+	                    var slot = this._adapters[key];
+	                    result = slot ? slot.adapter : undefined;
+	                    if (result) return false;
+	                }, this);
+	                this._cache[cacheKey] = result;
+	            }
+	            return result;
+	        }
+
+	        /**
+	         * Creates and returns a new adapter from one type to another. If the
+	         * registered adapter is a function then it is used as constructor to create
+	         * a new object.
+	         * 
+	         * @param from
+	         *            key of the type of the object for which we want to find an
+	         *            adapter
+	         * @param to
+	         *            the key of the adapter
+	         * @param a
+	         *            new adapter instance
+	         */
+	    }, {
+	        key: 'newAdapter',
+	        value: function newAdapter(from, to, options) {
+	            var result = null;
+	            var adapter = this.getAdapter(from, to);
+	            var AdapterType = adapter || to;
+	            if (typeof AdapterType === 'function') {
+	                options = options || {};
+	                result = new AdapterType(options, from, to);
+	            } else {
+	                result = adapter;
+	            }
+	            return result;
+	        }
+
+	        /**
+	         * Returns a key used to find adapters from one type to another.
+	         * 
+	         * @param from
+	         *            the type of the adaptable object
+	         * @param to
+	         *            type of the target object
+	         * @return a new adapter key
+	         */
+	    }, {
+	        key: '_getAdapterKey',
+	        value: function _getAdapterKey(from, to) {
+	            var key = from.id + ':' + to.id;
+	            return key;
+	        }
+	    }]);
+
+	    return AdapterManager;
+	})();
+
+	exports['default'] = AdapterManager;
+	module.exports = exports['default'];
+
+/***/ },
+/* 155 */
+/***/ function(module, exports) {
+
+	/**
+	 * A super-class for adapters.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var KEY_FROM = Symbol['for']('_from');
+	var KEY_TO = Symbol['for']('_to');
+
+	var Adapter = (function () {
+
+	    /**
+	     * Constructor of this class.
+	     * 
+	     * @param options
+	     * @param from
+	     *            the adapter object
+	     * @param to
+	     *            the type of the adapter; this instance is used as an adapter
+	     *            for the specified type
+	     */
+
+	    function Adapter(options, from, to) {
+	        _classCallCheck(this, Adapter);
+
+	        this.adaptable = from;
+	        this.adapterType = to;
+	    }
+
+	    /**
+	     * Returns reference to the main adapted object.
+	     */
+
+	    _createClass(Adapter, [{
+	        key: 'adaptable',
+	        get: function get() {
+	            return this[KEY_FROM];
+	        },
+
+	        /**
+	         * Sets a new adaptable object
+	         */
+	        set: function set(adaptable) {
+	            if (adaptable !== undefined) {
+	                this[KEY_FROM] = adaptable;
+	            } else {
+	                delete this[KEY_FROM];
+	            }
+	        }
+
+	        /**
+	         * Returns the adaptable type.
+	         */
+	    }, {
+	        key: 'adapterType',
+	        get: function get() {
+	            return this[KEY_TO];
+	        },
+
+	        /**
+	         * Sets a new adaptable object
+	         */
+	        set: function set(type) {
+	            if (!!type) {
+	                this[KEY_TO] = type;
+	            } else {
+	                delete this[KEY_TO];
+	            }
+	        }
+	    }]);
+
+	    return Adapter;
+	})();
+
+	exports['default'] = Adapter;
+	module.exports = exports['default'];
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _TypeKey = __webpack_require__(153);
+
+	var _TypeKey2 = _interopRequireDefault(_TypeKey);
+
+	var _Adapter2 = __webpack_require__(155);
+
+	var _Adapter3 = _interopRequireDefault(_Adapter2);
+
+	/**
+	 * A super-class for all adaptable object. Objects of this type use an internal
+	 * adapter manager to instantiate adapters and store them in an internal cache.
+	 */
+	var ADAPTERS = Symbol['for']('adapters');
+
+	var Adaptable = (function (_Adapter) {
+	    _inherits(Adaptable, _Adapter);
+
+	    /**
+	     * Constructor of this class.
+	     * 
+	     * @param options.adapters
+	     *            a mandatory instance of the "AdapterManager" class
+	     * @param from
+	     *            optional parent adaptable object; this parameter is defined
+	     *            only if this instance is used as an adapter itself for another
+	     *            object
+	     * @param to
+	     *            optional adapter type for the parent object; this parameter is
+	     *            defined only if this instance is used as an adapter itself for
+	     *            another object
+	     */
+
+	    function Adaptable(options) {
+	        var _get2;
+
+	        _classCallCheck(this, Adaptable);
+
+	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            args[_key - 1] = arguments[_key];
+	        }
+
+	        (_get2 = _get(Object.getPrototypeOf(Adaptable.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(args));
+	        var adapters = undefined;
+	        if (options) {
+	            adapters = options.adapters;
+	        }
+	        if (!adapters) {
+	            // This object is used as an adapter itself.
+	            // So try to get the adapters from this parent object.
+	            var adaptable = this.adaptable;
+	            adapters = adaptable ? adaptable.adapters : undefined;
+	        }
+	        this.adapters = adapters;
+	    }
+
+	    /**
+	     * Returns reference to the internal adapters manager.
+	     */
+
+	    _createClass(Adaptable, [{
+	        key: 'setAdapter',
+
+	        /**
+	         * Sets a new object adapter. This adapter is stored in an internal object
+	         * cache.
+	         * 
+	         * @param adapterType
+	         *            the type of the adapter to set
+	         * @param adapter
+	         *            a new adapter to set
+	         * @return this object
+	         */
+	        value: function setAdapter(adapterType, adapter) {
+	            if (adapter) {
+	                var cache = this._getAdaptersCache();
+	                var key = _TypeKey2['default'].getTypeKey(adapterType);
+	                cache[key.id] = adapter;
+	            }
+	            return this;
+	        }
+
+	        /**
+	         * Returns an adapter for this object corresponding to the specified adapter
+	         * type. The resulting adapter is stored in an internal object-specific
+	         * adapter cache. To clear adapter cache use the "clearAdapters" method.
+	         * 
+	         * @param adapterType
+	         *            the type of the adapter to return
+	         * @param options
+	         *            options used to create a new adapter; if an adapter already
+	         *            exists then this parameter is ignored
+	         * @return an adapter instance (if any)
+	         */
+	    }, {
+	        key: 'getAdapter',
+	        value: function getAdapter(adapterType, options) {
+	            var cache = this._getAdaptersCache();
+	            var key = _TypeKey2['default'].getTypeKey(adapterType);
+	            var result = cache[key.id];
+	            if (!result && !(key.id in cache)) {
+	                result = this.newAdapter(adapterType, options);
+	                cache[key.id] = result;
+	            }
+	            return result;
+	        }
+
+	        /**
+	         * Creates and returns a new adapter for this object.
+	         * 
+	         * @param adapterType
+	         *            the type of the adapter to create
+	         * @param options
+	         *            options used to create a new adapter; if an adapter already
+	         *            exists then it does not take into account
+	         * @return a newly created adapter instance
+	         */
+	    }, {
+	        key: 'newAdapter',
+	        value: function newAdapter(adapterType, options) {
+	            var result = this.adapters.newAdapter(this, adapterType, options);
+	            return result;
+	        }
+
+	        /**
+	         * This method removes object adapters of the specified types. If types are
+	         * not defined then all cached adapters are removed.
+	         * 
+	         * @param adapterTypes
+	         *            a list of adapter types to remove from the cache
+	         */
+	    }, {
+	        key: 'clearAdapters',
+	        value: function clearAdapters(adapterTypes) {
+	            if (!this.__adapters) return;
+	            if (!adapterTypes || !adapterTypes.length) {
+	                delete this.__adapters;
+	            } else {
+	                for (var i = 0; i < adapterTypes.length; i++) {
+	                    var adapterType = adapterTypes[i];
+	                    var key = _TypeKey2['default'].getTypeKey(adapterType);
+	                    delete this.__adapters[key.id];
+	                }
+	                if (!Object.keys(this.__adapters).length) {
+	                    delete this.__adapters;
+	                }
+	            }
+	            return this;
+	        }
+
+	        /** Returns an internal object-specific adapters cache. */
+	    }, {
+	        key: '_getAdaptersCache',
+	        value: function _getAdaptersCache() {
+	            if (!this.__adapters) {
+	                this.__adapters = {};
+	            }
+	            return this.__adapters;
+	        }
+	    }, {
+	        key: 'adapters',
+	        get: function get() {
+	            return this[ADAPTERS];
+	        },
+
+	        /**
+	         * Sets a new adapter manager.
+	         */
+	        set: function set(adapters) {
+	            this[ADAPTERS] = adapters;
+	        }
+	    }]);
+
+	    return Adaptable;
+	})(_Adapter3['default']);
+
+	exports['default'] = Adaptable;
+
+	Adaptable.prototype.getTypeKey = _TypeKey2['default'].getTypeKey;
+	module.exports = exports['default'];
+
+/***/ },
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	var _bind = Function.prototype.bind;
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _mosaicIntents = __webpack_require__(158);
+
+	var _mosaicAdapters = __webpack_require__(152);
+
+	var _Data2 = __webpack_require__(151);
+
+	var _Data3 = _interopRequireDefault(_Data2);
+
+	var DATA_SET_KEY = Symbol('_dataSet');
+
+	var DataSet = (function (_Data) {
+	    _inherits(DataSet, _Data);
+
+	    /**
+	     * Class constructor. It defines data array and registers event listeners
+	     * updating internal data indexes.
+	     */
+
+	    function DataSet(options) {
+	        var _get2;
+
+	        _classCallCheck(this, DataSet);
+
+	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            args[_key - 1] = arguments[_key];
+	        }
+
+	        (_get2 = _get(Object.getPrototypeOf(DataSet.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(args));
+	        (0, _mosaicIntents.Intents)(this);
+	        this.options = options || {};
+	        this.items = this.options.items;
+	        if (this.options.DataType) {
+	            // Re-define the type of managed data objects
+	            this.DataType = this.options.DataType;
+	        }
+	        if (this.adaptable && !this.adapters) {
+	            this.adapters = this.adaptable.adapters;
+	        }
+	        var parentDataSet = this.dataSet;
+	        if (parentDataSet) {
+	            // Tries to copy the resource type from the main adaptable instance
+	            this.DataType = parentDataSet.DataType || this.DataType;
+	            if (!this.adapters) {
+	                this.adapters = parentDataSet.adapters;
+	            }
+	        }
+	        if (!this.adapters) {
+	            this.adapters = new _mosaicAdapters.AdapterManager();
+	        }
+	    }
+
+	    /** Access to the internal dataset */
+
+	    _createClass(DataSet, [{
+	        key: 'close',
+
+	        /** Do-nothing destructor */
+	        value: function close() {}
+
+	        /** Returns an options value. */
+	    }, {
+	        key: '_getOptionsValue',
+	        value: function _getOptionsValue(key, defaultValue) {
+	            return this.options[key] || defaultValue;
+	        }
+
+	        /**
+	         * Returns a list of all managed data.
+	         */
+	    }, {
+	        key: 'setItems',
+
+	        /**
+	         * Sets a list of new data items. If the specified list contains non-Data
+	         * instances then they are wrapped in a Data container.
+	         */
+	        value: function setItems(items) {
+	            return this.update(function () {
+	                this._items = [];
+	                this._index = {};
+	                var len = items ? items.length || 0 : 0;
+	                for (var pos = 0; pos < len; pos++) {
+	                    var r = this._wrap(items[pos]);
+	                    this._items[pos] = r;
+	                    this._index[r.id] = [r, pos];
+	                }
+	                return true;
+	            });
+	        }
+
+	        /**
+	         * Returns an entity from the specified position. Basically it returns value
+	         * this.items[pos].
+	         */
+	    }, {
+	        key: 'get',
+	        value: function get(pos) {
+	            var items = this.items;
+	            if (pos < 0 || pos >= items.length) return;
+	            return items[pos];
+	        }
+
+	        /**
+	         * Returns <code>true</code> if the specified item exists in this dataset.
+	         */
+	    }, {
+	        key: 'has',
+	        value: function has(d) {
+	            return this.pos(d) >= 0;
+	        }
+
+	        /**
+	         * Sets a new value in the specified position
+	         */
+	    }, {
+	        key: 'set',
+	        value: function set(d, pos) {
+	            return this.update(function () {
+	                if (pos === undefined) {
+	                    pos = this._items.length;
+	                }
+	                pos = Math.max(0, Math.min(this._items.length, +pos));
+	                var prev = this._items[pos];
+	                if (prev) {
+	                    delete this._index[prev[0].id];
+	                }
+	                var r = this._wrap(d);
+	                this._items[pos] = r;
+	                this._index[r.id] = [r, pos];
+	                return true;
+	            });
+	        }
+
+	        /**
+	         * Adds a new data item at the end of the list.
+	         */
+	    }, {
+	        key: 'add',
+	        value: function add(d) {
+	            return this.set(d, this.size());
+	        }
+
+	        /**
+	         * Returns position (index) of the specified data item.
+	         */
+	    }, {
+	        key: 'pos',
+	        value: function pos(d) {
+	            if (!d) return -1;
+	            d = this._wrap(d);
+	            return this.posById(d.id);
+	        }
+
+	        /** Returns position of the element corresponding to the specified ID. */
+	    }, {
+	        key: 'posById',
+	        value: function posById(id) {
+	            var slot = this._index[id];
+	            return slot ? slot[1] : -1;
+	        }
+
+	        /**
+	         * Returns an array containing the specified number of items starting from
+	         * the given position.
+	         */
+	    }, {
+	        key: 'slice',
+	        value: function slice(first, last) {
+	            return this._items.slice(first, last);
+	        }
+
+	        /**
+	         * Removes a data item from the specified position
+	         */
+	    }, {
+	        key: 'remove',
+	        value: function remove(pos) {
+	            return this.update(function () {
+	                var items = this._items;
+	                if (pos === undefined || pos < 0 || pos >= items.length) {
+	                    return false;
+	                }
+	                var r = items[pos];
+	                delete this._index[r.id];
+	                items.splice(pos, 1);
+	                for (var i = pos; i < items.length; i++) {
+	                    var _r = items[i];
+	                    var slot = this._index[_r.id];
+	                    if (!slot) throw new Error('DataSet index is broken');
+	                    slot[1]--;
+	                }
+	                return true;
+	            });
+	        }
+
+	        /**
+	         * Removes a specified data item.
+	         */
+	    }, {
+	        key: 'removeItem',
+	        value: function removeItem(item) {
+	            var pos = this.pos(item);
+	            return this.remove(pos);
+	        }
+
+	        /**
+	         * Removes a data item corresponding to the specified identifier.
+	         */
+	    }, {
+	        key: 'removeById',
+	        value: function removeById(id) {
+	            var pos = this.posById(id);
+	            return this.remove(pos);
+	        }
+
+	        /**
+	         * Returns the number of elements in this set.
+	         */
+	    }, {
+	        key: 'size',
+
+	        /**
+	         * Returns the size of this set (length of the underlying array with items).
+	         */
+	        value: function size() {
+	            return this.items.length;
+	        }
+
+	        /**
+	         * Returns a data item by its identifier.
+	         */
+	    }, {
+	        key: 'byId',
+	        value: function byId(id) {
+	            var slot = this._index[id];
+	            return slot ? slot[0] : undefined;
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /**
+	         * Iterates over all items and calls the specified visitor function in the
+	         * given context. If the specified visitor function returns
+	         * <code>false</code> then the iteration processes stops.
+	         */
+	    }, {
+	        key: 'each',
+	        value: function each(visitor, context) {
+	            return this.items.forEach(visitor, context);
+	        }
+	    }, {
+	        key: 'forEach',
+	        value: function forEach(visitor, context) {
+	            return this.items.forEach(visitor, context);
+	        }
+
+	        /**
+	         * Calls the specified visitor function with each item in the list and
+	         * returns a list of results. If the visitor returns an undefined value then
+	         * it is not added to the resulting list.
+	         */
+	    }, {
+	        key: 'map',
+	        value: function map(visitor, context) {
+	            return this.items.map(visitor, context);
+	        }
+
+	        /**
+	         * Calls the specified visitor function with each item in the list and
+	         * returns a list of results. If the visitor returns an undefined value then
+	         * it is not added to the resulting list.
+	         */
+	    }, {
+	        key: 'filter',
+	        value: function filter(visitor, context) {
+	            return this.items.filter(visitor, context);
+	        }
+
+	        /**
+	         * Iterates over all data items until the specified visitor method returns a
+	         * non-empty result. This method returns the first non-empty visitor result
+	         * or <code>undefined</code> if the visitor returns empty results for all
+	         * items.
+	         */
+	    }, {
+	        key: 'find',
+	        value: function find(visitor, context) {
+	            var items = this.items;
+	            var result = false;
+	            context = context || this;
+	            for (var i = 0, len = items.length; !result && i < len; i++) {
+	                result = visitor.call(context, items[i], i);
+	            }
+	            return result;
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /**
+	         * Performs an update action on this dataset
+	         */
+	    }, {
+	        key: 'update',
+	        value: function update(action) {
+	            this.version = (this.version || 0) + 1;
+	            return this.action('update', function (intent) {
+	                return action.call(this);
+	            });
+	        }
+
+	        /**
+	         * Checks that the specified object has a good type. Otherwise it wraps it
+	         * in a Data instance.
+	         */
+	    }, {
+	        key: '_wrap',
+	        value: function _wrap(data) {
+	            var item = data;
+	            var DataType = this.DataType;
+	            if (!(item instanceof DataType)) {
+	                item = new DataType({
+	                    dataSet: this,
+	                    adapters: this.adapters,
+	                    data: data
+	                });
+	            }
+	            return item;
+	        }
+
+	        /**
+	         * Creates and returns a new empty copy of this data set.
+	         */
+	    }, {
+	        key: 'createNew',
+	        value: function createNew(options) {
+	            var Type = this.constructor;
+	            if (!options.adapters) {
+	                options.adapters = this.adapters;
+	            }
+
+	            for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	                args[_key2 - 1] = arguments[_key2];
+	            }
+
+	            var result = new (_bind.apply(Type, [null].concat([options], args)))();
+	            Type.Data = this.Data;
+	            return result;
+	        }
+
+	        /**
+	         * Returns the default type of instances managed by this data set.
+	         */
+	    }, {
+	        key: 'visit',
+
+	        // ----------------------------------------------------------------------
+
+	        /**
+	         * Visits this items
+	         * 
+	         * @param visitor.before
+	         *            this method is called before this item is visited
+	         * @param visitor.after
+	         *            this method is called after this item is visited
+	         */
+	        value: function visit(visitor) {
+	            var result;
+	            if (visitor.before) {
+	                result = visitor.before.call(visitor, this);
+	            }
+	            if (result !== 'false') {
+	                this.each(function (item) {
+	                    return item.visit(visitor);
+	                });
+	            }
+	            if (visitor.after) {
+	                visitor.after.call(visitor, this);
+	            }
+	            return result;
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /**
+	         * Returns a list of elements existing in all data sets.
+	         */
+	    }, {
+	        key: 'dataSet',
+	        set: function set(_set) {
+	            if (!!_set) {
+	                this[DATA_SET_KEY] = _set;
+	            } else {
+	                delete this[DATA_SET_KEY];
+	            }
+	        },
+	        get: function get() {
+	            if (this[DATA_SET_KEY] === undefined) {
+	                var dataSet = undefined;
+	                if (this.adaptable instanceof DataSet) {
+	                    dataSet = this.adaptable;
+	                } else if (this.options instanceof DataSet) {
+	                    dataSet = this.options;
+	                } else if (this.options.dataSet instanceof DataSet) {
+	                    dataSet = this.options.dataSet;
+	                }
+	                this[DATA_SET_KEY] = dataSet;
+	            }
+	            return this[DATA_SET_KEY];
+	        }
+	    }, {
+	        key: 'items',
+	        get: function get() {
+	            return this._items;
+	        },
+
+	        /**
+	         * Sets a new list of data items. If the specified list contains non Data
+	         * instances then they are wrapped in a Data container.
+	         */
+	        set: function set(items) {
+	            return this.setItems(items);
+	        }
+	    }, {
+	        key: 'length',
+	        get: function get() {
+	            return this.items.length;
+	        }
+	    }, {
+	        key: 'DataType',
+	        get: function get() {
+	            return this._DataType || _Data3['default'];
+	        },
+
+	        /**
+	         * Sets a new type for instances managed by this data set.
+	         */
+	        set: function set(type) {
+	            this._DataType = type;
+	        }
+	    }], [{
+	        key: 'intersection',
+	        value: function intersection() {
+	            for (var _len3 = arguments.length, list = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+	                list[_key3] = arguments[_key3];
+	            }
+
+	            if (!list || !list.length) return [];
+	            list = list.sort(function (a, b) {
+	                return a.length > b.length ? 1 : -1;
+	            });
+	            var result = [];
+	            var first = list[0];
+	            first.forEach(function (item) {
+	                var contained = true;
+	                for (var i = 1; contained && i < list.length; i++) {
+	                    contained = list[i].has(item);
+	                }
+	                if (contained) {
+	                    result.push(item);
+	                }
+	            });
+	            return result;
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /**
+	         * Returns a diff of the data set content before and after an update intent.
+	         * The returned object contains the following fields: 1) "added" a list of
+	         * elements present in the data set after modifications 2) "removed" list of
+	         * elements existing only before modifications 3) "updated" list of elements
+	         * present in the data set before and after modifications.
+	         * 
+	         * @param an
+	         *            action performing modification of the data set and returning
+	         *            an intent or a promise
+	         */
+	    }, {
+	        key: 'diff',
+	        value: function diff(dataSet, action) {
+	            var that = this;
+	            var before = that._getIndex(dataSet);
+	            var promise = undefined;
+	            if (typeof action === 'function') {
+	                promise = action();
+	            } else {
+	                promise = action;
+	            }
+	            return promise.then(function () {
+	                var after = that._getIndex(dataSet);
+	                return that._delta(before, after);
+	            });
+	        }
+
+	        /**
+	         * Returns a delta object containing differences between two specified data
+	         * sets.
+	         */
+	    }, {
+	        key: 'delta',
+	        value: function delta(first, second) {
+	            var firstIndex = this._getIndex(first);
+	            var secondIndex = this._getIndex(second);
+	            return this._delta(firstIndex, secondIndex);
+	        }
+
+	        /**
+	         * Returns an object containing identifiers with the corresponding
+	         * resources.
+	         */
+	    }, {
+	        key: '_getIndex',
+	        value: function _getIndex(dataSet) {
+	            var result = {};
+	            dataSet.forEach(function (r) {
+	                result[r.id] = r;
+	            });
+	            return result;
+	        }
+
+	        /**
+	         * Makes a diff between two specified indexes and returns an object with the
+	         * following fields: 1) "added" a list of elements present in the second
+	         * index but absent in the first one 2) "removed" list of elements existing
+	         * only in the first index 3) "updated" list of elements present in both
+	         * indexes.
+	         */
+	    }, {
+	        key: '_delta',
+	        value: function _delta(first, second) {
+	            var result = {
+	                added: [],
+	                removed: [],
+	                updated: []
+	            };
+	            for (var id in first) {
+	                var a = first[id];
+	                var b = second[id];
+	                if (!!b) {
+	                    result.updated.push(b);
+	                    delete second[id];
+	                } else {
+	                    result.removed.push(a);
+	                }
+	            }
+	            for (var id in second) {
+	                var r = second[id];
+	                result.added.push(r);
+	            }
+	            return result;
+	        }
+	    }]);
+
+	    return DataSet;
+	})(_Data3['default']);
+
+	exports['default'] = DataSet;
+
+	_mosaicIntents.Intents.addTo(DataSet);
+	module.exports = exports['default'];
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _libIntent = __webpack_require__(159);
+
+	var _libIntent2 = _interopRequireDefault(_libIntent);
+
+	var _libIntents = __webpack_require__(162);
+
+	var _libIntents2 = _interopRequireDefault(_libIntents);
+
+	var _libSingleton = __webpack_require__(163);
+
+	var _libSingleton2 = _interopRequireDefault(_libSingleton);
+
+	exports['default'] = {
+	    Intent: _libIntent2['default'],
+	    Intents: _libIntents2['default'],
+	    Singleton: _libSingleton2['default']
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _promise = __webpack_require__(160);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	var _events = __webpack_require__(161);
+
+	var Intent = (function (_EventEmitter) {
+	    _inherits(Intent, _EventEmitter);
+
+	    function Intent(params, key) {
+	        _classCallCheck(this, Intent);
+
+	        _get(Object.getPrototypeOf(Intent.prototype), 'constructor', this).call(this);
+	        var that = this;
+	        that.params = params;
+	        if (key) {
+	            that.key = key;
+	        }
+	        that.handled = false;
+	        that._after = [];
+	        that._innerPromise = new _promise2['default'](function (resolve, reject) {
+	            that.resolve = function (result) {
+	                that.handled = true;
+	                resolve(result);
+	                return that;
+	            };
+	            that.reject = function (err) {
+	                that.handled = true;
+	                reject(err);
+	                return that;
+	            };
+	        });
+	        that.promise = that._innerPromise.then(function (res) {
+	            if (that._after.length) {
+	                return _promise2['default'].all(that._after).then(function () {
+	                    return res;
+	                }, function (err) {
+	                    throw err;
+	                });
+	            }
+	            return res;
+	        });
+	        that.finalize = that['finally'] = function (method) {
+	            return that.then(function (result) {
+	                try {
+	                    method(null, result);
+	                } catch (e) {}
+	                return result;
+	            }, function (err) {
+	                try {
+	                    method(err);
+	                } catch (e) {}
+	                throw err;
+	            });
+	        };
+	    }
+
+	    _createClass(Intent, [{
+	        key: 'then',
+	        value: function then(onResolve, onReject) {
+	            return this.promise.then(onResolve, onReject);
+	        }
+
+	        /**
+	         * The specified action will be executed just after the main promise is
+	         * resolved.
+	         */
+	    }, {
+	        key: 'after',
+	        value: function after(onResolve, onReject) {
+	            var res = this._innerPromise.then(onResolve, onReject);
+	            this._after.push(res);
+	            return res;
+	        }
+	    }]);
+
+	    return Intent;
+	})(_events.EventEmitter);
+
+	exports['default'] = Intent;
+	module.exports = exports['default'];
+
+/***/ },
+/* 160 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_160__;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	'use strict';
+
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function (n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+
+	EventEmitter.prototype.emit = function (type) {
+	  var er, handler, len, args, i, listeners;
+
+	  if (!this._events) this._events = {};
+
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      }
+	      throw TypeError('Uncaught, unspecified "error" event.');
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler)) return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function (type, listener) {
+	  var m;
+
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  if (!this._events) this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function (type, listener) {
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function (type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type]) return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+	    delete this._events[type];
+	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0) return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener) this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function (type) {
+	  var key, listeners;
+
+	  if (!this._events) return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function (type) {
+	  var ret;
+	  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.prototype.listenerCount = function (type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+
+	    if (isFunction(evlistener)) return 1;else if (evlistener) return evlistener.length;
+	  }
+	  return 0;
+	};
+
+	EventEmitter.listenerCount = function (emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _events = __webpack_require__(161);
+
+	var _Intent = __webpack_require__(159);
+
+	var _Intent2 = _interopRequireDefault(_Intent);
+
+	function Intents(obj) {
+	    obj = obj || this;
+	    _events.EventEmitter.apply(obj);
+	}
+	extend(Intents.prototype, {
+	    intent: function intent(key, params) {
+	        var intent = this._newIntent(key, params);
+	        return this.fireIntent(key, intent);
+	    },
+	    action: function action(key, params, _action) {
+	        if (_action === undefined) {
+	            _action = params;
+	            params = undefined;
+	        }
+	        var intent = this._newIntent(key, params);
+	        return this.runAction(key, intent, _action);
+	    },
+	    fireIntent: function fireIntent(key, intent) {
+	        try {
+	            this.emit(key, intent);
+	        } catch (err) {
+	            intent.reject(err);
+	        }
+	        return intent;
+	    },
+	    runAction: function runAction(key, intent, action) {
+	        try {
+	            var that = this;
+	            intent = that.fireIntent(key, intent);
+	            if (!intent.handled) {
+	                var result = action.call(that, intent);
+	                if (result !== undefined && !intent.handled) {
+	                    intent.resolve(result);
+	                }
+	            }
+	        } catch (err) {
+	            intent.reject(err);
+	        }
+	        return intent;
+	    },
+	    _newIntent: function _newIntent(key, params) {
+	        return new _Intent2['default'](params, key);
+	    }
+	}, _events.EventEmitter.prototype);
+
+	Intents.addTo = function (Type) {
+	    extend(Type.prototype, Intents.prototype);
+	};
+
+	function extend(to) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var from = arguments[i];
+	        for (var key in from) {
+	            if (!to[key] && Object.prototype.hasOwnProperty.call(from, key)) {
+	                to[key] = from[key];
+	            }
+	        }
+	    }
+	}
+
+	exports['default'] = Intents;
+	module.exports = exports['default'];
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _promise = __webpack_require__(160);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	exports['default'] = {
+	    singletonPromise: function singletonPromise(method) {
+	        function runAction(params) {
+	            params = params || {};
+	            for (var key in params) {
+	                runAction.params[key] = params[key];
+	            }
+	            if (!runAction.promise) {
+	                runAction.promise = _promise2['default'].resolve().then(function (result) {
+	                    delete runAction.promise;
+	                    runAction.params = {};
+	                    return method.call(that, params);
+	                });
+	            }
+	            return runAction.promise;
+	        }
+	        runAction.params = {};
+	        runAction.promise;
+	        return runAction;
+	    },
+	    singletonAction: function singletonAction(that, actionName, action) {
+	        function runAction(params) {
+	            params = params || {};
+	            for (var key in params) {
+	                runAction.params[key] = params[key];
+	            }
+	            if (!runAction.intent) {
+	                runAction.intent = that.action(actionName, runAction.params, function (n) {
+	                    function clear() {
+	                        if (n === runAction.intent) {
+	                            runAction.params = {};
+	                            delete runAction.intent;
+	                        }
+	                    }
+	                    n.after(clear, clear);
+	                    return action.call(that, n);
+	                });
+	            }
+	            return runAction.intent;
+	        }
+	        runAction.params = {};
+	        return runAction;
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _DataSet2 = __webpack_require__(157);
+
+	var _DataSet3 = _interopRequireDefault(_DataSet2);
+
+	var DerivativeDataSet = (function (_DataSet) {
+	    _inherits(DerivativeDataSet, _DataSet);
+
+	    function DerivativeDataSet(options) {
+	        var _get2;
+
+	        _classCallCheck(this, DerivativeDataSet);
+
+	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            args[_key - 1] = arguments[_key];
+	        }
+
+	        (_get2 = _get(Object.getPrototypeOf(DerivativeDataSet.prototype), 'constructor', this)).call.apply(_get2, [this, options].concat(args));
+	        if (!options) {
+	            throw new Error('Parameters are not defined');
+	        }
+	        this._onMainDataSetUpdate = this._onMainDataSetUpdate.bind(this);
+	        this.dataSet.addListener('update', this._onMainDataSetUpdate);
+	        this._handleMainDataSetUpdate();
+	    }
+
+	    _createClass(DerivativeDataSet, [{
+	        key: 'close',
+	        value: function close() {
+	            _get(Object.getPrototypeOf(DerivativeDataSet.prototype), 'close', this).call(this);
+	            var dataSet = this.dataSet;
+	            dataSet.removeListener('update', this._onMainDataSetUpdate);
+	            delete this._dataSet;
+	        }
+
+	        /** Returns an options value. */
+	    }, {
+	        key: '_getOptionsValue',
+	        value: function _getOptionsValue(key, defaultValue) {
+	            var result = _get(Object.getPrototypeOf(DerivativeDataSet.prototype), '_getOptionsValue', this).call(this, key);
+	            if (!result) {
+	                var dataSet = this.dataSet;
+	                if (dataSet) {
+	                    result = dataSet._getOptionsValue(key, defaultValue);
+	                }
+	            }
+	            return result;
+	        }
+
+	        /**
+	         * This method is called when the parent dataset is updated.
+	         */
+	    }, {
+	        key: '_onMainDataSetUpdate',
+	        value: function _onMainDataSetUpdate(intent) {
+	            intent.after((function () {
+	                return this._handleMainDataSetUpdate();
+	            }).bind(this));
+	        }
+
+	        /**
+	         * This method should be overloaded in subclasses to define exact behaveour
+	         * of objects when the parent set changes.
+	         */
+	    }, {
+	        key: '_handleMainDataSetUpdate',
+	        value: function _handleMainDataSetUpdate() {
+	            this.items = this.dataSet.items;
+	        }
+	    }]);
+
+	    return DerivativeDataSet;
+	})(_DataSet3['default']);
+
+	exports['default'] = DerivativeDataSet;
+	module.exports = exports['default'];
+
+/***/ },
+/* 165 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _DataSet = __webpack_require__(157);
+
+	var _DataSet2 = _interopRequireDefault(_DataSet);
+
+	var _DerivativeDataSet2 = __webpack_require__(164);
+
+	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
+
+	var DataSetFiltered = (function (_DerivativeDataSet) {
+	    _inherits(DataSetFiltered, _DerivativeDataSet);
+
+	    function DataSetFiltered() {
+	        _classCallCheck(this, DataSetFiltered);
+
+	        _get(Object.getPrototypeOf(DataSetFiltered.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(DataSetFiltered, [{
+	        key: '_handleMainDataSetUpdate',
+	        value: function _handleMainDataSetUpdate() {
+	            var filter = this._getOptionsValue('filter');
+	            if (filter) {
+	                this.items = this.dataSet.items.filter(filter, this);
+	            } else {
+	                this.items = this.dataSet.items;
+	            }
+	        }
+	    }]);
+
+	    return DataSetFiltered;
+	})(_DerivativeDataSet3['default']);
+
+	exports['default'] = DataSetFiltered;
+	module.exports = exports['default'];
+
+/***/ },
+/* 166 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _DerivativeDataSet2 = __webpack_require__(164);
+
+	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
+
+	var DataSetPaginated = (function (_DerivativeDataSet) {
+	    _inherits(DataSetPaginated, _DerivativeDataSet);
+
+	    /** Initializes this paginated data set. */
+
+	    function DataSetPaginated() {
+	        _classCallCheck(this, DataSetPaginated);
+
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        _get(Object.getPrototypeOf(DataSetPaginated.prototype), 'constructor', this).apply(this, args);
+	        var page = this._getOptionsValue('page', 0);
+	        this.pageIdx = page;
+	        this.pageSize = this._getOptionsValue('pageSize', 10);
+	    }
+
+	    // ----------------------------------------------------------------------
+
+	    /** Returns position of the first element visible in the page */
+
+	    _createClass(DataSetPaginated, [{
+	        key: 'focusPos',
+
+	        /**
+	         * Activates the page corresponding containing element in the specified
+	         * position.
+	         */
+	        value: function focusPos(idx) {
+	            idx = idx || 0;
+	            idx = Math.max(0, Math.min(this.dataSet.length - 1, idx));
+	            var pageIdx = Math.floor(idx / this.pageSize);
+	            return this.setPageIdx(pageIdx);
+	        }
+
+	        // ----------------------------------------------------------------------
+	        // Page index
+
+	        /** Returns the index of the currently active page. */
+	    }, {
+	        key: 'setPageIdx',
+
+	        /** Sets a new page index */
+	        value: function setPageIdx(pageIdx) {
+	            pageIdx = pageIdx || 0;
+	            var dataSet = this.dataSet;
+	            var pageSize = this.pageSize;
+	            var size = dataSet.size();
+	            pageIdx = this._pageIdx = Math.max(0, Math.min(pageIdx, this.pageNumber - 1));
+	            var startPos = pageIdx * pageSize;
+	            var endPos = Math.min(size - 1, startPos + pageSize - 1);
+	            var items = [];
+	            for (var i = startPos; i <= endPos; i++) {
+	                var item = dataSet.get(i);
+	                items.push(item);
+	            }
+	            return this.setItems(items);
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /** Sets a new page size */
+	    }, {
+	        key: '_handleMainDataSetUpdate',
+
+	        // ----------------------------------------------------------------------
+
+	        /** Updates the list */
+	        value: function _handleMainDataSetUpdate() {
+	            return this.pageSize = this.pageSize;
+	        }
+	    }, {
+	        key: 'pagePos',
+	        get: function get() {
+	            var result = this.pageIdx * this.pageSize;
+	            return result;
+	        }
+	    }, {
+	        key: 'pageIdx',
+	        get: function get() {
+	            return this._pageIdx || 0;
+	        },
+
+	        /** Sets a new page index */
+	        set: function set(pageIdx) {
+	            this.setPageIdx(pageIdx);
+	        }
+	    }, {
+	        key: 'pageSize',
+	        set: function set(pageSize) {
+	            var firstPageItemIdx = this.pagePos;
+	            this._pageSize = pageSize || this.defaultPageSize || 10;
+	            return this.focusPos(firstPageItemIdx);
+	        },
+
+	        /** Returns the current page size */
+	        get: function get() {
+	            return this._pageSize || this._getOptionsValue('pageSize') || this.defaultPageSize;
+	        }
+
+	        // ----------------------------------------------------------------------
+
+	        /** Returns the total page number in this data set. */
+	    }, {
+	        key: 'pageNumber',
+	        get: function get() {
+	            return Math.ceil(this.dataSet.length / this.pageSize);
+	        }
+	    }]);
+
+	    return DataSetPaginated;
+	})(_DerivativeDataSet3['default']);
+
+	exports['default'] = DataSetPaginated;
+	module.exports = exports['default'];
+
+/***/ },
+/* 167 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _DataSet = __webpack_require__(157);
+
+	var _DataSet2 = _interopRequireDefault(_DataSet);
+
+	var _DerivativeDataSet2 = __webpack_require__(164);
+
+	var _DerivativeDataSet3 = _interopRequireDefault(_DerivativeDataSet2);
+
+	var DataSetSelection = (function (_DerivativeDataSet) {
+	    _inherits(DataSetSelection, _DerivativeDataSet);
+
+	    function DataSetSelection() {
+	        _classCallCheck(this, DataSetSelection);
+
+	        _get(Object.getPrototypeOf(DataSetSelection.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(DataSetSelection, [{
+	        key: '_handleMainDataSetUpdate',
+
+	        /** Updates list of selected items. */
+	        value: function _handleMainDataSetUpdate() {
+	            var items = [];
+	            this.dataSet.each(function (r, i) {
+	                if (this.has(r)) {
+	                    items.push(r);
+	                }
+	            }, this);
+	            return this.setItems(items);
+	        }
+
+	        /**
+	         * Returns a filter function returning <code>true</code> if a specified
+	         * item is contained in the specified list.
+	         */
+	    }, {
+	        key: '_getSelectionFilter',
+	        value: function _getSelectionFilter(items) {
+	            var _this = this;
+
+	            var filter = undefined;
+	            if (typeof items === 'function') {
+	                filter = items;
+	            } else if (items instanceof _DataSet2['default']) {
+	                filter = function (r) {
+	                    return items.has(r);
+	                };
+	            } else if (items) {
+	                (function () {
+	                    if (!Array.isArray(items)) {
+	                        items = [items];
+	                    }
+	                    var index = {};
+	                    for (var key in items) {
+	                        var item = _this._wrap(items[key]);
+	                        index[item.id] = key;
+	                    }
+	                    filter = function (item) {
+	                        return item.id in index;
+	                    };
+	                })();
+	            }
+	            return filter;
+	        }
+	    }, {
+	        key: 'toggle',
+	        value: function toggle(item) {
+	            var that = this;
+	            var newItems = [];
+	            var items = Array.isArray(item) ? item : [item];
+	            items.forEach(function (item) {
+	                var pos = that.pos(item);
+	                if (pos < 0) {
+	                    newItems.push(item);
+	                }
+	            });
+	            return that.setItems(newItems);
+	        }
+
+	        /**
+	         * Selects the specified items.
+	         */
+	    }, {
+	        key: 'select',
+	        value: function select(selection) {
+	            var list = undefined;
+	            var filter = this._getSelectionFilter(selection);
+	            if (filter) {
+	                list = this.dataSet.filter(filter, this);
+	            } else {
+	                list = [];
+	            }
+	            return this.setItems(list);
+	        }
+
+	        /**
+	         * Returns <code>true</code> if <em>at least one</em> specified item
+	         * is contained in this selection data set.
+	         */
+	    }, {
+	        key: 'selected',
+	        value: function selected(selection) {
+	            var filter = this._getSelectionFilter(selection);
+	            return this.find(filter);
+	        }
+	    }]);
+
+	    return DataSetSelection;
+	})(_DerivativeDataSet3['default']);
+
+	exports['default'] = DataSetSelection;
+	module.exports = exports['default'];
+
+/***/ },
+/* 168 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_168__;
+
+/***/ },
+/* 169 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18806,7 +21369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = L.DataLayer;
 
 /***/ },
-/* 152 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18825,11 +21388,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _leaflet = __webpack_require__(150);
+	var _leaflet = __webpack_require__(168);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(151);
+	__webpack_require__(169);
 
 	var DataSetCanvasStyle = (function (_L$DataLayer$DataLayerStyle) {
 	    _inherits(DataSetCanvasStyle, _L$DataLayer$DataLayerStyle);
@@ -18928,7 +21491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 153 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18959,19 +21522,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactLeaflet = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-leaflet\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
-	var _mosaicDataset = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"mosaic-dataset\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _mosaicDataset = __webpack_require__(150);
 
-	var _leaflet = __webpack_require__(150);
+	var _leaflet = __webpack_require__(168);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	__webpack_require__(151);
+	__webpack_require__(169);
 
-	var _DataSetCanvasStyle = __webpack_require__(152);
+	var _DataSetCanvasStyle = __webpack_require__(170);
 
 	var _DataSetCanvasStyle2 = _interopRequireDefault(_DataSetCanvasStyle);
 
-	var _lodashFunction = __webpack_require__(154);
+	var _lodashFunction = __webpack_require__(172);
 
 	var DataSetCanvasLayer = (function (_MapLayer) {
 	    _inherits(DataSetCanvasLayer, _MapLayer);
@@ -19053,44 +21616,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 154 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  'after': __webpack_require__(155),
-	  'ary': __webpack_require__(160),
-	  'before': __webpack_require__(201),
-	  'bind': __webpack_require__(202),
-	  'bindKey': __webpack_require__(204),
-	  'curry': __webpack_require__(205),
-	  'curryRight': __webpack_require__(206),
-	  'debounce': __webpack_require__(207),
-	  'defer': __webpack_require__(208),
-	  'delay': __webpack_require__(210),
-	  'flip': __webpack_require__(211),
-	  'memoize': __webpack_require__(212),
-	  'negate': __webpack_require__(233),
-	  'once': __webpack_require__(234),
-	  'overArgs': __webpack_require__(235),
-	  'partial': __webpack_require__(294),
-	  'partialRight': __webpack_require__(295),
-	  'rearg': __webpack_require__(296),
-	  'rest': __webpack_require__(203),
-	  'spread': __webpack_require__(297),
-	  'throttle': __webpack_require__(298),
-	  'unary': __webpack_require__(299),
-	  'wrap': __webpack_require__(300)
+	  'after': __webpack_require__(173),
+	  'ary': __webpack_require__(178),
+	  'before': __webpack_require__(219),
+	  'bind': __webpack_require__(220),
+	  'bindKey': __webpack_require__(222),
+	  'curry': __webpack_require__(223),
+	  'curryRight': __webpack_require__(224),
+	  'debounce': __webpack_require__(225),
+	  'defer': __webpack_require__(226),
+	  'delay': __webpack_require__(228),
+	  'flip': __webpack_require__(229),
+	  'memoize': __webpack_require__(230),
+	  'negate': __webpack_require__(251),
+	  'once': __webpack_require__(252),
+	  'overArgs': __webpack_require__(253),
+	  'partial': __webpack_require__(312),
+	  'partialRight': __webpack_require__(313),
+	  'rearg': __webpack_require__(314),
+	  'rest': __webpack_require__(221),
+	  'spread': __webpack_require__(315),
+	  'throttle': __webpack_require__(316),
+	  'unary': __webpack_require__(317),
+	  'wrap': __webpack_require__(318)
 	};
 
 /***/ },
-/* 155 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var toInteger = __webpack_require__(156);
+	var toInteger = __webpack_require__(174);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -19133,12 +21696,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = after;
 
 /***/ },
-/* 156 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var toNumber = __webpack_require__(157);
+	var toNumber = __webpack_require__(175);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -19184,13 +21747,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = toInteger;
 
 /***/ },
-/* 157 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isFunction = __webpack_require__(158),
-	    isObject = __webpack_require__(159);
+	var isFunction = __webpack_require__(176),
+	    isObject = __webpack_require__(177);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -19248,12 +21811,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = toNumber;
 
 /***/ },
-/* 158 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isObject = __webpack_require__(159);
+	var isObject = __webpack_require__(177);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]',
@@ -19295,7 +21858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isFunction;
 
 /***/ },
-/* 159 */
+/* 177 */
 /***/ function(module, exports) {
 
 	/**
@@ -19331,12 +21894,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isObject;
 
 /***/ },
-/* 160 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161);
+	var createWrapper = __webpack_require__(179);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var ARY_FLAG = 128;
@@ -19366,20 +21929,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ary;
 
 /***/ },
-/* 161 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseSetData = __webpack_require__(162),
-	    createBaseWrapper = __webpack_require__(173),
-	    createCurryWrapper = __webpack_require__(176),
-	    createHybridWrapper = __webpack_require__(178),
-	    createPartialWrapper = __webpack_require__(199),
-	    getData = __webpack_require__(186),
-	    mergeData = __webpack_require__(200),
-	    setData = __webpack_require__(194),
-	    toInteger = __webpack_require__(156);
+	var baseSetData = __webpack_require__(180),
+	    createBaseWrapper = __webpack_require__(191),
+	    createCurryWrapper = __webpack_require__(194),
+	    createHybridWrapper = __webpack_require__(196),
+	    createPartialWrapper = __webpack_require__(217),
+	    getData = __webpack_require__(204),
+	    mergeData = __webpack_require__(218),
+	    setData = __webpack_require__(212),
+	    toInteger = __webpack_require__(174);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -19473,13 +22036,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createWrapper;
 
 /***/ },
-/* 162 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var identity = __webpack_require__(163),
-	    metaMap = __webpack_require__(164);
+	var identity = __webpack_require__(181),
+	    metaMap = __webpack_require__(182);
 
 	/**
 	 * The base implementation of `setData` without support for hot loop detection.
@@ -19497,7 +22060,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseSetData;
 
 /***/ },
-/* 163 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -19524,12 +22087,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = identity;
 
 /***/ },
-/* 164 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var WeakMap = __webpack_require__(165);
+	var WeakMap = __webpack_require__(183);
 
 	/** Used to store function metadata. */
 	var metaMap = WeakMap && new WeakMap();
@@ -19537,13 +22100,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = metaMap;
 
 /***/ },
-/* 165 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getNative = __webpack_require__(166),
-	    root = __webpack_require__(170);
+	var getNative = __webpack_require__(184),
+	    root = __webpack_require__(188);
 
 	/* Built-in method references that are verified to be native. */
 	var WeakMap = getNative(root, 'WeakMap');
@@ -19551,12 +22114,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WeakMap;
 
 /***/ },
-/* 166 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isNative = __webpack_require__(167);
+	var isNative = __webpack_require__(185);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -19574,14 +22137,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getNative;
 
 /***/ },
-/* 167 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isFunction = __webpack_require__(158),
-	    isHostObject = __webpack_require__(168),
-	    isObjectLike = __webpack_require__(169);
+	var isFunction = __webpack_require__(176),
+	    isHostObject = __webpack_require__(186),
+	    isObjectLike = __webpack_require__(187);
 
 	/** Used to match `RegExp` [syntax characters](http://ecma-international.org/ecma-262/6.0/#sec-patterns). */
 	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
@@ -19630,7 +22193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isNative;
 
 /***/ },
-/* 168 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -19657,7 +22220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isHostObject;
 
 /***/ },
-/* 169 */
+/* 187 */
 /***/ function(module, exports) {
 
 	/**
@@ -19692,12 +22255,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isObjectLike;
 
 /***/ },
-/* 170 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {'use strict';
 
-	var checkGlobal = __webpack_require__(172);
+	var checkGlobal = __webpack_require__(190);
 
 	/** Used to determine if values are of the language type `Object`. */
 	var objectTypes = {
@@ -19732,10 +22295,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var root = freeGlobal || freeWindow !== (thisGlobal && thisGlobal.window) && freeWindow || freeSelf || thisGlobal || Function('return this')();
 
 	module.exports = root;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(171)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(189)(module), (function() { return this; }())))
 
 /***/ },
-/* 171 */
+/* 189 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -19752,7 +22315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 172 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/**
@@ -19771,13 +22334,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = checkGlobal;
 
 /***/ },
-/* 173 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createCtorWrapper = __webpack_require__(174),
-	    root = __webpack_require__(170);
+	var createCtorWrapper = __webpack_require__(192),
+	    root = __webpack_require__(188);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1;
@@ -19806,13 +22369,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createBaseWrapper;
 
 /***/ },
-/* 174 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseCreate = __webpack_require__(175),
-	    isObject = __webpack_require__(159);
+	var baseCreate = __webpack_require__(193),
+	    isObject = __webpack_require__(177);
 
 	/**
 	 * Creates a function that produces an instance of `Ctor` regardless of
@@ -19858,12 +22421,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createCtorWrapper;
 
 /***/ },
-/* 175 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isObject = __webpack_require__(159);
+	var isObject = __webpack_require__(177);
 
 	/** Built-in value references. */
 	var objectCreate = Object.create;
@@ -19883,17 +22446,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseCreate;
 
 /***/ },
-/* 176 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var apply = __webpack_require__(177),
-	    createCtorWrapper = __webpack_require__(174),
-	    createHybridWrapper = __webpack_require__(178),
-	    createRecurryWrapper = __webpack_require__(181),
-	    replaceHolders = __webpack_require__(198),
-	    root = __webpack_require__(170);
+	var apply = __webpack_require__(195),
+	    createCtorWrapper = __webpack_require__(192),
+	    createHybridWrapper = __webpack_require__(196),
+	    createRecurryWrapper = __webpack_require__(199),
+	    replaceHolders = __webpack_require__(216),
+	    root = __webpack_require__(188);
 
 	/**
 	 * Creates a function that wraps `func` to enable currying.
@@ -19928,7 +22491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createCurryWrapper;
 
 /***/ },
-/* 177 */
+/* 195 */
 /***/ function(module, exports) {
 
 	/**
@@ -19961,18 +22524,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = apply;
 
 /***/ },
-/* 178 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var composeArgs = __webpack_require__(179),
-	    composeArgsRight = __webpack_require__(180),
-	    createCtorWrapper = __webpack_require__(174),
-	    createRecurryWrapper = __webpack_require__(181),
-	    reorder = __webpack_require__(196),
-	    replaceHolders = __webpack_require__(198),
-	    root = __webpack_require__(170);
+	var composeArgs = __webpack_require__(197),
+	    composeArgsRight = __webpack_require__(198),
+	    createCtorWrapper = __webpack_require__(192),
+	    createRecurryWrapper = __webpack_require__(199),
+	    reorder = __webpack_require__(214),
+	    replaceHolders = __webpack_require__(216),
+	    root = __webpack_require__(188);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -20053,7 +22616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createHybridWrapper;
 
 /***/ },
-/* 179 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -20094,7 +22657,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = composeArgs;
 
 /***/ },
-/* 180 */
+/* 198 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -20137,14 +22700,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = composeArgsRight;
 
 /***/ },
-/* 181 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var copyArray = __webpack_require__(182),
-	    isLaziable = __webpack_require__(183),
-	    setData = __webpack_require__(194);
+	var copyArray = __webpack_require__(200),
+	    isLaziable = __webpack_require__(201),
+	    setData = __webpack_require__(212);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -20197,7 +22760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createRecurryWrapper;
 
 /***/ },
-/* 182 */
+/* 200 */
 /***/ function(module, exports) {
 
 	/**
@@ -20224,15 +22787,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = copyArray;
 
 /***/ },
-/* 183 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var LazyWrapper = __webpack_require__(184),
-	    getData = __webpack_require__(186),
-	    getFuncName = __webpack_require__(188),
-	    lodash = __webpack_require__(190);
+	var LazyWrapper = __webpack_require__(202),
+	    getData = __webpack_require__(204),
+	    getFuncName = __webpack_require__(206),
+	    lodash = __webpack_require__(208);
 
 	/**
 	 * Checks if `func` has a lazy counterpart.
@@ -20258,13 +22821,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isLaziable;
 
 /***/ },
-/* 184 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseCreate = __webpack_require__(175),
-	    baseLodash = __webpack_require__(185);
+	var baseCreate = __webpack_require__(193),
+	    baseLodash = __webpack_require__(203);
 
 	/** Used as references for the maximum length and index of an array. */
 	var MAX_ARRAY_LENGTH = 4294967295;
@@ -20292,7 +22855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LazyWrapper;
 
 /***/ },
-/* 185 */
+/* 203 */
 /***/ function(module, exports) {
 
 	/**
@@ -20309,13 +22872,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseLodash;
 
 /***/ },
-/* 186 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var metaMap = __webpack_require__(164),
-	    noop = __webpack_require__(187);
+	var metaMap = __webpack_require__(182),
+	    noop = __webpack_require__(205);
 
 	/**
 	 * Gets metadata for `func`.
@@ -20331,7 +22894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getData;
 
 /***/ },
-/* 187 */
+/* 205 */
 /***/ function(module, exports) {
 
 	/**
@@ -20357,12 +22920,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = noop;
 
 /***/ },
-/* 188 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var realNames = __webpack_require__(189);
+	var realNames = __webpack_require__(207);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -20395,7 +22958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getFuncName;
 
 /***/ },
-/* 189 */
+/* 207 */
 /***/ function(module, exports) {
 
 	/** Used to lookup unminified function names. */
@@ -20406,17 +22969,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = realNames;
 
 /***/ },
-/* 190 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var LazyWrapper = __webpack_require__(184),
-	    LodashWrapper = __webpack_require__(191),
-	    baseLodash = __webpack_require__(185),
-	    isArray = __webpack_require__(192),
-	    isObjectLike = __webpack_require__(169),
-	    wrapperClone = __webpack_require__(193);
+	var LazyWrapper = __webpack_require__(202),
+	    LodashWrapper = __webpack_require__(209),
+	    baseLodash = __webpack_require__(203),
+	    isArray = __webpack_require__(210),
+	    isObjectLike = __webpack_require__(187),
+	    wrapperClone = __webpack_require__(211);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -20553,13 +23116,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = lodash;
 
 /***/ },
-/* 191 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseCreate = __webpack_require__(175),
-	    baseLodash = __webpack_require__(185);
+	var baseCreate = __webpack_require__(193),
+	    baseLodash = __webpack_require__(203);
 
 	/**
 	 * The base constructor for creating `lodash` wrapper objects.
@@ -20582,7 +23145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LodashWrapper;
 
 /***/ },
-/* 192 */
+/* 210 */
 /***/ function(module, exports) {
 
 	/**
@@ -20615,14 +23178,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isArray;
 
 /***/ },
-/* 193 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var LazyWrapper = __webpack_require__(184),
-	    LodashWrapper = __webpack_require__(191),
-	    copyArray = __webpack_require__(182);
+	var LazyWrapper = __webpack_require__(202),
+	    LodashWrapper = __webpack_require__(209),
+	    copyArray = __webpack_require__(200);
 
 	/**
 	 * Creates a clone of `wrapper`.
@@ -20645,13 +23208,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = wrapperClone;
 
 /***/ },
-/* 194 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseSetData = __webpack_require__(162),
-	    now = __webpack_require__(195);
+	var baseSetData = __webpack_require__(180),
+	    now = __webpack_require__(213);
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
 	var HOT_COUNT = 150,
@@ -20693,7 +23256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = setData;
 
 /***/ },
-/* 195 */
+/* 213 */
 /***/ function(module, exports) {
 
 	/**
@@ -20719,13 +23282,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = now;
 
 /***/ },
-/* 196 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var copyArray = __webpack_require__(182),
-	    isIndex = __webpack_require__(197);
+	var copyArray = __webpack_require__(200),
+	    isIndex = __webpack_require__(215);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMin = Math.min;
@@ -20755,7 +23318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = reorder;
 
 /***/ },
-/* 197 */
+/* 215 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -20783,7 +23346,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isIndex;
 
 /***/ },
-/* 198 */
+/* 216 */
 /***/ function(module, exports) {
 
 	/** Used as the internal argument placeholder. */
@@ -20818,14 +23381,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = replaceHolders;
 
 /***/ },
-/* 199 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var apply = __webpack_require__(177),
-	    createCtorWrapper = __webpack_require__(174),
-	    root = __webpack_require__(170);
+	var apply = __webpack_require__(195),
+	    createCtorWrapper = __webpack_require__(192),
+	    root = __webpack_require__(188);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1;
@@ -20868,15 +23431,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createPartialWrapper;
 
 /***/ },
-/* 200 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var composeArgs = __webpack_require__(179),
-	    composeArgsRight = __webpack_require__(180),
-	    copyArray = __webpack_require__(182),
-	    replaceHolders = __webpack_require__(198);
+	var composeArgs = __webpack_require__(197),
+	    composeArgsRight = __webpack_require__(198),
+	    copyArray = __webpack_require__(200),
+	    replaceHolders = __webpack_require__(216);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -20962,12 +23525,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mergeData;
 
 /***/ },
-/* 201 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var toInteger = __webpack_require__(156);
+	var toInteger = __webpack_require__(174);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -21008,14 +23571,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = before;
 
 /***/ },
-/* 202 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161),
-	    replaceHolders = __webpack_require__(198),
-	    rest = __webpack_require__(203);
+	var createWrapper = __webpack_require__(179),
+	    replaceHolders = __webpack_require__(216),
+	    rest = __webpack_require__(221);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -21073,13 +23636,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = bind;
 
 /***/ },
-/* 203 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var apply = __webpack_require__(177),
-	    toInteger = __webpack_require__(156);
+	var apply = __webpack_require__(195),
+	    toInteger = __webpack_require__(174);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -21144,14 +23707,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = rest;
 
 /***/ },
-/* 204 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161),
-	    replaceHolders = __webpack_require__(198),
-	    rest = __webpack_require__(203);
+	var createWrapper = __webpack_require__(179),
+	    replaceHolders = __webpack_require__(216),
+	    rest = __webpack_require__(221);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var BIND_FLAG = 1,
@@ -21219,12 +23782,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = bindKey;
 
 /***/ },
-/* 205 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161);
+	var createWrapper = __webpack_require__(179);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var CURRY_FLAG = 8;
@@ -21282,12 +23845,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = curry;
 
 /***/ },
-/* 206 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161);
+	var createWrapper = __webpack_require__(179);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var CURRY_RIGHT_FLAG = 16;
@@ -21342,14 +23905,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = curryRight;
 
 /***/ },
-/* 207 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isObject = __webpack_require__(159),
-	    now = __webpack_require__(195),
-	    toNumber = __webpack_require__(157);
+	var isObject = __webpack_require__(177),
+	    now = __webpack_require__(213),
+	    toNumber = __webpack_require__(175);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -21523,13 +24086,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = debounce;
 
 /***/ },
-/* 208 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseDelay = __webpack_require__(209),
-	    rest = __webpack_require__(203);
+	var baseDelay = __webpack_require__(227),
+	    rest = __webpack_require__(221);
 
 	/**
 	 * Defers invoking the `func` until the current call stack has cleared. Any
@@ -21555,7 +24118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = defer;
 
 /***/ },
-/* 209 */
+/* 227 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -21585,14 +24148,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseDelay;
 
 /***/ },
-/* 210 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseDelay = __webpack_require__(209),
-	    rest = __webpack_require__(203),
-	    toNumber = __webpack_require__(157);
+	var baseDelay = __webpack_require__(227),
+	    rest = __webpack_require__(221),
+	    toNumber = __webpack_require__(175);
 
 	/**
 	 * Invokes `func` after `wait` milliseconds. Any additional arguments are
@@ -21619,12 +24182,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = delay;
 
 /***/ },
-/* 211 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161);
+	var createWrapper = __webpack_require__(179);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var FLIP_FLAG = 512;
@@ -21653,12 +24216,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = flip;
 
 /***/ },
-/* 212 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var MapCache = __webpack_require__(213);
+	var MapCache = __webpack_require__(231);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -21731,16 +24294,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = memoize;
 
 /***/ },
-/* 213 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var mapClear = __webpack_require__(214),
-	    mapDelete = __webpack_require__(218),
-	    mapGet = __webpack_require__(225),
-	    mapHas = __webpack_require__(228),
-	    mapSet = __webpack_require__(230);
+	var mapClear = __webpack_require__(232),
+	    mapDelete = __webpack_require__(236),
+	    mapGet = __webpack_require__(243),
+	    mapHas = __webpack_require__(246),
+	    mapSet = __webpack_require__(248);
 
 	/**
 	 * Creates a map cache object to store key-value pairs.
@@ -21770,13 +24333,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MapCache;
 
 /***/ },
-/* 214 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Hash = __webpack_require__(215),
-	    Map = __webpack_require__(217);
+	var Hash = __webpack_require__(233),
+	    Map = __webpack_require__(235);
 
 	/**
 	 * Removes all key-value entries from the map.
@@ -21796,12 +24359,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapClear;
 
 /***/ },
-/* 215 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var nativeCreate = __webpack_require__(216);
+	var nativeCreate = __webpack_require__(234);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -21821,12 +24384,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Hash;
 
 /***/ },
-/* 216 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getNative = __webpack_require__(166);
+	var getNative = __webpack_require__(184);
 
 	/* Built-in method references that are verified to be native. */
 	var nativeCreate = getNative(Object, 'create');
@@ -21834,13 +24397,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = nativeCreate;
 
 /***/ },
-/* 217 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getNative = __webpack_require__(166),
-	    root = __webpack_require__(170);
+	var getNative = __webpack_require__(184),
+	    root = __webpack_require__(188);
 
 	/* Built-in method references that are verified to be native. */
 	var Map = getNative(root, 'Map');
@@ -21848,15 +24411,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Map;
 
 /***/ },
-/* 218 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Map = __webpack_require__(217),
-	    assocDelete = __webpack_require__(219),
-	    hashDelete = __webpack_require__(222),
-	    isKeyable = __webpack_require__(224);
+	var Map = __webpack_require__(235),
+	    assocDelete = __webpack_require__(237),
+	    hashDelete = __webpack_require__(240),
+	    isKeyable = __webpack_require__(242);
 
 	/**
 	 * Removes `key` and its value from the map.
@@ -21878,12 +24441,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapDelete;
 
 /***/ },
-/* 219 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocIndexOf = __webpack_require__(220);
+	var assocIndexOf = __webpack_require__(238);
 
 	/** Used for built-in method references. */
 	var arrayProto = Array.prototype;
@@ -21916,12 +24479,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = assocDelete;
 
 /***/ },
-/* 220 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var eq = __webpack_require__(221);
+	var eq = __webpack_require__(239);
 
 	/**
 	 * Gets the index at which the first occurrence of `key` is found in `array`
@@ -21945,7 +24508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = assocIndexOf;
 
 /***/ },
-/* 221 */
+/* 239 */
 /***/ function(module, exports) {
 
 	/**
@@ -21987,12 +24550,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = eq;
 
 /***/ },
-/* 222 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var hashHas = __webpack_require__(223);
+	var hashHas = __webpack_require__(241);
 
 	/**
 	 * Removes `key` and its value from the hash.
@@ -22009,12 +24572,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hashDelete;
 
 /***/ },
-/* 223 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var nativeCreate = __webpack_require__(216);
+	var nativeCreate = __webpack_require__(234);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -22037,7 +24600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hashHas;
 
 /***/ },
-/* 224 */
+/* 242 */
 /***/ function(module, exports) {
 
 	/**
@@ -22057,15 +24620,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isKeyable;
 
 /***/ },
-/* 225 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Map = __webpack_require__(217),
-	    assocGet = __webpack_require__(226),
-	    hashGet = __webpack_require__(227),
-	    isKeyable = __webpack_require__(224);
+	var Map = __webpack_require__(235),
+	    assocGet = __webpack_require__(244),
+	    hashGet = __webpack_require__(245),
+	    isKeyable = __webpack_require__(242);
 
 	/**
 	 * Gets the map value for `key`.
@@ -22087,12 +24650,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapGet;
 
 /***/ },
-/* 226 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocIndexOf = __webpack_require__(220);
+	var assocIndexOf = __webpack_require__(238);
 
 	/**
 	 * Gets the associative array value for `key`.
@@ -22110,12 +24673,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = assocGet;
 
 /***/ },
-/* 227 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var nativeCreate = __webpack_require__(216);
+	var nativeCreate = __webpack_require__(234);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -22145,15 +24708,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hashGet;
 
 /***/ },
-/* 228 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Map = __webpack_require__(217),
-	    assocHas = __webpack_require__(229),
-	    hashHas = __webpack_require__(223),
-	    isKeyable = __webpack_require__(224);
+	var Map = __webpack_require__(235),
+	    assocHas = __webpack_require__(247),
+	    hashHas = __webpack_require__(241),
+	    isKeyable = __webpack_require__(242);
 
 	/**
 	 * Checks if a map value for `key` exists.
@@ -22175,12 +24738,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapHas;
 
 /***/ },
-/* 229 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocIndexOf = __webpack_require__(220);
+	var assocIndexOf = __webpack_require__(238);
 
 	/**
 	 * Checks if an associative array value for `key` exists.
@@ -22197,15 +24760,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = assocHas;
 
 /***/ },
-/* 230 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Map = __webpack_require__(217),
-	    assocSet = __webpack_require__(231),
-	    hashSet = __webpack_require__(232),
-	    isKeyable = __webpack_require__(224);
+	var Map = __webpack_require__(235),
+	    assocSet = __webpack_require__(249),
+	    hashSet = __webpack_require__(250),
+	    isKeyable = __webpack_require__(242);
 
 	/**
 	 * Sets the map `key` to `value`.
@@ -22232,12 +24795,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapSet;
 
 /***/ },
-/* 231 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocIndexOf = __webpack_require__(220);
+	var assocIndexOf = __webpack_require__(238);
 
 	/**
 	 * Sets the associative array `key` to `value`.
@@ -22259,12 +24822,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = assocSet;
 
 /***/ },
-/* 232 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var nativeCreate = __webpack_require__(216);
+	var nativeCreate = __webpack_require__(234);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -22284,7 +24847,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hashSet;
 
 /***/ },
-/* 233 */
+/* 251 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -22323,12 +24886,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = negate;
 
 /***/ },
-/* 234 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var before = __webpack_require__(201);
+	var before = __webpack_require__(219);
 
 	/**
 	 * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -22354,16 +24917,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = once;
 
 /***/ },
-/* 235 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var apply = __webpack_require__(177),
-	    arrayMap = __webpack_require__(236),
-	    baseFlatten = __webpack_require__(237),
-	    baseIteratee = __webpack_require__(245),
-	    rest = __webpack_require__(203);
+	var apply = __webpack_require__(195),
+	    arrayMap = __webpack_require__(254),
+	    baseFlatten = __webpack_require__(255),
+	    baseIteratee = __webpack_require__(263),
+	    rest = __webpack_require__(221);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMin = Math.min;
@@ -22417,7 +24980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = overArgs;
 
 /***/ },
-/* 236 */
+/* 254 */
 /***/ function(module, exports) {
 
 	/**
@@ -22445,15 +25008,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = arrayMap;
 
 /***/ },
-/* 237 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var arrayPush = __webpack_require__(238),
-	    isArguments = __webpack_require__(239),
-	    isArray = __webpack_require__(192),
-	    isArrayLikeObject = __webpack_require__(240);
+	var arrayPush = __webpack_require__(256),
+	    isArguments = __webpack_require__(257),
+	    isArray = __webpack_require__(210),
+	    isArrayLikeObject = __webpack_require__(258);
 
 	/**
 	 * The base implementation of `_.flatten` with support for restricting flattening.
@@ -22490,7 +25053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseFlatten;
 
 /***/ },
-/* 238 */
+/* 256 */
 /***/ function(module, exports) {
 
 	/**
@@ -22517,12 +25080,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = arrayPush;
 
 /***/ },
-/* 239 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArrayLikeObject = __webpack_require__(240);
+	var isArrayLikeObject = __webpack_require__(258);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -22566,13 +25129,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isArguments;
 
 /***/ },
-/* 240 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArrayLike = __webpack_require__(241),
-	    isObjectLike = __webpack_require__(169);
+	var isArrayLike = __webpack_require__(259),
+	    isObjectLike = __webpack_require__(187);
 
 	/**
 	 * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -22604,14 +25167,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isArrayLikeObject;
 
 /***/ },
-/* 241 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getLength = __webpack_require__(242),
-	    isFunction = __webpack_require__(158),
-	    isLength = __webpack_require__(244);
+	var getLength = __webpack_require__(260),
+	    isFunction = __webpack_require__(176),
+	    isLength = __webpack_require__(262);
 
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -22644,12 +25207,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isArrayLike;
 
 /***/ },
-/* 242 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseProperty = __webpack_require__(243);
+	var baseProperty = __webpack_require__(261);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -22666,7 +25229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getLength;
 
 /***/ },
-/* 243 */
+/* 261 */
 /***/ function(module, exports) {
 
 	/**
@@ -22687,7 +25250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseProperty;
 
 /***/ },
-/* 244 */
+/* 262 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -22726,16 +25289,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isLength;
 
 /***/ },
-/* 245 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseMatches = __webpack_require__(246),
-	    baseMatchesProperty = __webpack_require__(278),
-	    identity = __webpack_require__(163),
-	    isArray = __webpack_require__(192),
-	    property = __webpack_require__(292);
+	var baseMatches = __webpack_require__(264),
+	    baseMatchesProperty = __webpack_require__(296),
+	    identity = __webpack_require__(181),
+	    isArray = __webpack_require__(210),
+	    property = __webpack_require__(310);
 
 	/**
 	 * The base implementation of `_.iteratee`.
@@ -22761,13 +25324,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseIteratee;
 
 /***/ },
-/* 246 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseIsMatch = __webpack_require__(247),
-	    getMatchData = __webpack_require__(274);
+	var baseIsMatch = __webpack_require__(265),
+	    getMatchData = __webpack_require__(292);
 
 	/**
 	 * The base implementation of `_.matches` which doesn't clone `source`.
@@ -22797,13 +25360,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseMatches;
 
 /***/ },
-/* 247 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Stack = __webpack_require__(248),
-	    baseIsEqual = __webpack_require__(254);
+	var Stack = __webpack_require__(266),
+	    baseIsEqual = __webpack_require__(272);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -22859,16 +25422,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseIsMatch;
 
 /***/ },
-/* 248 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var stackClear = __webpack_require__(249),
-	    stackDelete = __webpack_require__(250),
-	    stackGet = __webpack_require__(251),
-	    stackHas = __webpack_require__(252),
-	    stackSet = __webpack_require__(253);
+	var stackClear = __webpack_require__(267),
+	    stackDelete = __webpack_require__(268),
+	    stackGet = __webpack_require__(269),
+	    stackHas = __webpack_require__(270),
+	    stackSet = __webpack_require__(271);
 
 	/**
 	 * Creates a stack cache object to store key-value pairs.
@@ -22898,7 +25461,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Stack;
 
 /***/ },
-/* 249 */
+/* 267 */
 /***/ function(module, exports) {
 
 	/**
@@ -22917,12 +25480,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stackClear;
 
 /***/ },
-/* 250 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocDelete = __webpack_require__(219);
+	var assocDelete = __webpack_require__(237);
 
 	/**
 	 * Removes `key` and its value from the stack.
@@ -22943,12 +25506,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stackDelete;
 
 /***/ },
-/* 251 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocGet = __webpack_require__(226);
+	var assocGet = __webpack_require__(244);
 
 	/**
 	 * Gets the stack value for `key`.
@@ -22969,12 +25532,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stackGet;
 
 /***/ },
-/* 252 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assocHas = __webpack_require__(229);
+	var assocHas = __webpack_require__(247);
 
 	/**
 	 * Checks if a stack value for `key` exists.
@@ -22995,13 +25558,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stackHas;
 
 /***/ },
-/* 253 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var MapCache = __webpack_require__(213),
-	    assocSet = __webpack_require__(231);
+	var MapCache = __webpack_require__(231),
+	    assocSet = __webpack_require__(249);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -23038,14 +25601,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stackSet;
 
 /***/ },
-/* 254 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseIsEqualDeep = __webpack_require__(255),
-	    isObject = __webpack_require__(159),
-	    isObjectLike = __webpack_require__(169);
+	var baseIsEqualDeep = __webpack_require__(273),
+	    isObject = __webpack_require__(177),
+	    isObjectLike = __webpack_require__(187);
 
 	/**
 	 * The base implementation of `_.isEqual` which supports partial comparisons
@@ -23075,19 +25638,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseIsEqual;
 
 /***/ },
-/* 255 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Stack = __webpack_require__(248),
-	    equalArrays = __webpack_require__(256),
-	    equalByTag = __webpack_require__(258),
-	    equalObjects = __webpack_require__(263),
-	    getTag = __webpack_require__(271),
-	    isArray = __webpack_require__(192),
-	    isHostObject = __webpack_require__(168),
-	    isTypedArray = __webpack_require__(273);
+	var Stack = __webpack_require__(266),
+	    equalArrays = __webpack_require__(274),
+	    equalByTag = __webpack_require__(276),
+	    equalObjects = __webpack_require__(281),
+	    getTag = __webpack_require__(289),
+	    isArray = __webpack_require__(210),
+	    isHostObject = __webpack_require__(186),
+	    isTypedArray = __webpack_require__(291);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var PARTIAL_COMPARE_FLAG = 2;
@@ -23165,12 +25728,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseIsEqualDeep;
 
 /***/ },
-/* 256 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var arraySome = __webpack_require__(257);
+	var arraySome = __webpack_require__(275);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -23242,7 +25805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = equalArrays;
 
 /***/ },
-/* 257 */
+/* 275 */
 /***/ function(module, exports) {
 
 	/**
@@ -23271,15 +25834,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = arraySome;
 
 /***/ },
-/* 258 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Symbol = __webpack_require__(259),
-	    Uint8Array = __webpack_require__(260),
-	    mapToArray = __webpack_require__(261),
-	    setToArray = __webpack_require__(262);
+	var Symbol = __webpack_require__(277),
+	    Uint8Array = __webpack_require__(278),
+	    mapToArray = __webpack_require__(279),
+	    setToArray = __webpack_require__(280);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -23364,12 +25927,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = equalByTag;
 
 /***/ },
-/* 259 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var root = __webpack_require__(170);
+	var root = __webpack_require__(188);
 
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -23377,12 +25940,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Symbol;
 
 /***/ },
-/* 260 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var root = __webpack_require__(170);
+	var root = __webpack_require__(188);
 
 	/** Built-in value references. */
 	var Uint8Array = root.Uint8Array;
@@ -23390,7 +25953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Uint8Array;
 
 /***/ },
-/* 261 */
+/* 279 */
 /***/ function(module, exports) {
 
 	/**
@@ -23415,7 +25978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapToArray;
 
 /***/ },
-/* 262 */
+/* 280 */
 /***/ function(module, exports) {
 
 	/**
@@ -23440,13 +26003,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = setToArray;
 
 /***/ },
-/* 263 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseHas = __webpack_require__(264),
-	    keys = __webpack_require__(265);
+	var baseHas = __webpack_require__(282),
+	    keys = __webpack_require__(283);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var PARTIAL_COMPARE_FLAG = 2;
@@ -23521,7 +26084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = equalObjects;
 
 /***/ },
-/* 264 */
+/* 282 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -23553,17 +26116,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseHas;
 
 /***/ },
-/* 265 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseHas = __webpack_require__(264),
-	    baseKeys = __webpack_require__(266),
-	    indexKeys = __webpack_require__(267),
-	    isArrayLike = __webpack_require__(241),
-	    isIndex = __webpack_require__(197),
-	    isPrototype = __webpack_require__(270);
+	var baseHas = __webpack_require__(282),
+	    baseKeys = __webpack_require__(284),
+	    indexKeys = __webpack_require__(285),
+	    isArrayLike = __webpack_require__(259),
+	    isIndex = __webpack_require__(215),
+	    isPrototype = __webpack_require__(288);
 
 	/**
 	 * Creates an array of the own enumerable property names of `object`.
@@ -23613,7 +26176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keys;
 
 /***/ },
-/* 266 */
+/* 284 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -23636,16 +26199,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseKeys;
 
 /***/ },
-/* 267 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseTimes = __webpack_require__(268),
-	    isArguments = __webpack_require__(239),
-	    isArray = __webpack_require__(192),
-	    isLength = __webpack_require__(244),
-	    isString = __webpack_require__(269);
+	var baseTimes = __webpack_require__(286),
+	    isArguments = __webpack_require__(257),
+	    isArray = __webpack_require__(210),
+	    isLength = __webpack_require__(262),
+	    isString = __webpack_require__(287);
 
 	/**
 	 * Creates an array of index keys for `object` values of arrays,
@@ -23666,7 +26229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = indexKeys;
 
 /***/ },
-/* 268 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/**
@@ -23693,13 +26256,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseTimes;
 
 /***/ },
-/* 269 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArray = __webpack_require__(192),
-	    isObjectLike = __webpack_require__(169);
+	var isArray = __webpack_require__(210),
+	    isObjectLike = __webpack_require__(187);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -23736,7 +26299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isString;
 
 /***/ },
-/* 270 */
+/* 288 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -23761,14 +26324,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isPrototype;
 
 /***/ },
-/* 271 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Map = __webpack_require__(217),
-	    Set = __webpack_require__(272),
-	    WeakMap = __webpack_require__(165);
+	var Map = __webpack_require__(235),
+	    Set = __webpack_require__(290),
+	    WeakMap = __webpack_require__(183);
 
 	/** `Object#toString` result references. */
 	var mapTag = '[object Map]',
@@ -23828,13 +26391,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getTag;
 
 /***/ },
-/* 272 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getNative = __webpack_require__(166),
-	    root = __webpack_require__(170);
+	var getNative = __webpack_require__(184),
+	    root = __webpack_require__(188);
 
 	/* Built-in method references that are verified to be native. */
 	var Set = getNative(root, 'Set');
@@ -23842,13 +26405,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Set;
 
 /***/ },
-/* 273 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isLength = __webpack_require__(244),
-	    isObjectLike = __webpack_require__(169);
+	var isLength = __webpack_require__(262),
+	    isObjectLike = __webpack_require__(187);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -23913,13 +26476,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isTypedArray;
 
 /***/ },
-/* 274 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isStrictComparable = __webpack_require__(275),
-	    toPairs = __webpack_require__(276);
+	var isStrictComparable = __webpack_require__(293),
+	    toPairs = __webpack_require__(294);
 
 	/**
 	 * Gets the property names, values, and compare flags of `object`.
@@ -23941,12 +26504,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getMatchData;
 
 /***/ },
-/* 275 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isObject = __webpack_require__(159);
+	var isObject = __webpack_require__(177);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -23963,13 +26526,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isStrictComparable;
 
 /***/ },
-/* 276 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseToPairs = __webpack_require__(277),
-	    keys = __webpack_require__(265);
+	var baseToPairs = __webpack_require__(295),
+	    keys = __webpack_require__(283);
 
 	/**
 	 * Creates an array of own enumerable key-value pairs for `object` which
@@ -23999,12 +26562,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = toPairs;
 
 /***/ },
-/* 277 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var arrayMap = __webpack_require__(236);
+	var arrayMap = __webpack_require__(254);
 
 	/**
 	 * The base implementation of `_.toPairs` and `_.toPairsIn` which creates an array
@@ -24024,14 +26587,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseToPairs;
 
 /***/ },
-/* 278 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseIsEqual = __webpack_require__(254),
-	    get = __webpack_require__(279),
-	    hasIn = __webpack_require__(286);
+	var baseIsEqual = __webpack_require__(272),
+	    get = __webpack_require__(297),
+	    hasIn = __webpack_require__(304);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -24055,12 +26618,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseMatchesProperty;
 
 /***/ },
-/* 279 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseGet = __webpack_require__(280);
+	var baseGet = __webpack_require__(298);
 
 	/**
 	 * Gets the value at `path` of `object`. If the resolved value is
@@ -24094,13 +26657,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = get;
 
 /***/ },
-/* 280 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseCastPath = __webpack_require__(281),
-	    isKey = __webpack_require__(285);
+	var baseCastPath = __webpack_require__(299),
+	    isKey = __webpack_require__(303);
 
 	/**
 	 * The base implementation of `_.get` without support for default values.
@@ -24125,13 +26688,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseGet;
 
 /***/ },
-/* 281 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArray = __webpack_require__(192),
-	    stringToPath = __webpack_require__(282);
+	var isArray = __webpack_require__(210),
+	    stringToPath = __webpack_require__(300);
 
 	/**
 	 * Casts `value` to a path array if it's not one.
@@ -24147,12 +26710,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseCastPath;
 
 /***/ },
-/* 282 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var toString = __webpack_require__(283);
+	var toString = __webpack_require__(301);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]/g;
@@ -24178,13 +26741,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stringToPath;
 
 /***/ },
-/* 283 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Symbol = __webpack_require__(259),
-	    isSymbol = __webpack_require__(284);
+	var Symbol = __webpack_require__(277),
+	    isSymbol = __webpack_require__(302);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -24231,12 +26794,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = toString;
 
 /***/ },
-/* 284 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isObjectLike = __webpack_require__(169);
+	var isObjectLike = __webpack_require__(187);
 
 	/** `Object#toString` result references. */
 	var symbolTag = '[object Symbol]';
@@ -24273,12 +26836,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isSymbol;
 
 /***/ },
-/* 285 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArray = __webpack_require__(192);
+	var isArray = __webpack_require__(210);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
@@ -24302,13 +26865,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isKey;
 
 /***/ },
-/* 286 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseHasIn = __webpack_require__(287),
-	    hasPath = __webpack_require__(288);
+	var baseHasIn = __webpack_require__(305),
+	    hasPath = __webpack_require__(306);
 
 	/**
 	 * Checks if `path` is a direct or inherited property of `object`.
@@ -24342,7 +26905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hasIn;
 
 /***/ },
-/* 287 */
+/* 305 */
 /***/ function(module, exports) {
 
 	/**
@@ -24362,20 +26925,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseHasIn;
 
 /***/ },
-/* 288 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseCastPath = __webpack_require__(281),
-	    isArguments = __webpack_require__(239),
-	    isArray = __webpack_require__(192),
-	    isIndex = __webpack_require__(197),
-	    isKey = __webpack_require__(285),
-	    isLength = __webpack_require__(244),
-	    isString = __webpack_require__(269),
-	    last = __webpack_require__(289),
-	    parent = __webpack_require__(290);
+	var baseCastPath = __webpack_require__(299),
+	    isArguments = __webpack_require__(257),
+	    isArray = __webpack_require__(210),
+	    isIndex = __webpack_require__(215),
+	    isKey = __webpack_require__(303),
+	    isLength = __webpack_require__(262),
+	    isString = __webpack_require__(287),
+	    last = __webpack_require__(307),
+	    parent = __webpack_require__(308);
 
 	/**
 	 * Checks if `path` exists on `object`.
@@ -24406,7 +26969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = hasPath;
 
 /***/ },
-/* 289 */
+/* 307 */
 /***/ function(module, exports) {
 
 	/**
@@ -24432,13 +26995,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = last;
 
 /***/ },
-/* 290 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseSlice = __webpack_require__(291),
-	    get = __webpack_require__(279);
+	var baseSlice = __webpack_require__(309),
+	    get = __webpack_require__(297);
 
 	/**
 	 * Gets the parent value at `path` of `object`.
@@ -24455,7 +27018,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = parent;
 
 /***/ },
-/* 291 */
+/* 309 */
 /***/ function(module, exports) {
 
 	/**
@@ -24493,14 +27056,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseSlice;
 
 /***/ },
-/* 292 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseProperty = __webpack_require__(243),
-	    basePropertyDeep = __webpack_require__(293),
-	    isKey = __webpack_require__(285);
+	var baseProperty = __webpack_require__(261),
+	    basePropertyDeep = __webpack_require__(311),
+	    isKey = __webpack_require__(303);
 
 	/**
 	 * Creates a function that returns the value at `path` of a given object.
@@ -24530,12 +27093,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = property;
 
 /***/ },
-/* 293 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseGet = __webpack_require__(280);
+	var baseGet = __webpack_require__(298);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -24553,14 +27116,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = basePropertyDeep;
 
 /***/ },
-/* 294 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161),
-	    replaceHolders = __webpack_require__(198),
-	    rest = __webpack_require__(203);
+	var createWrapper = __webpack_require__(179),
+	    replaceHolders = __webpack_require__(216),
+	    rest = __webpack_require__(221);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var PARTIAL_FLAG = 32;
@@ -24610,14 +27173,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = partial;
 
 /***/ },
-/* 295 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createWrapper = __webpack_require__(161),
-	    replaceHolders = __webpack_require__(198),
-	    rest = __webpack_require__(203);
+	var createWrapper = __webpack_require__(179),
+	    replaceHolders = __webpack_require__(216),
+	    rest = __webpack_require__(221);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var PARTIAL_RIGHT_FLAG = 64;
@@ -24666,14 +27229,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = partialRight;
 
 /***/ },
-/* 296 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var baseFlatten = __webpack_require__(237),
-	    createWrapper = __webpack_require__(161),
-	    rest = __webpack_require__(203);
+	var baseFlatten = __webpack_require__(255),
+	    createWrapper = __webpack_require__(179),
+	    rest = __webpack_require__(221);
 
 	/** Used to compose bitmasks for wrapper metadata. */
 	var REARG_FLAG = 256;
@@ -24707,15 +27270,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = rearg;
 
 /***/ },
-/* 297 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var apply = __webpack_require__(177),
-	    arrayPush = __webpack_require__(238),
-	    rest = __webpack_require__(203),
-	    toInteger = __webpack_require__(156);
+	var apply = __webpack_require__(195),
+	    arrayPush = __webpack_require__(256),
+	    rest = __webpack_require__(221),
+	    toInteger = __webpack_require__(174);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -24773,13 +27336,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = spread;
 
 /***/ },
-/* 298 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var debounce = __webpack_require__(207),
-	    isObject = __webpack_require__(159);
+	var debounce = __webpack_require__(225),
+	    isObject = __webpack_require__(177);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -24845,12 +27408,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = throttle;
 
 /***/ },
-/* 299 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var ary = __webpack_require__(160);
+	var ary = __webpack_require__(178);
 
 	/**
 	 * Creates a function that accepts up to one argument, ignoring any
@@ -24873,13 +27436,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = unary;
 
 /***/ },
-/* 300 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var identity = __webpack_require__(163),
-	    partial = __webpack_require__(294);
+	var identity = __webpack_require__(181),
+	    partial = __webpack_require__(312);
 
 	/**
 	 * Creates a function that provides `value` to the wrapper function as its
