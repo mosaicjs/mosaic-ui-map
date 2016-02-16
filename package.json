@@ -2,7 +2,7 @@
   "name": "mosaic-ui-map",
   "version": "0.1.24",
   "description": "Message internationalization (uiList)",
-  "main": "index.js",
+  "main": "lib",
   "scripts": {
     "test": "mocha -R spec ./test/index.js",
     "bump": "npm test && webpack && npm version patch && git push && git push --tags && npm publish",
@@ -37,16 +37,13 @@
     "webpack": "^1.10.1"
   },
   "dependencies": {
-    "leaflet": "git+https://github.com/Leaflet/Leaflet.git#v1.0.0-beta.2",
-    "leaflet.markercluster": "git+https://github.com/Leaflet/Leaflet.markercluster.git#v1.0.0-beta.2.0",
-    "leaflet-active-area": "git+https://github.com/Mappy/Leaflet-active-area.git#leaflet-1.0",
-    "leaflet-canvasdatagrid": "*",
-    "mosaic-dataset": "^0.1.13",
-    "mosaic-dataset-geo": "^0.1.9",
-    "mosaic-intents": "^0.2.7",
-    "mosaic-ui": "^0.1.2",
-    "promise": "^7.0.3",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "leaflet": "^0.7.7",
+    "leaflet-active-area": "^1.0.0",
+    "leaflet-canvasdatagrid": "^0.1.9",
+    "leaflet.markercluster": "^0.4.0",
+    "lodash": "^4.4.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-leaflet": "^0.10.0"
   }
 }
