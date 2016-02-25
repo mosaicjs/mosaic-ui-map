@@ -138,7 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'onRemove',
 	        value: function onRemove(map) {
-	            this._map = map;
+	            delete this._map;
 	        }
 	    }]);
 
@@ -177,6 +177,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._updateActiveArea();
 	        }
 	    }, {
+	        key: 'setActiveArea',
+	        value: function setActiveArea(css) {
+	            var map = this.props.map;
+
+	            map.setActiveArea(css);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var map = this.props.map;
@@ -189,12 +196,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _updateActiveArea() {
 	            var map = this.props.map;
 
+	            var margin = '10px';
 	            var newState = _extends({}, this.state, {
 	                position: 'absolute',
-	                top: '50px',
-	                left: '50px',
-	                right: '50px',
-	                height: '200px'
+	                top: margin,
+	                left: margin,
+	                right: margin,
+	                bottom: margin
 	            }, this.props);
 
 	            var keys = Object.keys(newState);
