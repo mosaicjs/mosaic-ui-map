@@ -21755,11 +21755,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                getGeometry: getGeometry,
 	                sort: sort
 	            });
-	            var style = this.props.style;
 	            var that = this;
 	            this.leafletElement = new _leaflet2['default'].DataLayer(_extends({}, that.props, {
-	                provider: that._provider,
-	                style: style
+	                provider: that._provider
 	            }));
 	        }
 	    }]);
@@ -21770,7 +21768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = DataSetCanvasLayer;
 
 	DataSetCanvasLayer.propTypes = {
-	    style: _react2['default'].PropTypes.instanceOf(_DataSetCanvasStyle2['default']).isRequired
+	    //    style: React.PropTypes.instanceOf(DataSetCanvasStyle).isRequired
 	};
 	module.exports = exports['default'];
 
