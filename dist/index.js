@@ -78,10 +78,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libDataLayerStyle2 = _interopRequireDefault(_libDataLayerStyle);
 
+	var _libFocusLayer = __webpack_require__(305);
+
+	var _libFocusLayer2 = _interopRequireDefault(_libFocusLayer);
+
 	exports.ActiveArea = _libActiveArea2['default'];
 	exports.DataLayerTracker = _libDataLayerTracker2['default'];
 	exports.DataLayer = _libDataLayer2['default'];
 	exports.DataLayerStyle = _libDataLayerStyle2['default'];
+	exports.FocusLayer = _libFocusLayer2['default'];
 
 /***/ },
 /* 1 */
@@ -25121,6 +25126,93 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = wrap;
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(148);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactLeaflet = __webpack_require__(149);
+
+	var _leaflet = __webpack_require__(150);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	__webpack_require__(153);
+
+	var FocusLayer = (function (_MapLayer) {
+	    _inherits(FocusLayer, _MapLayer);
+
+	    function FocusLayer() {
+	        _classCallCheck(this, FocusLayer);
+
+	        for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+	            params[_key] = arguments[_key];
+	        }
+
+	        _get(Object.getPrototypeOf(FocusLayer.prototype), 'constructor', this).apply(this, params);
+	        this.state = {};
+	    }
+
+	    _createClass(FocusLayer, [{
+	        key: 'render',
+	        value: function render() {
+	            return this.renderChildrenWithProps({
+	                popupContainer: this.leafletElement,
+	                dataLayer: this.leafletElement
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _get(Object.getPrototypeOf(FocusLayer.prototype), 'componentDidMount', this).call(this);
+	            this._updateData();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate(prevProps) {
+	            this._updateData();
+	        }
+	    }, {
+	        key: '_updateData',
+	        value: function _updateData() {
+	            this.leafletElement.options.geometry = this.props.geometry;
+	            this.leafletElement.setData(this.props.data || []);
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            _get(Object.getPrototypeOf(FocusLayer.prototype), 'componentWillMount', this).call(this);
+	            this.leafletElement = new _leaflet2['default'].DataLayer.FocusLayer(_extends({}, this.props));
+	        }
+	    }]);
+
+	    return FocusLayer;
+	})(_reactLeaflet.MapLayer);
+
+	exports['default'] = FocusLayer;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ])
