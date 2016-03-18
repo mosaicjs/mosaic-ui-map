@@ -191,9 +191,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var map = this.props.map;
-
-	            map.setActiveArea(this.state);
 	            return _react2['default'].createElement('div', { style: { display: 'none' } });
 	        }
 	    }, {
@@ -220,6 +217,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	            if (update) {
+	                var center = map.getCenter();
+	                map.setActiveArea(newState);
+	                map.setView(center);
 	                this.setState(newState);
 	            }
 	        }
