@@ -82,11 +82,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _libFocusLayer2 = _interopRequireDefault(_libFocusLayer);
 
+	var _libRangeZoomLayer = __webpack_require__(306);
+
+	var _libRangeZoomLayer2 = _interopRequireDefault(_libRangeZoomLayer);
+
 	exports.ActiveArea = _libActiveArea2['default'];
 	exports.DataLayerTracker = _libDataLayerTracker2['default'];
 	exports.DataLayer = _libDataLayer2['default'];
 	exports.DataLayerStyle = _libDataLayerStyle2['default'];
 	exports.FocusLayer = _libFocusLayer2['default'];
+	exports.RangeZoomLayer = _libRangeZoomLayer2['default'];
 
 /***/ },
 /* 1 */
@@ -25212,6 +25217,142 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(_reactLeaflet.MapLayer);
 
 	exports['default'] = FocusLayer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactDom = __webpack_require__(2);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _react = __webpack_require__(148);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactLeaflet = __webpack_require__(149);
+
+	var _leaflet = __webpack_require__(150);
+
+	var _leaflet2 = _interopRequireDefault(_leaflet);
+
+	var GroupLayer = (function (_L$FeatureGroup) {
+	    _inherits(GroupLayer, _L$FeatureGroup);
+
+	    function GroupLayer(options) {
+	        _classCallCheck(this, GroupLayer);
+
+	        _get(Object.getPrototypeOf(GroupLayer.prototype), 'constructor', this).call(this, options);
+	    }
+
+	    _createClass(GroupLayer, [{
+	        key: 'onAdd',
+	        value: function onAdd(map) {
+	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'onAdd', this).call(this, map);
+	            this._map.on('zoomend', this._onZoomEnd, this);
+	        }
+	    }, {
+	        key: 'onRemove',
+	        value: function onRemove(map) {
+	            this._map.off('zoomend', this._onZoomEnd, this);
+	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'onRemove', this).call(this, map);
+	        }
+	    }, {
+	        key: '_onZoomEnd',
+	        value: function _onZoomEnd(ev) {
+	            this._updateLayersVisibility();
+	        }
+	    }, {
+	        key: '_updateLayersVisibility',
+	        value: function _updateLayersVisibility() {
+	            if (!this._layers) return;
+	            var zoom = this._map.getZoom();
+	            var list = [];
+	            this._layers.forEach(function (layer) {
+	                var zoomRange = layer.options.zoom || [0, 22];
+	                if (zoom >= zoomRange[0] && zoom <= zoomRange[1]) {
+	                    this.addLayer(layer);
+	                } else {
+	                    this.removeLayer(layer);
+	                }
+	            }, this);
+	        }
+	    }, {
+	        key: 'indexLayers',
+	        value: function indexLayers() {
+	            this._layers = this.getLayers();
+	            this._updateLayersVisibility();
+	        }
+	    }]);
+
+	    return GroupLayer;
+	})(_leaflet2['default'].FeatureGroup);
+
+	var DataLayer = (function (_FeatureGroup) {
+	    _inherits(DataLayer, _FeatureGroup);
+
+	    function DataLayer() {
+	        _classCallCheck(this, DataLayer);
+
+	        for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+	            params[_key] = arguments[_key];
+	        }
+
+	        _get(Object.getPrototypeOf(DataLayer.prototype), 'constructor', this).apply(this, params);
+	    }
+
+	    _createClass(DataLayer, [{
+	        key: '_getComponents',
+	        value: function _getComponents() {
+	            var index = {};
+	            _react2['default'].Children.forEach(this.props.children, function (child) {
+	                if (!child) return;
+	                var key = child.key;
+	                console.log('>>', key, child.props.zoom, child);
+	                if (key) {
+	                    index[key] = child;
+	                }
+	            });
+	            return index;
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            this.leafletElement = new GroupLayer();
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _get(Object.getPrototypeOf(DataLayer.prototype), 'componentDidMount', this).call(this);
+	            this.leafletElement.indexLayers();
+	        }
+	    }]);
+
+	    return DataLayer;
+	})(_reactLeaflet.FeatureGroup);
+
+	exports['default'] = DataLayer;
+
+	DataLayer.propTypes = {
+	    //    style: React.PropTypes.instanceOf(DataLayerStyle).isRequired
+	};
 	module.exports = exports['default'];
 
 /***/ }
