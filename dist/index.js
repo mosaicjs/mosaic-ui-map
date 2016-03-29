@@ -25260,6 +25260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, GroupLayer);
 
 	        _get(Object.getPrototypeOf(GroupLayer.prototype), 'constructor', this).call(this, options);
+	        this._layersList = [];
 	    }
 
 	    _createClass(GroupLayer, [{
@@ -25277,62 +25278,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_onZoomEnd',
 	        value: function _onZoomEnd(ev) {
-	            this._updateLayersVisibility();
+	            this.updateLayersVisibility();
 	        }
 	    }, {
-	        key: '_updateLayersVisibility',
-	        value: function _updateLayersVisibility() {
-	            if (!this._layers) return;
+	        key: 'addLayer',
+	        value: function addLayer(layer) {
+	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'addLayer', this).call(this, layer);
+	            this._layersList.push(layer);
+	        }
+	    }, {
+	        key: 'removeLayer',
+	        value: function removeLayer(layer) {
+	            for (var i = this._layersList.length - 1; i >= 0; i--) {
+	                if (this._layersList[i] === layer) {
+	                    this._layersList.splice(i, 1);
+	                    break;
+	                }
+	            }
+	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'removeLayer', this).call(this, layer);
+	        }
+	    }, {
+	        key: 'updateLayersVisibility',
+	        value: function updateLayersVisibility() {
+	            var _this = this;
+
 	            var zoom = this._map.getZoom();
 	            var list = [];
-	            this._layers.forEach(function (layer) {
+	            this._layersList.forEach(function (layer) {
 	                var zoomRange = layer.options.zoom || [0, 22];
 	                if (zoom >= zoomRange[0] && zoom <= zoomRange[1]) {
-	                    this.addLayer(layer);
+	                    _get(Object.getPrototypeOf(GroupLayer.prototype), 'addLayer', _this).call(_this, layer);
 	                } else {
-	                    this.removeLayer(layer);
+	                    _get(Object.getPrototypeOf(GroupLayer.prototype), 'removeLayer', _this).call(_this, layer);
 	                }
 	            }, this);
-	        }
-	    }, {
-	        key: 'indexLayers',
-	        value: function indexLayers() {
-	            this._layers = this.getLayers();
-	            this._updateLayersVisibility();
 	        }
 	    }]);
 
 	    return GroupLayer;
 	})(_leaflet2['default'].FeatureGroup);
 
-	var DataLayer = (function (_FeatureGroup) {
-	    _inherits(DataLayer, _FeatureGroup);
+	var RangeZoomLayer = (function (_FeatureGroup) {
+	    _inherits(RangeZoomLayer, _FeatureGroup);
 
-	    function DataLayer() {
-	        _classCallCheck(this, DataLayer);
+	    function RangeZoomLayer() {
+	        _classCallCheck(this, RangeZoomLayer);
 
 	        for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
 	            params[_key] = arguments[_key];
 	        }
 
-	        _get(Object.getPrototypeOf(DataLayer.prototype), 'constructor', this).apply(this, params);
+	        _get(Object.getPrototypeOf(RangeZoomLayer.prototype), 'constructor', this).apply(this, params);
 	    }
 
-	    _createClass(DataLayer, [{
-	        key: '_getComponents',
-	        value: function _getComponents() {
-	            var index = {};
-	            _react2['default'].Children.forEach(this.props.children, function (child) {
-	                if (!child) return;
-	                var key = child.key;
-	                console.log('>>', key, child.props.zoom, child);
-	                if (key) {
-	                    index[key] = child;
-	                }
-	            });
-	            return index;
-	        }
-	    }, {
+	    _createClass(RangeZoomLayer, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            this.leafletElement = new GroupLayer();
@@ -25340,19 +25339,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            _get(Object.getPrototypeOf(DataLayer.prototype), 'componentDidMount', this).call(this);
-	            this.leafletElement.indexLayers();
+	            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	                params[_key2] = arguments[_key2];
+	            }
+
+	            _get(Object.getPrototypeOf(RangeZoomLayer.prototype), 'componentDidMount', this).apply(this, params);
+	            this.leafletElement.updateLayersVisibility();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+	                params[_key3] = arguments[_key3];
+	            }
+
+	            _get(Object.getPrototypeOf(RangeZoomLayer.prototype), 'componentDidUpdate', this).apply(this, params);
+	            this.leafletElement.updateLayersVisibility();
 	        }
 	    }]);
 
-	    return DataLayer;
+	    return RangeZoomLayer;
 	})(_reactLeaflet.FeatureGroup);
 
-	exports['default'] = DataLayer;
-
-	DataLayer.propTypes = {
-	    //    style: React.PropTypes.instanceOf(DataLayerStyle).isRequired
-	};
+	exports['default'] = RangeZoomLayer;
 	module.exports = exports['default'];
 
 /***/ }
