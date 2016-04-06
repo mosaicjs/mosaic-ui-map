@@ -25268,6 +25268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function onAdd(map) {
 	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'onAdd', this).call(this, map);
 	            this._map.on('zoomend', this._onZoomEnd, this);
+	            this.updateLayersVisibility();
 	        }
 	    }, {
 	        key: 'onRemove',
@@ -25283,6 +25284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'addLayer',
 	        value: function addLayer(layer) {
+	            if (!layer) return;
 	            _get(Object.getPrototypeOf(GroupLayer.prototype), 'addLayer', this).call(this, layer);
 	            this._layersList.push(layer);
 	        }
@@ -25302,10 +25304,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function updateLayersVisibility() {
 	            var _this = this;
 
+	            if (!this._map) return;
 	            var zoom = this._map.getZoom();
 	            var list = [];
 	            this._layersList.forEach(function (layer) {
-	                var zoomRange = layer.options.zoom || [0, 22];
+	                if (!layer) return;
+	                var options = layer.options || {};
+	                var zoomRange = options.zoom || [0, 22];
 	                if (zoom >= zoomRange[0] && zoom <= zoomRange[1]) {
 	                    _get(Object.getPrototypeOf(GroupLayer.prototype), 'addLayer', _this).call(_this, layer);
 	                } else {
