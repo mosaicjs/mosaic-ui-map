@@ -201,8 +201,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_updateActiveArea',
 	        value: function _updateActiveArea() {
-	            var _this = this;
-
 	            var map = this.props.map;
 
 	            var margin = '10px';
@@ -224,14 +222,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	            if (update) {
-	                (function () {
+	                var setView = function setView() {
 	                    var center = map.getCenter();
-	                    map.setActiveArea(newState);
-	                    setTimeout((function () {
-	                        map.setView(center);
-	                        this.setState(newState);
-	                    }).bind(_this), 10);
-	                })();
+	                    map.setView(center);
+	                    that.setState(newState);
+	                };
+
+	                map.setActiveArea(newState);
+	                if (!map._loaded) {
+	                    map.once('load', setView);
+	                } else {
+	                    setView();
+	                }
+	                var that = this;
 	            }
 	        }
 	    }]);
