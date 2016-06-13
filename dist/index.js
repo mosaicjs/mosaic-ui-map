@@ -228,13 +228,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    that.setState(newState);
 	                };
 
+	                var that = this;
+
 	                map.setActiveArea(newState);
 	                if (!map._loaded) {
 	                    map.once('load', setView);
 	                } else {
 	                    setView();
 	                }
-	                var that = this;
 	            }
 	        }
 	    }]);
