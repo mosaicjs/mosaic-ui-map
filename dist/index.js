@@ -224,13 +224,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (update) {
 	                var setView = function setView() {
 	                    var center = map.getCenter();
-	                    map.setView(center);
-	                    that.setState(newState);
+	                    map.setActiveArea(newState);
+	                    setTimeout(function () {
+	                        map.setView(center);
+	                        that.setState(newState);
+	                    }, 10);
 	                };
 
 	                var that = this;
 
-	                map.setActiveArea(newState);
 	                if (!map._loaded) {
 	                    map.once('load', setView);
 	                } else {
